@@ -1,0 +1,13 @@
+.main-sub-header {
+    height: 40px;
+    top: 80px;
+    position: sticky;
+    background-color: rgb(243, 241, 241);
+    box-shadow: 1px 0.5px 0.5rem rgb(233, 231, 231);
+    display: none;
+}
+
+.scrolling-active-sub {
+    transition: 2s;
+    display: block;
+}

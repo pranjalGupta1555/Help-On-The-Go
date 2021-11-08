@@ -1,0 +1,38 @@
+@import './_utilities.scss';
+
+
+
+.main-header {
+    @include flexProperties(true, false);
+
+    background-color: transparent !important;
+    height: 80px;
+    top: 0;
+    position: sticky;
+    z-index: 10;
+
+    &-icon {
+        padding-left: 10%;
+        // border: 1px solid yellow;
+    }
+
+    &-searchbar {
+        padding: auto;
+        margin: auto;
+        input {
+            height: 30px;
+            // border-radius: 20px;
+            width: 400px;
+            outline: 1px solid green;
+            border: none;
+            padding: 2%;
+        }
+    }
+}
+
+
+.scrolling-active { 
+    transition: 1s;
+    background-color: #ffff !important;
+    box-shadow: 0.5px 0.5px 0.1rem rgba(211, 211, 211, 0.644);
+}

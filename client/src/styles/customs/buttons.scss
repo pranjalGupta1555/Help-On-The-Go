@@ -1,0 +1,18 @@
+@mixin btn  {
+    color: whitesmoke;
+    height: 32px;
+    outline: none;
+    border: 1px solid green;
+    cursor: pointer;
+}
+
+
+.darkButton {
+    @include btn();
+    background-color: black;
+}
+
+.lightButton {
+    @include btn();
+    background-color: green;
+}
