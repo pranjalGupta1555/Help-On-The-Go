@@ -1,8 +1,10 @@
 @mixin btn  {
     color: whitesmoke;
     height: 32px;
+    margin-top: -1px;
+    width: 100px;
     outline: none;
-    border: 1px solid green;
+    border: 1px solid #008000;
     cursor: pointer;
 }
 
@@ -10,9 +12,26 @@
 .darkButton {
     @include btn();
     background-color: black;
+
+    &:hover {
+        transition: 1s ease;
+        border: none;
+    }
 }
 
 .lightButton {
     @include btn();
     background-color: green;
+}
+
+.outlineButton {
+    @include btn();
+    background-color: transparent;
+    border: 1px solid green;
+    color: green;
+
+    &:hover {
+        background-color: green;
+        color: #ffff;
+    }
 }

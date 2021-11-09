@@ -9,6 +9,7 @@ function Header() {
 
     const [Icon, setIcon] = useState(logo);
     const [variant, setvariant] = useState('darkButton');
+    const [hideSearch, sethideSearch] = useState('none');
 
     useEffect(() => {
         window.addEventListener('scroll', function () {
@@ -19,9 +20,11 @@ function Header() {
             if (windowPosition > 0) {
                 setIcon(logoLite);
                 setvariant('lightButton');
+                sethideSearch('');
             } else {
                 setIcon(logo);
                 setvariant('darkButton');
+                sethideSearch('none');
             }
         })
 
@@ -35,10 +38,24 @@ function Header() {
             </div>
 
             {/* Search bar */}
-            <div className="main-header-searchbar">
-                <input type="search"></input>
+            <div className="main-header-searchbar" style={{ display: hideSearch }}>
+                <input type="search" ></input>
                 <CustomButton variant={variant} text="Search"></CustomButton>
             </div>
+
+{/* set the display from state of the application */}
+        <div className="main-header-side">
+            {/* signin button */}
+            <div className="main-header-side-signin">
+                <CustomButton variant={"outlineButton"} text="Sign In" ></CustomButton>
+            </div>
+
+            {/* join */}
+            <div className="main-header-side-join">
+                <CustomButton variant={"darkButton"} text="Join" ></CustomButton>
+            </div>
+        </div>
+
         </div>
     )
 }

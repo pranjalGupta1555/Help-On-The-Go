@@ -5,9 +5,10 @@ import '../../styles/menubar.scss';
 import img1 from '../../assets/webdesigner.jpg';
 import img2 from '../../assets/tutoring.jpg';
 import img3 from '../../assets/homeService.jpg';
+import Footer from './Footer';
 
 
-function MenuBar() {
+function MenuBar(props) {
 
     const [img, setimg] = useState(img1);
 
@@ -31,12 +32,25 @@ function MenuBar() {
         
     }, [])
     return (
-        <React.Fragment>
-            <div className="main-container-hero" style={{ backgroundImage: `url(${img})` }} >
-            <Header/>
-            <SubHeader/>
+        <div className="main-body-layout">
+            <div>
+                <div className="main-container-hero" style={{ backgroundImage: `url(${img})` }} >
+                <Header/>
+                <SubHeader/>
+                </div>
+                <div className="title">
+                    <h1> Help On The Go </h1>
+
+                    <div className="subtitle">
+                        Your one stop solution to almost everything!
+                    </div>
+                </div>
             </div>
-        </React.Fragment>
+            {/* body */}
+            {props.component}
+
+           
+        </div>
     )
 }
 

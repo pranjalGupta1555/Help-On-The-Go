@@ -8,7 +8,8 @@
     background-color: transparent !important;
     height: 80px;
     top: 0;
-    position: sticky;
+    position: fixed;
+    width: 100%;
     z-index: 10;
 
     &-icon {
@@ -19,15 +20,37 @@
     &-searchbar {
         padding: auto;
         margin: auto;
+        max-width: 400px;
+        width: 100%;
+
+        @include flexProperties(true, true);
         input {
             height: 30px;
             // border-radius: 20px;
-            width: 400px;
+            width: 100%;
             outline: 1px solid green;
             border: none;
             padding: 2%;
         }
     }
+
+    &-side {
+        float: right;
+        margin-right: 5%;
+        margin-top: 1%;
+        padding: auto;
+        // margin: auto;
+        width: 200px;
+
+        @include flexProperties(true, false);
+
+        &-signin, &-join {
+            margin: 2px;
+        }
+    }
+
+
+
 }
 
 
