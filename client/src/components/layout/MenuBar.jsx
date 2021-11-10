@@ -5,7 +5,6 @@ import '../../styles/menubar.scss';
 import img1 from '../../assets/webdesigner.jpg';
 import img2 from '../../assets/tutoring.jpg';
 import img3 from '../../assets/homeService.jpg';
-import Footer from './Footer';
 
 
 function MenuBar(props) {

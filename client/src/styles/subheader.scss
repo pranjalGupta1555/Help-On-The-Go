@@ -9,6 +9,7 @@
     box-shadow: 1px 0.5px 0.5rem rgb(233, 231, 231);
     display: none;
     padding-top: 5px;
+    z-index: 9;
 
     .menu {
         @include flexProperties(true, true);
@@ -16,15 +17,12 @@
 
         li {
             list-style: none;
+            cursor: pointer;
 
-            a {
-                text-decoration: none;
-                margin: auto;
-
-                &:hover {
-                    color: green;
-                }
+            &:hover {
+                color: green;
             }
+            
         }
     }
 }
