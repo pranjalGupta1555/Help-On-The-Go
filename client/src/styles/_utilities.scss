@@ -1,0 +1,16 @@
+@mixin flexProperties($direction, $space) {
+    display: flex;
+
+    @if $direction {
+        flex-direction: row;
+    } @else {
+        flex-direction: column;
+    }
+
+    @if $space {
+        justify-content: space-around;
+    } @else {
+        justify-content: space-between;
+    }
+
+}
