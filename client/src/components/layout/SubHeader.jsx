@@ -42,7 +42,7 @@ function SubHeader() {
                 header.classList.toggle('scrolling-active-sub', windowPosition);
             })
         } else {
-            document.querySelector('.main-sub-header').classList.add('scrolling-active-sub');
+            document.querySelector('.main-sub-header').classList.toggle('no-scroll-sub');
         }
     }
 
