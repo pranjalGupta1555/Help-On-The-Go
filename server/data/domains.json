@@ -1,0 +1,39 @@
+[{
+    "name": "Writing & Translation",
+    "skills": ["Articles & Blog Posts", "Translation", "Proofreading & Editing", "LinkedIn Profiles", "UX Writing", 
+        "Creative Writing", "Technical Writing", "Script Writing", "Website Content", "Other"]
+},
+{
+    "name": "Digital Marketing",
+    "skills": ["Socila Media Marketing", "Socila Media Advertising", "Search Engine Optimization", "Public Relations",
+        "Content Marketing", "Video Marketing", "Email Marketing", "Web Analytics",
+        "Podcast Marketing", "Crowdfunding", "Other"]
+},
+{
+    "name": "Programming & Tech",
+    "skills": ["Wordpress", "Web Programming", "Mobile Apps", "Support & IT", "Desktop Applications", "User Testing",
+        "Online Coding Lessons", "Development for Streamers", "Cybersecurity & Data Protection", "Other"]
+},
+{
+    "name": "Data",
+    "skills": ["Data Entry", "Databases", "Data Visualization", "Data Processing", "Data Enginnering", "Data Science",
+        "Other"]
+},
+{
+    "name": "Lifestyle",
+    "skills": ["Online Tutoring", "Dance Lessons", "Music Lessons", "Painting Lessons", "Fitness Lessons",
+        "Arts & Crafts", "Wellness", "Other"]
+},
+{
+    "name": "Business",
+    "skills": ["Market Research", "Sales", "Business Consulting", "Legal Consulting", "Customer Care", "E-Commerce Managemnet",
+        "Supply Chain Management", "Other"]
+},
+{
+    "name": "Career Related",
+    "skills": ["Resume Review", "Linkedin Profile", "Cover Letter", "Career Counselling", "Mock Interview", "Presentation", "Other"]
+},
+{
+    "name": "General Help",
+    "skills": ["Transportation", "Shifting Goods", "Driving", "Security", "General Physical Assistance", "Other"]
+}]
