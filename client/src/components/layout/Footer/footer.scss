@@ -1,0 +1,37 @@
+@import '../../../styles/utilities';
+
+.main-footer {
+    height: 300px;
+    background-color: rgba(240, 238, 238, 0.651);
+    margin-bottom: -1px;
+    color: rgba(0, 0, 0, 0.726);
+    
+    @include flexProperties(true, false);
+
+    ul > li {
+        list-style: none;
+        line-height: 3;
+    }
+
+    .left-footer {
+        @include flexProperties(false, false);
+
+        text-align: right;
+        width: 700px;
+        margin: auto;
+    }
+
+    .right-footer {
+        width: 600px;
+        @include flexProperties(false, false);
+        margin: auto;
+
+        .icons {
+            cursor: pointer;
+            color: green;
+            margin-top: 20px;
+            font-size: 20pt;
+            @include flexProperties(true, true);
+        }
+    }
+}
