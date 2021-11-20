@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
-import '../../styles/service.scss'
+import './service.scss'
 
 
 function ServiceProvider() {

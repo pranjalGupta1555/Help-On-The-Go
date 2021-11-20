@@ -1,4 +1,4 @@
-@import './utilities';
+@import '../../styles/utilities';
 
 .main-layout {
     @include flexProperties(false, false);

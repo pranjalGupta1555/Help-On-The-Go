@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import '../../styles/subheader.scss';
+import './subheader.scss';
 
 function SubHeader() {
     

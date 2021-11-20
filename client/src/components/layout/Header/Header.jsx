@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import '../../styles/header.scss';
-import logo from '../../logoBikeDark.png';
-import logoLite from '../../logoBike.png';
-import CustomButton from '../utilities/CustomButton';
+import './header.scss';
+import logo from '../../../logoBikeDark.png';
+import logoLite from '../../../logoBike.png';
+import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import { useHistory } from 'react-router';
 
 
