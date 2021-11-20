@@ -1,0 +1,38 @@
+@import './utilities';
+
+.main-sub-header {
+    height: 40px;
+    top: 80px;
+    position: fixed;
+    width: 100%;
+    background-color: rgb(243, 241, 241);
+    box-shadow: 1px 0.5px 0.5rem rgb(233, 231, 231);
+    display: none;
+    padding-top: 5px;
+    z-index: 9;
+
+    .menu {
+        @include flexProperties(true, true);
+        vertical-align: middle;
+
+        li {
+            list-style: none;
+            cursor: pointer;
+
+            &:hover {
+                color: green;
+            }
+            
+        }
+    }
+}
+
+.scrolling-active-sub {
+    transition: 2s;
+    display: block;
+}
+
+.no-scroll-sub {
+    position: fixed;
+    display: block;
+}
