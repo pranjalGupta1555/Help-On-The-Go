@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Header from './Header'
-import SubHeader from './SubHeader'
-import '../../styles/menubar.scss';
-import img1 from '../../assets/webdesigner.jpg';
-import img2 from '../../assets/tutoring.jpg';
-import img3 from '../../assets/homeService.jpg';
+import Header from '../Header/Header'
+import SubHeader from '../Header/SubHeader'
+import './heropane.scss';
+import img1 from '../../../assets/webdesigner.jpg';
+import img2 from '../../../assets/tutoring.jpg';
+import img3 from '../../../assets/homeService.jpg';
 
 
 function MenuBar(props) {
