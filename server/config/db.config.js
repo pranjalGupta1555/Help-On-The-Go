@@ -3,4 +3,4 @@ module.exports = {
     PORT: 27017,
     DB: "mytripdb",
     HOST: "localhost"
-  };
+};

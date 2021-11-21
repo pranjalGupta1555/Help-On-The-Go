@@ -1,5 +1,5 @@
-const configDb = require('./db.config.js');
-const mongoose = require("mongoose");
+import configDb from './db.config.js';
+import mongoose from 'mongoose';
 
 // localhost
 
@@ -15,5 +15,5 @@ mongoose.connect(`${configDb.URI}`, {
 
 const db =  mongoose.connection
 
-module.exports = db;
+export default db;
 
