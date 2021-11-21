@@ -44,7 +44,6 @@ function Content(props) {
     }
 
     useEffect(() => {
-        console.log(state);
         if(state) {
             const { service } =  state;
             setheading(service)

@@ -30,7 +30,6 @@ function SubHeader() {
         history.push({ 
             pathname: link,
             state: { service: servicePass } });
-        console.log("came");
         // window.location.href = link;
     }
 

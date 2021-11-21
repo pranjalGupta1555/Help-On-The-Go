@@ -10,6 +10,8 @@ import { useHistory, useLocation } from 'react-router';
 import ServiceProvider from './components/layout/ServiceProvider';
 import Header from './components/layout/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
+import {ChatEngine} from 'react-chat-engine';
+import ChatFeed  from './components/ChatFeed/ChatFeed';
 
 
 function App() {
@@ -49,7 +51,14 @@ function App() {
             <Layout component={<ServiceProvider />} />
           )}>
           </Route>
-
+          <Route exact path="/chat" render={() => (
+            <Layout component={<ChatEngine
+              height="100vh"
+              projectID="4fdaabe1-eb81-452a-b540-34f5c8c56f37"
+              userName="TestUser1"
+              userSecret="asdasd"
+              renderChatFeed={(chatAppProps)=><ChatFeed {...chatAppProps}/>} />} />
+          )}/>
           <Route path="/" render={() => (
             <>
               <Header hideSide={true} />

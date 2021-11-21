@@ -16,8 +16,8 @@ function Layout(props) {
     return (
         <div className="main-layout">
 
-            <Header />
-            <SubHeader />
+            {/* <Header />
+            <SubHeader /> */}
             {props.component}
             <Footer />
         </div>
