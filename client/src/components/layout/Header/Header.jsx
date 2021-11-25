@@ -15,7 +15,7 @@ function Header(props) {
 
     useEffect(() => {
 
-        if(window.location.href.split("/")[3] === "home") {
+        if(window.location.href.split("/")[3] === "home" || window.location.href.split("/")[3] === "") {
             window.addEventListener('scroll', function () {
                 let header = document.querySelector('.main-header, .main-header-searchbar');
                 let windowPosition = window.scrollY > 0;

@@ -1,4 +1,5 @@
 import domainRouter from './domain.route.js';
+import userRouter from './user.routes.js';
 
 export default (app) => {
 
@@ -7,5 +8,6 @@ export default (app) => {
     })
 
     /* Skill Domain routes */
-    app.use('/', domainRouter);
+    app.use('/', [domainRouter, userRouter]);
+
 }

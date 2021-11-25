@@ -35,7 +35,7 @@ function SubHeader() {
     }
 
     const handleScroll = () => {
-        if(window.location.href.includes("home") ) {
+        if(window.location.href.split("/")[3] === "home" || window.location.href.split("/")[3] === "" ) {
             window.addEventListener('scroll', function () {
                 let header = document.querySelector('.main-sub-header');
                 let windowPosition = window.scrollY > 0;

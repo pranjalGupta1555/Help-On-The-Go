@@ -1,0 +1,23 @@
+@import '../../../styles/utilities';
+
+.container {
+
+    &-form {
+        background-color: #ffff;
+        margin: auto;
+        margin-top: 10%;
+        width: 800px;
+        padding: 5%;
+
+        &-btn {
+            height: 80px;
+            @include flexProperties(false, true);
+        }
+
+        .error-text {
+            color: rgb(109, 7, 7);
+            font-size: small;
+        }
+    }
+}
+

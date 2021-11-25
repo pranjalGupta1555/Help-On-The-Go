@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import Administration from '../Administration/Administration'
+import Login from '../Administration/Login/Login'
 import Content from './Content/Content'
 import Footer from './Footer/Footer'
 import Header from './Header/Header'
@@ -17,6 +19,11 @@ function Layout(props) {
 
             <Header />
             <SubHeader />
+            
+            {
+                props.showLogin? 
+                <Administration/> : <></>
+            }
             {props.component}
             <Footer />
         </div>

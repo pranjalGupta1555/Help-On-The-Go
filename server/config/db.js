@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 //     useUnifiedTopology: true
 //  })
 
-mongoose.connect(`${configDb.URI}`, {
+mongoose.connect(`mongodb://${configDb.HOST}:${configDb.PORT}/${configDb.DB}`, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
 })

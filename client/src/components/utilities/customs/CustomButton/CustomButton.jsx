@@ -6,7 +6,7 @@ function CustomButton(props) {
     
     return (
         <>
-            <button className={props.variant}> { props.text } </button>
+            <button className={props.variant} onClick={props.clickFn} > { props.text } </button>
         </>
     )
 }

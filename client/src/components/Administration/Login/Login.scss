@@ -1,0 +1,36 @@
+@import '../../../styles/utilities';
+
+.container {
+    
+    &-form {
+        background-color: #ffff;
+        margin: auto;
+        margin-top: 10%;
+        width: 800px;
+        padding: 5%;
+
+        &-btn {
+            height: 80px;
+            @include flexProperties(false, true);
+        }
+
+        .error-text {
+            color: rgb(109, 7, 7);
+            font-size: small;
+        }
+    }
+
+    .close {
+        float: right;
+        font-size: 25pt;
+        margin-top: -120px;
+        margin-right: -120px;
+        color: rgba(128, 128, 128, 0.637);
+        transition: ease-in-out 2s;
+        &:hover {
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 1px 1px 7px lightblue;
+        }
+    }
+}

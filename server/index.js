@@ -3,7 +3,7 @@ import db from './config/db.js'
 
 // Port at which the localhost server will be running
 // set port, listen for requests
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 db.on('error', (err)=>{
     console.log('Error connecting to the DB !');

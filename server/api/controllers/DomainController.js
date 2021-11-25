@@ -1,4 +1,3 @@
-import { request, response } from 'express';
 import * as domainService from '../services/domain.service.js';
 
 // this function gets called whenever error is occured and sets the response code to 500
