@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import Content from './Content'
-import Footer from './Footer'
-import Header from './Header'
-import SubHeader from './SubHeader'
-import '../../styles/layout.scss';
-import { Breadcrumb } from 'react-bootstrap'
+import Administration from '../Administration/Administration'
+import Login from '../Administration/Login/Login'
+import Content from './Content/Content'
+import Footer from './Footer/Footer'
+import Header from './Header/Header'
+import SubHeader from './Header/SubHeader'
+import './layout.scss';
 
 function Layout(props) {
 
@@ -16,8 +17,13 @@ function Layout(props) {
     return (
         <div className="main-layout">
 
-            {/* <Header />
-            <SubHeader /> */}
+            <Header />
+            <SubHeader />
+            
+            {
+                props.showLogin? 
+                <Administration/> : <></>
+            }
             {props.component}
             <Footer />
         </div>

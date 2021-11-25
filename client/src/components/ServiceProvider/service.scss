@@ -1,0 +1,20 @@
+@import '../../styles/utilities';
+
+.service-layout {
+    height: auto;
+    .content-filter {
+        margin-top: 70px;
+        padding: 5%;
+        div {
+            float: right;
+            margin: 5px;
+        }
+    }
+    
+    .content-services-providers {
+        margin: 0 5% 5%;
+        height: 500px;
+        // height: 100%;
+        border: 1px solid;
+    }
+}

@@ -1,5 +1,5 @@
-const configDb = require('./db.config.js');
-const mongoose = require("mongoose");
+import configDb from './db.config.js';
+import mongoose from 'mongoose';
 
 // localhost
 
@@ -8,12 +8,12 @@ const mongoose = require("mongoose");
 //     useUnifiedTopology: true
 //  })
 
-mongoose.connect(`${configDb.URI}`, {
+mongoose.connect(`mongodb://${configDb.HOST}:${configDb.PORT}/${configDb.DB}`, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
 })
 
 const db =  mongoose.connection
 
-module.exports = db;
+export default db;
 
