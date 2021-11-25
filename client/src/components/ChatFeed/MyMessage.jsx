@@ -12,7 +12,6 @@ const MyMessage=({message})=>{
     }
     return(
         <div className="message">
-            "My message"
             {message.text}
         </div>
     )

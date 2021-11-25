@@ -17,7 +17,7 @@ const TheirMessage=({lastMessage, message})=>{
                         className="message-image"
                     />
                 ):(
-                    <div className="message" >
+                    <div className="message" style={{float:'left', backgroundColor: '#CABCBC'}}>
                         {message.text}    
                     </div>
                 )
