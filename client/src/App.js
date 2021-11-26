@@ -12,6 +12,8 @@ import Header from './components/layout/Header/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
 import {ChatEngine} from 'react-chat-engine';
 import ChatFeed  from './components/ChatFeed/ChatFeed';
+import Registration from './components/Administration/Registration/Registration';
+import Login from './components/Administration/Login/Login';
 
 import { useStateValue } from './StateProvider';
 
@@ -52,21 +54,28 @@ function App() {
           </Route>
 
           <Route path="/services" render={() => (
-            <Layout showLogin={!authenticated} component={<Content />} />
+            <Layout component={<Content />} />
           )}>
           </Route>
 
           <Route path="/seek" render={() => (
             <Layout component={<ServiceProvider />} />
           )}>
+            
           </Route>
+          <Route path="/signUp" render={() => (
+            <Layout component={<Registration />} />
+          )}></Route>
+          <Route path="/signIn" render={() => (
+            <Layout component={<Login />} />
+          )}></Route>
           <Route exact path="/chat" render={() => (
-            <Layout component={<ChatEngine
+            <Layout component={localStorage.getItem("username")?<ChatEngine
               height="100vh"
               projectID="4fdaabe1-eb81-452a-b540-34f5c8c56f37"
-              userName="TestUser1"
-              userSecret="asdasd"
-              renderChatFeed={(chatAppProps)=><ChatFeed {...chatAppProps}/>} />} />
+              userName={localStorage.getItem("username")}
+              userSecret={localStorage.getItem("password")}
+              renderChatFeed={(chatAppProps)=><ChatFeed {...chatAppProps}/>} />:<h2>User not logged in</h2>} />
           )}/>
 
           <Route path="/err" render={() => (

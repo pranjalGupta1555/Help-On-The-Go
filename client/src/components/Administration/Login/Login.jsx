@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { actionTypes } from '../../../reducer';
 import { useStateValue } from '../../../StateProvider';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
-import './login.scss';
+import './Login.scss';
 
 export default function Login(props) {
     const [{ userCredentials }, dispatch] = useStateValue();
@@ -45,7 +45,7 @@ export default function Login(props) {
                     <CustomButton variant={"darkButton"} text={"login"} clickFn={userLogin} />
                     <div>
                         You don't have an account with us?
-                        <a href="#" onClick={props.setToggle}> Sign Up. </a>
+                        <a href="/signUp" onClick={props.setToggle}> Sign Up. </a>
                     </div>
 
                 </div>

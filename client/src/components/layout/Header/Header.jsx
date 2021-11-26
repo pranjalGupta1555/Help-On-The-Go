@@ -3,6 +3,7 @@ import './header.scss';
 import logo from '../../../logoBikeDark.png';
 import logoLite from '../../../logoBike.png';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
+import Registration from '../../Administration/Registration/Registration';
 import { useHistory } from 'react-router';
 
 
@@ -39,6 +40,9 @@ function Header(props) {
         }
 
     }, [])
+    const openSignUpBox = () =>{
+        navigate.push("/services")
+    }
 
     return (
         <div className="main-header">
@@ -62,7 +66,7 @@ function Header(props) {
 
             {/* join */}
             <div className="main-header-side-join">
-                <CustomButton variant={"darkButton"} text="Join" ></CustomButton>
+                <CustomButton variant={"darkButton"} text="Join" onClick={(e) => { navigate.push("/signUp") }}></CustomButton>
             </div>
         </div>
 
