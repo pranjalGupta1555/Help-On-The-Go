@@ -64,3 +64,8 @@ export const configureToken = async (data) => {
     return promise;
 
 }
+
+export const userInfo = async(id) =>{
+    const data = await User.findById(id)
+    return data;
+}
