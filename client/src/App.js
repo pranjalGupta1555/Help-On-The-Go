@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer/Footer';
 import React, { useEffect, useState } from 'react';
 import Layout from './components/layout/Layout';
 import { useHistory, useLocation } from 'react-router';
+import Seek from './components/Seek/Seek';
 import ServiceProvider from './components/ServiceProvider/ServiceProvider';
 import Header from './components/layout/Header/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
@@ -21,7 +22,7 @@ function App() {
 
   const [authenticated, setauthenticated] = useState(false);
 
-
+  
   const checkAuthentication = () => {
     console.log(userCredentials);
     setauthenticated(userCredentials.loggedIn);
@@ -53,8 +54,8 @@ function App() {
           )}>
           </Route>
 
-          <Route path="/seek" render={() => (
-            <Layout component={<ServiceProvider />} />
+          <Route path="/seek/:id" render={() => (
+            <Layout component={<Seek />} />
           )}>
           </Route>
 
