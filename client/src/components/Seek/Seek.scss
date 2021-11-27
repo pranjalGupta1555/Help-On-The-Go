@@ -1,0 +1,31 @@
+.main-container{
+    padding:10px;
+}
+.seek-details-container{
+    margin-top: 130px;
+    margin-left: 300px;
+    display: flex;
+}
+h1 {
+    color: green;
+    font-weight: 400;
+    text-shadow: 0px 1px lightgray;
+}
+.seek-details{
+    padding: 8px;
+}
+.seek-skills{
+    padding: 20px;
+    margin-left: 100px;
+}
+.btn-primary{
+    background-color: green;
+    margin-left: 350px;
+    margin-top: 20px;
+    &:hover {
+        background-color:green;
+    }
+}
+.asd{
+    display: flex;
+}

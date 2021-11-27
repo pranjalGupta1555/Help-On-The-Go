@@ -68,7 +68,7 @@ export const loginUser = async (req, res) => {
 export const getUserInfo = async(req,res)=>{
     try{
         const id = req.params.id;
-        const result = await UserService.userInfo(id)
+        const result = await UserService.checkExistingUserID(id)
         successHandler("success",result, res)
     }
     catch(err){
