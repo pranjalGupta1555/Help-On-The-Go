@@ -22,7 +22,7 @@ function App() {
 
   const [authenticated, setauthenticated] = useState(false);
 
-  
+
   const checkAuthentication = () => {
     console.log(userCredentials);
     setauthenticated(userCredentials.loggedIn);
@@ -55,7 +55,7 @@ function App() {
           </Route>
 
           <Route path="/seek/:id" render={() => (
-            <Layout component={<Seek />} />
+            <Layout showLogin={!authenticated} component={<Seek />} />
           )}>
           </Route>
 

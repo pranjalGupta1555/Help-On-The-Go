@@ -12,9 +12,7 @@ const Seek = (props) =>{
     }
     
     const onClickHandler = () =>{
-        if(!localStorage.getItem('username')){
-            return 
-        }
+        //tbd
     }
     if(responseData.message=="success"){
     return(
