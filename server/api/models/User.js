@@ -14,6 +14,14 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
+    firstName:{
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
     token: {
         type: String
     },

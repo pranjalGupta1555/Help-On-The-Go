@@ -12,5 +12,8 @@ Router.route('/user')
 Router.route('/login')
     .post(UserController.loginUser);
 
+Router.route('/user/:id')
+    .get(UserController.getUserInfo);
+
 
 export default Router;
