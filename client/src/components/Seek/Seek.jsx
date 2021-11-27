@@ -6,15 +6,16 @@ import { useParams } from 'react-router-dom';
 
 const Seek = (props) =>{
     const [responseData, setResponseData] = useState({});
+    const [loading, setLoading] = useState(true);
     const id= useParams();
-    if(Object.keys(responseData).length==0){
-        fetch("http://localhost:4000/user/"+id.id).then(res=>res.json()).then((resp)=>{setResponseData(resp)});
-    }
+    useEffect(()=>{
+        fetch("http://localhost:4000/user/"+id.id).then(res=>res.json()).then((resp)=>{setResponseData(resp);setLoading(false)});
+    },[])
     
     const onClickHandler = () =>{
-        //tbd
+
     }
-    if(responseData.message=="success"){
+    if(!loading){
     return(
     <div className="main-container">
         <div className="seek-details-container">
