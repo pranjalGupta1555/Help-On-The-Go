@@ -34,6 +34,19 @@ export const checkExistingUserID = async(extractedID) => {
     })
 }
 
+export const checkUsername = async(username) => {
+    return new Promise((resolve, reject) => {
+        User.findOne({
+            username: username
+        }).then((response) => {
+            console.log(response);
+            resolve(response);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
 export const addUser = async (req) => {
     const checkUser = await existingUser({ ...req.body });
 

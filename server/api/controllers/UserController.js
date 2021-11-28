@@ -75,3 +75,19 @@ export const getUserInfo = async(req,res)=>{
         errorHandler(err.message, res);
     }
 }
+
+export const checkUserName = async (req, res) => {
+    try {
+
+        const result =  await UserService.checkUsername(req.params.username);
+
+        if(result !== null) {
+            successHandler("success", result, res);
+        } else {
+            errorHandler("failed", res);
+        }
+    } catch (err) {
+
+        errorHandler(err.message, res);
+    }
+}

@@ -15,5 +15,9 @@ Router.route('/login')
 Router.route('/user/:id')
     .get(UserController.getUserInfo);
 
+Router.route('/validate/:username')
+    .get(UserController.checkUserName);
+
+
 
 export default Router;

@@ -2,6 +2,7 @@ export const initialState = {
     userCredentials: {
         loggedIn: false,
         username: "",
+        sessionToken: ""
     }
 }
 
@@ -17,7 +18,9 @@ const reducer = (state, action) => {
                 ...state,
                 userCredentials: {
                     loggedIn: true,
-                    username: action.username
+                    username: action.username,
+                    sessionToken: action.sessionToken
+
                 }
             }
         default:

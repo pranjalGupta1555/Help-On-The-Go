@@ -1,33 +1,55 @@
 import React, { useEffect, useState } from 'react'
+import { useStateValue } from '../../StateProvider'
 import Administration from '../Administration/Administration'
-import Login from '../Administration/Login/Login'
-import Content from './Content/Content'
 import Footer from './Footer/Footer'
 import Header from './Header/Header'
 import SubHeader from './Header/SubHeader'
+import MenuBar from './Heropane/HeroPane'
 import './layout.scss';
 
 function Layout(props) {
 
+    const [{ userCredentials }, dispatch] = useStateValue();
+    const [showLogin, setshowLogin] = useState(props.showLogin);
+
+    const setAdminPageVisibility = () => {
+        setshowLogin(true);
+    }
+
+    const hideAdminVisibility = () => {
+        setshowLogin(false);
+    }
+
+    console.log(showLogin);
 
     useEffect(() => {
-       
+
     }, [])
 
+    if (props.hero) {
+        return (
+            <>
+                <MenuBar show={props.showLogin} hideAdmin={hideAdminVisibility} showAdmin={setAdminPageVisibility} component = {props.component}/>
+                <Footer />
+            </>
+        )
+    } else {
     return (
         <div className="main-layout">
 
-            <Header />
+            <Header show={props.showLogin} showAdmin={setAdminPageVisibility} />
             <SubHeader />
-            
+
             {
-                props.showLogin? 
-                <Administration/> : <></>
+                showLogin && userCredentials.loggedIn == false ?
+                    <Administration close={userCredentials.loggedIn} /> : <></>
+
             }
             {props.component}
             <Footer />
         </div>
     )
+        }
 }
 
 export default Layout

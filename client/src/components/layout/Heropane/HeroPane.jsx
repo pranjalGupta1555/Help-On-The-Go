@@ -5,11 +5,16 @@ import './heropane.scss';
 import img1 from '../../../assets/webdesigner.jpg';
 import img2 from '../../../assets/tutoring.jpg';
 import img3 from '../../../assets/homeService.jpg';
+import Administration from '../../Administration/Administration';
+import { useStateValue } from '../../../StateProvider';
 
 
 function MenuBar(props) {
 
+
+    const [{userCredentials}, dispatch] = useStateValue();
     const [img, setimg] = useState(img1);
+    const [showLogin, setshowLogin] = useState(props.show);
 
     const rollImages = () => {
         setInterval(() => {
@@ -25,18 +30,29 @@ function MenuBar(props) {
         }, 10000);
     }
 
+
+    const setAdminVisible = () => {
+        setshowLogin(true);
+    }
+
     useEffect(() => {
-        
+
         rollImages();
-        
+
     }, [])
+
     return (
         <div className="main-body-layout">
             <div>
                 <div className="main-container-hero" style={{ backgroundImage: `url(${img})` }} >
-                <Header/>
-                <SubHeader/>
+                    <Header showAdmin={setAdminVisible} />
+                    <SubHeader />
+                    {
+                        showLogin && userCredentials.loggedIn == false ?
+                            <Administration close={userCredentials.loggedIn} /> : <></>
+                    }
                 </div>
+
                 <div className="title">
                     <h1> Help On The Go </h1>
 
@@ -46,9 +62,10 @@ function MenuBar(props) {
                 </div>
             </div>
             {/* body */}
+
             {props.component}
 
-           
+
         </div>
     )
 }
