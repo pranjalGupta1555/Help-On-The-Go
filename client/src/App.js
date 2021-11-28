@@ -15,7 +15,8 @@ import { useStateValue } from './StateProvider';
 
 function App() {
 
-  const routepaths = [" ","home", "services", "seek"];
+  const routepaths = [" ", "home", "services", "seek"];
+
   const history = useHistory();
 
   const [{ userCredentials }, dispatch] = useStateValue();
@@ -24,28 +25,30 @@ function App() {
 
 
   const checkAuthentication = () => {
-    console.log(userCredentials);
+    console.log(userCredentials, "*****");
     setauthenticated(userCredentials.loggedIn);
   }
 
+
+
+  console.log("LOGGED IN ::: ", userCredentials.loggedIn);
   useEffect(() => {
     
     checkAuthentication();
 
-    return () => {
-      
-    }
-  }, [userCredentials])
+    checkAuthentication();
+
+  }, [authenticated])
+
 
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route exact path={["/", "/home"]} render={() => (
-            <React.Fragment>
-              <Heropane component={<Content />} />
-              <Footer />
-            </React.Fragment>
+            <Layout showLogin={!authenticated} hero={true} component={<Content />}>
+            </Layout>
+
           )}>
           </Route>
 
