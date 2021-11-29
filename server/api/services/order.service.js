@@ -1,4 +1,4 @@
-import Order from "../models/Order";
+import Order from "../models/Order.js";
 
 // Used to fetch all the orders 
 export const getAllOrders = (params = {}) => {
