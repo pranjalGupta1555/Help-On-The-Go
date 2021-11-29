@@ -31,7 +31,16 @@ const UserSchema = new Mongoose.Schema({
         default: 'user'
     },
     skillset: [],
-    interaction: []
+    interaction: [],
+    profileImage: {
+        type: String
+    },
+    tagLine: {
+        type: String
+    },
+    introductoryStatement: {
+        type: String
+    }
 
 }, {
     versionKey: false
