@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
-import './Registration.scss';
+import './registration.scss';
 
 export default function Registration(props) {
 
