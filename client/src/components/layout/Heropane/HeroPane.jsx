@@ -7,6 +7,7 @@ import img2 from '../../../assets/tutoring.jpg';
 import img3 from '../../../assets/homeService.jpg';
 import Administration from '../../Administration/Administration';
 import { useStateValue } from '../../../StateProvider';
+import { useHistory } from 'react-router';
 
 
 function MenuBar(props) {
@@ -15,6 +16,8 @@ function MenuBar(props) {
     const [{userCredentials}, dispatch] = useStateValue();
     const [img, setimg] = useState(img1);
     const [showLogin, setshowLogin] = useState(props.show);
+
+    const history = useHistory();
 
     const rollImages = () => {
         setInterval(() => {
@@ -32,7 +35,15 @@ function MenuBar(props) {
 
 
     const setAdminVisible = () => {
+        console.log("HEROPANE");
         setshowLogin(true);
+        // history.go();
+    }
+
+    
+    const hideAdminVisible = () => {
+        console.log("HEROPANE hide");
+        setshowLogin(false);
     }
 
     useEffect(() => {
@@ -45,7 +56,7 @@ function MenuBar(props) {
         <div className="main-body-layout">
             <div>
                 <div className="main-container-hero" style={{ backgroundImage: `url(${img})` }} >
-                    <Header showAdmin={setAdminVisible} />
+                    <Header showAdmin={setAdminVisible} hideAdmin={hideAdminVisible} />
                     <SubHeader />
                     {
                         showLogin && userCredentials.loggedIn == false ?

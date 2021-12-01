@@ -2,16 +2,22 @@ export const initialState = {
     userCredentials: {
         loggedIn: false,
         username: "",
-        sessionToken: ""
-    }
+        sessionToken: "",
+        userType: "",
+        userDetails: {
+
+        }
+    },
+
 }
 
 export const actionTypes = {
-    SET_LOGIN: 'SET_LOGIN'
+    SET_LOGIN: 'SET_LOGIN',
+    SET_USER_DETAILS: 'SET_USER_DETAILS'
 }
 
 const reducer = (state, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case actionTypes.SET_LOGIN:
             console.log(action, " __ ");
             return {
@@ -19,10 +25,12 @@ const reducer = (state, action) => {
                 userCredentials: {
                     loggedIn: true,
                     username: action.username,
-                    sessionToken: action.sessionToken
-
+                    sessionToken: action.sessionToken,
+                    userType: action.userType,
+                    userDetails: action.userData
                 }
             }
+            
         default:
             return state;
     }

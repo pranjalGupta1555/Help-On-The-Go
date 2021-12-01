@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import './subheader.scss';
 
 function SubHeader() {
-    
+
     const history = useHistory();
 
     const navItems = [{
@@ -27,15 +27,19 @@ function SubHeader() {
 
 
     const hitService = (link, servicePass) => {
-        history.push({ 
+        history.push({
             pathname: link,
-            state: { service: servicePass } });
+            state: { service: servicePass }
+        });
         console.log("came");
         // window.location.href = link;
     }
 
     const handleScroll = () => {
-        if(window.location.href.split("/")[3] === "home" || window.location.href.split("/")[3] === "" ) {
+        if (window.location.href.split("/")[3] === 'join') {
+            document.body.style.backgroundColor = '#1987547a';
+            document.querySelector('.main-sub-header').style.display = 'none';
+        } if (window.location.href.split("/")[3] === "home" || window.location.href.split("/")[3] === "") {
             window.addEventListener('scroll', function () {
                 let header = document.querySelector('.main-sub-header');
                 let windowPosition = window.scrollY > 0;
@@ -53,18 +57,20 @@ function SubHeader() {
         return () => {
             handleScroll();
         }
-        
+
     }, [])
 
-   
+
     return (
         <div className="main-sub-header">
             <nav className="menu">
                 {navItems.map((item, index) => {
                     return (
-                        <li key={index} onClick={(e) => { e.preventDefault();
-                            hitService(item.itemLink, item.service) }}>
-                             {item.item} 
+                        <li key={index} onClick={(e) => {
+                            e.preventDefault();
+                            hitService(item.itemLink, item.service)
+                        }}>
+                            {item.item}
                         </li>
                     )
                 })}

@@ -82,3 +82,11 @@ export const userInfo = async(id) =>{
     const data = await User.findById(id)
     return data;
 }
+
+export const updateUser = async (req) => {
+    const promise = await User.findByIdAndUpdate({ _id: req.params.id }, { ...req.body }, {
+        new: true
+    });
+
+    return promise;
+}

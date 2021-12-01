@@ -9,9 +9,9 @@ import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
 import configuration from '../../../config';
 import './login.scss';
 
-
 export default function Login(props) {
     const [{ userCredentials }, dispatch] = useStateValue();
+
     const [username, setusername] = useState('');
     const [password, setpassword] = useState('');
     const [unerror, setunerror] = useState('');
@@ -93,7 +93,7 @@ export default function Login(props) {
             password: password
         }
 
-        if (passwordError === "" && unerror === "") {
+        if (passwordError === "" && unerror === "" && password.length > 0 && username.length > 0) {
             fetch(`${configuration.URL}/login`, {
                 method: 'POST',
                 headers: {
@@ -105,8 +105,10 @@ export default function Login(props) {
                     dispatch({
                         type: actionTypes.SET_LOGIN,
                         username: data.data.username,
-                        sessionToken: data.data.token
-                    })
+                        sessionToken: data.data.token,
+                        userType: data.data.userType,
+                        userData: data.data
+                    });
 
                     setvariant('success');
                     setmessage('Login successful!');
@@ -119,8 +121,11 @@ export default function Login(props) {
                     setmessage('Oops! Something went wrong x(');
                     alertUser();
                 })
+        } else {
+            setvariant('danger');
+            setmessage('Please fill all the fields!');
+            alertUser();
         }
-
 
 
     }
@@ -147,7 +152,6 @@ export default function Login(props) {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" value={password} onChange={handlePassword} />
                     <Form.Text className="error-text"> {passwordError} </Form.Text>
-
                 </Form.Group>
 
                 <div className="container-form-btn">

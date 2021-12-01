@@ -26,10 +26,20 @@ function Header(props) {
 
     console.log(props);
 
+    const gotoJoin = (e) => {
+        e.preventDefault();
+        navigate.push('/join');
+    }
+
     useEffect(() => {
 
-        if (window.location.href.split("/")[3] === "home" || window.location.href.split("/")[3] === "") {
-
+        if (window.location.href.split("/")[3] === 'join') {
+            document.body.style.backgroundColor = '#1987547a';
+            setIcon(logo);
+            setvariant('darkButton');
+            sethideSearch('none');
+        }
+        else if (window.location.href.split("/")[3] === "home" || window.location.href.split("/")[3] === "") {
             window.addEventListener('scroll', function () {
                 let header = document.querySelector('.main-header, .main-header-searchbar');
                 let windowPosition = window.scrollY > 0;
@@ -44,8 +54,10 @@ function Header(props) {
                     setvariant('darkButton');
                     sethideSearch('none');
                 }
+
             })
-        } else {
+        }
+        else {
             document.querySelector('.main-header, .main-header-searchbar').classList.toggle('no-scroll');
             setIcon(logoLite);
             setvariant('lightButton');
@@ -72,15 +84,16 @@ function Header(props) {
                 {/* signin button */}
                 {
                     userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaShoppingCart /> <FaUser /> </div> : <div className="main-header-side-signin">
-                        <CustomButton variant={"outlineButton"} text="Sign In" clickFn = {showLoginPage} ></CustomButton>
+                        <CustomButton variant={"outlineButton"} text="Sign In" clickFn={showLoginPage} ></CustomButton>
                     </div>
 
                 }
 
                 {/* join */}
-                <div className="main-header-side-join">
-                    <CustomButton variant={"darkButton"} text="Join" ></CustomButton>
-                </div>
+                {userCredentials.userType !== 'helper' && window.location.href.split('/')[3] !== 'join' ? <div className="main-header-side-join">
+                    <CustomButton variant={"darkButton"} text="Join" clickFn={gotoJoin} ></CustomButton>
+                </div> : <> </>
+                }
             </div>
 
         </div>

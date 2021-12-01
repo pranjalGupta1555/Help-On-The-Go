@@ -91,3 +91,19 @@ export const checkUserName = async (req, res) => {
         errorHandler(err.message, res);
     }
 }
+
+export const updateUserByID = async (req, res) => {
+    try {
+
+        const result = await UserService.updateUser(req);
+
+        if(result !== null) {
+            successHandler("success", result, res);
+        } else {
+            errorHandler("failed", res);
+        }
+
+    } catch(err) {
+        errorHandler(err.message, res);
+    }
+}
