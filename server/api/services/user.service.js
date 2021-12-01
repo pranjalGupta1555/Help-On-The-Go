@@ -82,3 +82,23 @@ export const userInfo = async(id) =>{
     const data = await User.findById(id)
     return data;
 }
+
+export const seekAndFilter = async(data)=>{
+    const users = allUsers();
+    const location = data.location;
+    const requiredSkill = data.skill;
+    const priceMin = data.priceMin;
+    const priceMax = data.priceMax;
+    let responseList=[];
+    (await users).forEach(user=>{
+        console.log(user.username)
+        if(location.includes(user.location) && location){
+            user.skillSet.forEach(skill=>{
+                if((skill.skill==requiredSkill) && (price>priceMin && price<priceMax)){
+                    responseList.push(user)
+                }
+            })
+        }
+    })
+    return responseList;
+}
