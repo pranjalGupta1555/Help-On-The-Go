@@ -91,3 +91,21 @@ export const checkUserName = async (req, res) => {
         errorHandler(err.message, res);
     }
 }
+
+export const getSeekers = async (req, res) =>{
+
+    try{
+
+        const result = await UserService.seekAndFilter(req.body)
+
+        successHandler("success",result,res);
+
+    } catch(err){
+
+        console.log(err);
+
+        res.status(500).json("something went wron")
+
+    }
+
+}

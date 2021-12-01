@@ -18,6 +18,9 @@ Router.route('/user/:id')
 Router.route('/validate/:username')
     .get(UserController.checkUserName);
 
+Router.route('/seek')
+    .post(UserController.getSeekers)
+
 
 
 export default Router;
