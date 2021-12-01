@@ -2,7 +2,6 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useStateValue } from '../../StateProvider';
-
 import './Administration.scss';
 import Login from './Login/Login';
 import Registration from './Registration/Registration';
@@ -32,13 +31,18 @@ export default function Administration(props) {
 
     useEffect(() => {
         console.log("CALLED ADMIN");
-        window.scrollTo(0, 0);
-        document.body.style.overflow = "hidden";
-        
         if(userCredentials.loggedIn) {
-            setclose(false);
+            window.scrollTo(0, 0);
+            setTimeout(() => {
+                document.body.style.overflow = "hidden";
+                setclose(false);
+            }, 0);
         } else {
-            setclose(true);
+            window.scrollTo(0, 0);
+            setTimeout(() => {
+                document.body.style.overflow = "hidden";
+                setclose(true);
+            }, 0);
         }
 
     }, [props.close])
@@ -57,5 +61,4 @@ export default function Administration(props) {
             </>
         )
     }
-
 }

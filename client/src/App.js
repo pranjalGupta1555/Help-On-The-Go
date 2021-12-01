@@ -12,6 +12,8 @@ import ServiceProvider from './components/ServiceProvider/ServiceProvider';
 import Header from './components/layout/Header/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
 import { useStateValue } from './StateProvider';
+import Join from './components/Administration/Join/Join';
+
 
 function App() {
 
@@ -45,10 +47,9 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path={["/", "/home"]} render={() => (
+        <Route exact path={["/", "/home"]} render={() => (
             <Layout showLogin={!authenticated} hero={true} component={<Content />}>
             </Layout>
-
           )}>
           </Route>
 
@@ -57,8 +58,13 @@ function App() {
           )}>
           </Route>
 
-          <Route path="/seek/:id" render={() => (
+          <Route path="/seek" render={() => (
             <Layout showLogin={!authenticated} component={<Seek />} />
+          )}>
+          </Route>
+
+          <Route path="/join" render={() => (
+            <Layout showLogin={!authenticated} component={<Join />} />
           )}>
           </Route>
 

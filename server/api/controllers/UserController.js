@@ -102,10 +102,23 @@ export const getSeekers = async (req, res) =>{
 
     } catch(err){
 
-        console.log(err);
-
-        res.status(500).json("something went wron")
+        errorHandler(err.message, res)
 
     }
 
+}
+export const updateUserByID = async (req, res) => {
+    try {
+
+        const result = await UserService.updateUser(req);
+
+        if(result !== null) {
+            successHandler("success", result, res);
+        } else {
+            errorHandler("failed", res);
+        }
+
+    } catch(err) {
+        errorHandler(err.message, res);
+    }
 }

@@ -1,0 +1,45 @@
+.join-container {
+    margin: 7%;
+    min-width: 1000px;
+    position: relative;
+
+    & > span {
+        cursor: pointer;
+        .close {
+            // float: right;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            color: green;
+        }
+    }
+
+    .error-text {
+        color: red;
+    }
+
+    .carousel {
+        // background-color: #fff;
+        height: fit-content;
+        min-height: 600px;
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-bottom: 5%;
+
+        .form-container {
+            width: 50%;
+            margin: auto;
+
+            & > div {
+                margin-top: 10px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .profileImg {
+            border-radius: 50%;
+        }
+    }
+}

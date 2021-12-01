@@ -20,7 +20,7 @@ function CustomCard(props) {
                 </Card.Text>
                 <Button variant="success" key={props.index} onClick={(e) => {
                     e.preventDefault();
-                    handleDomainClick()
+                    props.handleDomainClick(props.service);
                 }}>Go somewhere</Button>
             </Card.Body>
         </Card>

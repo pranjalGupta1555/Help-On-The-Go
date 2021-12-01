@@ -37,13 +37,12 @@ function Layout(props) {
     return (
         <div className="main-layout">
 
-            <Header show={props.showLogin} showAdmin={setAdminPageVisibility} />
+            <Header show={props.showLogin} hideAdmin={hideAdminVisibility} showAdmin={setAdminPageVisibility} />
             <SubHeader />
 
             {
                 showLogin && userCredentials.loggedIn == false ?
                     <Administration close={userCredentials.loggedIn} /> : <></>
-
             }
             {props.component}
             <Footer />

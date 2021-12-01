@@ -8,30 +8,7 @@ function Content(props) {
     
    const [heading, setheading] = useState("");
    const [loading, setloading] = useState(true);
-   const [services, setServices] = useState([]);
-
-    // const services = [{
-    //     service: "Service 1",
-    //     description: "Random description",
-    // }, {
-    //     service: "Service 1",
-    //     description: "Random description",
-    // }, {
-    //     service: "Service 1",
-    //     description: "Random description",
-    // }, {
-    //     service: "Service 1",
-    //     description: "Random description",
-    // }, {
-    //     service: "Service 1",
-    //     description: "Random description",
-    // }, {
-    //     service: "Service 1",
-    //     description: "Random description",
-    // }, {
-    //     service: "Service 1",
-    //     description: "Random description",
-    // }]
+   const [servicesToDisplay, setServicesToDisplay] = useState([]);
 
     const { state } = useLocation();
     const history = useHistory();
@@ -45,26 +22,51 @@ function Content(props) {
         })
     }
 
-    useEffect(() => {
-        console.log(state);
-        if(state) {
-            const { service } =  state;
-            setheading(service)
-        }
+    const getAllServices = (serviceSelected) => {
         fetch(`${configuration.URL}/domains`)
             .then((response) => response.json())
-            .then((data) => {
+            .then((domains) => {
                 let servicesArray = [];
-                data.map((item, index) => {
+                domains.map((item, index) => {
                         item.skills.map((skill) => {
                             if(skill.skillName != "Other") {
                                 servicesArray.push(skill);
                             }
                         })
                 });
-                setServices(servicesArray);
+                populateServicesToDisplay(servicesArray, serviceSelected, domains);
             });
-    
+    }
+
+    const populateServicesToDisplay = (servicesArray, serviceSelected, domains) => {
+        if(serviceSelected === "") {
+            setServicesToDisplay(servicesArray);
+        }
+        else {
+            domains.map((item, index) => {
+                if(serviceSelected === item.name) {
+                    let servicesArray = [];
+                    item.skills.map((skill) => {
+                        if(skill.skillName != "Other") {
+                            servicesArray.push(skill);
+                        }
+                    })
+                    setServicesToDisplay(servicesArray);
+                }
+            })
+        }
+    }
+
+    useEffect(() => {
+        if(state) {
+            const { service } =  state;
+            setheading(service);
+            getAllServices(service);
+        }
+        else {
+            getAllServices("");
+
+        }
     }, [state])
 
     return (
@@ -76,7 +78,7 @@ function Content(props) {
             
             <div className="content-services">
                 {
-                    services.map((item, index) => {
+                    servicesToDisplay.map((item, index) => {
                         return (<div className="content-services-service">
                             <CustomCard index={index} imagePath={item.imagePath} cardTitle={item.skillName} service={item.service} handleDomainClick={handleDomainClick} >
 

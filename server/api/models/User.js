@@ -44,6 +44,20 @@ const UserSchema = new Mongoose.Schema({
     },
     introductoryStatement: {
         type: String
+    },
+    experience: {
+        type: String
+    },
+    days: [],
+    wage: {
+        type: String
+    },
+    location: {
+        type: String
+    },
+    domains: [],
+    address: {
+        type: String
     }
 
 }, {

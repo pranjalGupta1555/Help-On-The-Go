@@ -124,3 +124,11 @@ export const seekAndFilter = async (data) => {
     })
     return responseList;
 }
+
+export const updateUser = async (req) => {
+    const promise = await User.findByIdAndUpdate({ _id: req.params.id }, { ...req.body }, {
+        new: true
+    });
+
+    return promise;
+}
