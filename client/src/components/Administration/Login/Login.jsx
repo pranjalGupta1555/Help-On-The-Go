@@ -7,7 +7,7 @@ import { useStateValue } from '../../../StateProvider';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
 import configuration from '../../../config';
-import './login.scss';
+import './Login.scss';
 
 export default function Login(props) {
     const [{ userCredentials }, dispatch] = useStateValue();

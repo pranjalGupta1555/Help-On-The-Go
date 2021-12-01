@@ -1,30 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import configuration from '../../../config';
 
 import './subheader.scss';
 
 function SubHeader() {
 
     const history = useHistory();
-
-    const navItems = [{
-        "item": "IT Services",
-        "itemLink": "/services",
-        "service": "IT"
-    }, {
-        "item": "Tutor",
-        "itemLink": "/services",
-        "service": "tutor"
-    }, {
-        "item": "Designing",
-        "itemLink": "/services",
-        "service": "designing"
-    }, {
-        "item": "Home Decor",
-        "itemLink": "/services",
-        "service": "decor"
-    }]
-
+    const [domains, setDomains] = useState([]);
 
     const hitService = (link, servicePass) => {
         history.push({
@@ -50,9 +33,18 @@ function SubHeader() {
         }
     }
 
+    const getAllDomains = () => {
+        fetch(`${configuration.URL}/domains`)
+            .then((response) => response.json())
+            .then((data) => {
+                setDomains(data);
+            });
+    }
+
     useEffect(() => {
 
         handleScroll();
+        getAllDomains();
 
         return () => {
             handleScroll();
@@ -64,13 +56,11 @@ function SubHeader() {
     return (
         <div className="main-sub-header">
             <nav className="menu">
-                {navItems.map((item, index) => {
+                {domains.map((item, index) => {
                     return (
-                        <li key={index} onClick={(e) => {
-                            e.preventDefault();
-                            hitService(item.itemLink, item.service)
-                        }}>
-                            {item.item}
+                        <li key={index} onClick={(e) => { e.preventDefault();
+                            hitService("/services", item.name) }}>
+                             {item.name} 
                         </li>
                     )
                 })}
