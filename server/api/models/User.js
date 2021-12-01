@@ -30,6 +30,10 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         default: 'user'
     },
+    location:{
+        type: String,
+        required: true
+    },
     skillset: [],
     interaction: [],
     profileImage: {

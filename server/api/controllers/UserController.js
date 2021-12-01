@@ -92,6 +92,21 @@ export const checkUserName = async (req, res) => {
     }
 }
 
+export const getSeekers = async (req, res) =>{
+
+    try{
+
+        const result = await UserService.seekAndFilter(req.body)
+
+        successHandler("success",result,res);
+
+    } catch(err){
+
+        errorHandler(err.message, res)
+
+    }
+
+}
 export const updateUserByID = async (req, res) => {
     try {
 
