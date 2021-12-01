@@ -21,7 +21,7 @@ export const existingUser = async (request_data) => {
     })
 }
 
-export const checkExistingUserID = async(extractedID) => {
+export const checkExistingUserID = async (extractedID) => {
     return new Promise((resolve, reject) => {
         User.findOne({
             _id: extractedID,
@@ -34,7 +34,7 @@ export const checkExistingUserID = async(extractedID) => {
     })
 }
 
-export const checkUsername = async(username) => {
+export const checkUsername = async (username) => {
     return new Promise((resolve, reject) => {
         User.findOne({
             username: username
@@ -55,9 +55,9 @@ export const addUser = async (req) => {
             ...req.body,
         });
         const data = await newUser.save();
-        console.log(data , " :: ");
+        console.log(data, " :: ");
         return await configureToken(data);
-        
+
     } else {
         return null;
     }
@@ -78,23 +78,45 @@ export const configureToken = async (data) => {
 
 }
 
-export const userInfo = async(id) =>{
+export const userInfo = async (id) => {
     const data = await User.findById(id)
     return data;
 }
 
-export const seekAndFilter = async(data)=>{
-    const users = allUsers();
-    const location = data.location;
+export const getUsersBySkill = async (data) => {
     const requiredSkill = data.skill;
-    const priceMin = data.priceMin;
-    const priceMax = data.priceMax;
-    let responseList=[];
-    (await users).forEach(user=>{
-        console.log(user.username)
-        if(location.includes(user.location) && location){
-            user.skillSet.forEach(skill=>{
-                if((skill.skill==requiredSkill) && (price>priceMin && price<priceMax)){
+    const users = allUsers();
+    const responseList = [];
+    (await users).forEach(user => {
+        user.skillset.forEach(skill => {
+            if (skill.skill == requiredSkill) {
+                responseList.push(user)
+            }
+        })
+    })
+    return responseList;
+}
+
+export const seekAndFilter = async (data) => {
+    const requiredSkill = data.skill;
+    const users = getUsersBySkill({
+        skill: requiredSkill
+    });
+    const priceMin = ('min' in data) ? data.min : 0;
+    const priceMax = ('max' in data) ? data.max : Number.MAX_SAFE_INTEGER;
+    let responseList = [];
+    (await users).forEach(user => {
+        if ('seekLoc' in data) {
+            const location = data.seekLoc;
+            user.skillset.forEach(skill => {
+                if ((skill.skill == requiredSkill) && (skill.charge >= priceMin && skill.charge <= priceMax) && (location.includes(user.location))) {
+                    responseList.push(user)
+                }
+            })
+        }
+        else {
+            user.skillset.forEach(skill => {
+                if ((skill.skill == requiredSkill) && (skill.charge > priceMin && skill.charge < priceMax)) {
                     responseList.push(user)
                 }
             })
