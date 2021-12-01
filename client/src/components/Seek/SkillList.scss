@@ -1,19 +1,171 @@
-li{
-    padding-top: 5px;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    font-family: 'Poppins', sans-serif;
 }
-.skill-details{
+
+// body {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     min-height: 100vh;
+//     // background: #131313;
+// }
+.container {
+    position: relative;
+}
+
+.container .card {
+    position: relative;
+    width: 320px;
+    height: 350px;
+    background: #eb6060;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: 35px;
+    margin-top: 35px;
+}
+
+.container .card:before {
+    content: ''; //add domain name here
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #5764d8;
+    clip-path: circle(150px at 80% 20%);
+    transition: 0.5s ease-in-out;
+}
+
+.container .card:hover:before {
+    clip-path: circle(300px at 80% -20%);
+}
+
+.container .card:after {
+    content: 'Seek';
+    position: absolute;
+    top: 30%;
+    left: -20%;
+    font-size: 12em;
+    font-weight: 600;
+    font-style: italic;
+    color: rgba(40, 16, 105, 0.05)
+}
+
+.container .card .imgBx {
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+    z-index: 10000;
+    width: 95%;
+    height: 200px;
+    transition: 0.5s;
+    border-radius: 30px;
+}
+
+.container .card:hover .imgBx {
+    top: 5%;
+    transform: translateY(0%);
+}
+
+.container .card .imgBx img {
+    position: absolute;
+    border-radius: 5px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 230px;
+}
+
+.container .card .contentBx {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 130px;
+    text-align: center;
+    transition: 1s;
+    z-index: 10;
+}
+
+.container .card:hover .contentBx {
+    height: 250px;
+}
+
+.container .card .contentBx h2 {
+    position: relative;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin: 0;
+}
+
+.container .card:hover .contentBx h2 {
+    display: none;
+}
+
+.container .card .contentBx h1 {
+    position: relative;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin: 0;
+}
+
+.container .card .contentBx h1 {
+    display: none;
+}
+
+.container .card:hover .contentBx h1 {
+    justify-content: center;
+    align-items: center;
+}
+
+.container .card .contentBx .size,
+.container .card .contentBx .color {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
 }
-.skill-name{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: medium;
+
+.container .card:hover .contentBx:hover button:hover {
+    background-color: #5d78c4;
+    padding: 5px;
+    color: white;
+    transition: 0.1s;
 }
-.skill-price{
-    color: grey;
-    font-size: smaller;
-    padding-top: 5px;
+
+.container .card:hover .contentBx:hover button {
+    background-color: white;
+    padding: 5px;
+    transition: 0s;
 }
-.skill-ratings{
-    padding-top: 0px;
-    padding-left: 10px;
+
+.container .card .contentBx button {
+    display: inline-block;
+    background: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    color: #111;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 0.2s;
+}
+
+.container .card:hover .contentBx button {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: 0.45s;
+    margin: 5px;
+    height: 40px;
+    border-radius: 10px;
+    margin-top: 120px;
+    margin-right: 15px;
 }
