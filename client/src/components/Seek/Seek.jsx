@@ -13,9 +13,9 @@ const Seek = (props) => {
     // const location = useLocation();
     let { state } = useLocation();
     // const skill = state.skillSelected;
-    let minPrice = '';
-    let maxPrice = '';
-    let seekerlocation = '';
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
+    const [seekerlocation, setSeekerlocation] = useState('');
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -35,7 +35,7 @@ const Seek = (props) => {
         fetchUsers();
     }, []);
 
-    
+
     const handleSubmit = async () => {
         let filter = { min: minPrice, max: maxPrice, seekLoc: seekerlocation, skill: 'coding' };
         console.log(filter);
@@ -46,10 +46,12 @@ const Seek = (props) => {
             },
             body: JSON.stringify(filter)
         };
-        console.log("Inside Post");
         const result = await fetch('http://localhost:4000/seek', postOptions).then(response => response.json());
-        console.log(result);
-        setUsers(result);
+        console.log(result.data);
+        setUsers(result.data);
+        setMinPrice('');
+        setMaxPrice('');
+        setSeekerlocation('');
     }
     // if (!loading) {
     return (
@@ -60,24 +62,18 @@ const Seek = (props) => {
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="">Min and Max Price</span>
                     </div>
-                    <input type="text" className="form-control" placeholder="Min Price" onChange={(e) => {
-                        e.preventDefault();
-                        minPrice = (e.target.value);
-                    }} />
-                    <input type="text" className="form-control" placeholder="Max Price" onChange={(e) => {
-                        e.preventDefault();
-                        maxPrice = (e.target.value);
-                    }} />
+                    <input type="text" className="form-control" placeholder="Min Price" value={minPrice}
+                        onChange={(e) => { e.preventDefault(); setMinPrice(e.target.value); }} />
+                    <input type="text" className="form-control" placeholder="Max Price" value={maxPrice}
+                        onChange={(e) => { e.preventDefault(); setMaxPrice(e.target.value); }} />
 
                 </div>
                 <div className="input-group">
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="">Location</span>
                     </div>
-                    <input type="text" className="form-control" onChange={(e) => {
-                        e.preventDefault();
-                        seekerlocation = (e.target.value);
-                    }} />
+                    <input type="text" className="form-control" value={seekerlocation} placeholder="Location"
+                        onChange={(e) => { e.preventDefault(); setSeekerlocation(e.target.value); }} />
                 </div>
             </div>
             <button className="btn btn-success button" onClick={(e) => { e.preventDefault(); handleSubmit() }}> Submit </button>

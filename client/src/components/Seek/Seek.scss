@@ -1,5 +1,5 @@
 .main {
-    margin: 0px;
+    margin-top: 120px;
     padding: 0px // background: #131313;
 }
 
@@ -77,6 +77,10 @@ $gray: #9b9b9b;
 
 .button {
     margin-top: 20px;
+    width: 120px;
+    margin-bottom: 40px;
+    color: white;
+    background-color: #008000;
 }
 
 .dropbtn {

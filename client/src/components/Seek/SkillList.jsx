@@ -46,7 +46,7 @@ const SkillList = ({ users }) => {
             </div >
         )
     } else if (users.length == 1) {
-        console.log(users.data);
+        console.log(users);
         return (
             <div className="container">
                 <div className="row row-cols-3">
@@ -55,9 +55,9 @@ const SkillList = ({ users }) => {
                             <img src="https://www.stepsoftware.com/media/k2/items/cache/184b7cb84d7b456c96a0bdfbbeaa5f14_XL.jpg" />
                         </div>
                         <div className="contentBx">
-                            <h2>Name : {users.data[0].firstName + ' ' + users.data[0].lastName}</h2>
-                            <h2>Email Id : {users.data[0].email}</h2>
-                            <h2>Location : {users.data[0].location}</h2>
+                            <h2>Name : {users[0].firstName + ' ' + users[0].lastName}</h2>
+                            <h2>Email Id : {users[0].email}</h2>
+                            <h2>Location : {users[0].location}</h2>
                             {/* {user.skillset.map((skillset) => {
                                         console.log(skillset.skill)
                                         if(skillset.skill=='coding'){
