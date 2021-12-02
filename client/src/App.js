@@ -9,13 +9,10 @@ import Layout from './components/layout/Layout';
 import { useHistory, useLocation } from 'react-router';
 import Seek from './components/Seek/Seek';
 import ServiceProvider from './components/ServiceProvider/ServiceProvider';
-import Header from './components/layout/Header/Header';
-import ErrorComponent from './components/utilities/ErrorComponent';
 import {ChatEngine} from 'react-chat-engine';
 import ChatFeed from './components/ChatFeed/ChatFeed/ChatFeed';
-import Registration from './components/Administration/Registration/Registration';
-import Login from './components/Administration/Login/Login';
-
+import Header from './components/layout/Header/Header';
+import ErrorComponent from './components/utilities/ErrorComponent';
 import { useStateValue } from './StateProvider';
 import Join from './components/Administration/Join/Join';
 
@@ -59,7 +56,7 @@ function App() {
           </Route>
 
           <Route path="/services" render={() => (
-            <Layout component={<Content />} />
+            <Layout showLogin={!authenticated} component={<Content />} />
           )}>
           </Route>
 
@@ -71,14 +68,7 @@ function App() {
           <Route path="/join" render={() => (
             <Layout showLogin={!authenticated} component={<Join />} />
           )}>
-            
           </Route>
-          <Route path="/signUp" render={() => (
-            <Layout component={<Registration />} />
-          )}></Route>
-          <Route path="/signIn" render={() => (
-            <Layout component={<Login />} />
-          )}></Route>
           <Route exact path="/chat" render={() => (
             <Layout component={localStorage.getItem("username")?<ChatEngine
               height="100vh"
@@ -87,7 +77,6 @@ function App() {
               userSecret="Node@112233"
               renderChatFeed={(chatAppProps)=><ChatFeed {...chatAppProps}/>} />:<h2>User not logged in</h2>} />
           )}/>
-
           <Route path="/err" render={() => (
             <>
               <Header hideSide={true} />

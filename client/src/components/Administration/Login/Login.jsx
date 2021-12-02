@@ -159,7 +159,7 @@ export default function Login(props) {
                     <CustomButton variant={"darkButton"} text={"login"} clickFn={userLogin} />
                     <div>
                         You don't have an account with us?
-                        <a href="/signUp" onClick={props.setToggle}> Sign Up. </a>
+                        <a href="#" onClick={props.setToggle}> Sign Up. </a>
                     </div>
 
                 </div>

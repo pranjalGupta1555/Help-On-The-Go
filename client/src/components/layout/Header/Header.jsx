@@ -3,7 +3,6 @@ import './header.scss';
 import logo from '../../../logoBikeDark.png';
 import logoLite from '../../../logoBike.png';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
-import Registration from '../../Administration/Registration/Registration';
 import { useHistory } from 'react-router';
 import { useStateValue } from '../../../StateProvider';
 import { FaShoppingBag, FaShoppingCart, FaUser } from 'react-icons/fa';
@@ -66,9 +65,6 @@ function Header(props) {
         }
 
     }, [])
-    const openSignUpBox = () =>{
-        navigate.push("/services")
-    }
 
     return (
         <div className="main-header">
