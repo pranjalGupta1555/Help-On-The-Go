@@ -122,3 +122,8 @@ export const updateUserByID = async (req, res) => {
         errorHandler(err.message, res);
     }
 }
+
+export const getUserInfoById = async (userId) => {
+    const seekerInfo = await UserService.checkExistingUserID(userId);
+    return seekerInfo;
+}
