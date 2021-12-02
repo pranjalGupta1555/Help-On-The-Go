@@ -37,7 +37,17 @@ const Seek = (props) => {
 
 
     const handleSubmit = async () => {
-        let filter = { min: minPrice, max: maxPrice, seekLoc: seekerlocation, skill: 'coding' };
+        // let filter = { min: minPrice, max: maxPrice, skill: 'coding' };
+        // filter = seekerlocation === "" ?
+        //     { min: minPrice, max: maxPrice, skill: 'coding' }
+        //     : { min: minPrice, max: maxPrice, skill: 'coding', seekLoc: seekerlocation };
+        console.log("check1 " + maxPrice)
+        let filter = {
+            ...(minPrice != "" && {min: minPrice}),
+            ...(maxPrice != "" && {max: maxPrice}),
+            ...(seekerlocation != "" && {seekLoc: seekerlocation}),
+            skill: 'coding'
+        }
         console.log(filter);
         const postOptions = {
             method: 'POST',
