@@ -1,13 +1,18 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useStateValue } from '../../StateProvider';
 import './Administration.scss';
 import Login from './Login/Login';
 import Registration from './Registration/Registration';
 
 export default function Administration(props) {
 
+    const [{ userCredentials }, dispatch] = useStateValue();
+
     const [showRegistration, setshowRegistration] = useState(false);
+    const [close, setclose] = useState(props.close);
+
 
     const toggleRegistration = () => {
         setshowRegistration(true);
@@ -17,17 +22,43 @@ export default function Administration(props) {
         setshowRegistration(false);
     }
 
+    const closeAdministration = () => {
+        setclose(false);
+        document.body.style.overflow = "auto";
+    }
+
+    console.log("CLOSE :: ", close);
+
     useEffect(() => {
-        window.scrollTo(0, 0);
-        document.body.style.overflow = "hidden";
+        console.log("CALLED ADMIN");
+        if(userCredentials.loggedIn) {
+            window.scrollTo(0, 0);
+            setTimeout(() => {
+                document.body.style.overflow = "hidden";
+                setclose(false);
+            }, 0);
+        } else {
+            window.scrollTo(0, 0);
+            setTimeout(() => {
+                document.body.style.overflow = "hidden";
+                setclose(true);
+            }, 0);
+        }
 
-    }, [])
+    }, [props.close])
 
-    return (
-        <div className="container">
-            {
-                showRegistration ? <Registration setToggle={toggleLogin} /> : <Login setToggle={toggleRegistration} />
-            }
-        </div>
-    )
+    if(close) {
+        return (
+            <div className="container">
+                {
+                    showRegistration ? <Registration setToggle={toggleLogin} closeAdministration={closeAdministration} /> : <Login setToggle={toggleRegistration} closeAdministration={closeAdministration} />
+                }
+            </div>
+        )
+    } else {
+        return (
+            <>
+            </>
+        )
+    }
 }

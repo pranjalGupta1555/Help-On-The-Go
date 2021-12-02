@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer/Footer';
 import React, { useEffect, useState } from 'react';
 import Layout from './components/layout/Layout';
 import { useHistory, useLocation } from 'react-router';
+import Seek from './components/Seek/Seek';
 import ServiceProvider from './components/ServiceProvider/ServiceProvider';
 import Header from './components/layout/Header/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
@@ -16,10 +17,13 @@ import Registration from './components/Administration/Registration/Registration'
 import Login from './components/Administration/Login/Login';
 
 import { useStateValue } from './StateProvider';
+import Join from './components/Administration/Join/Join';
+
 
 function App() {
 
-  const routepaths = [" ","home", "services", "seek"];
+  const routepaths = [" ", "home", "services", "seek"];
+
   const history = useHistory();
 
   const [{ userCredentials }, dispatch] = useStateValue();
@@ -28,28 +32,29 @@ function App() {
 
 
   const checkAuthentication = () => {
-    console.log(userCredentials);
+    console.log(userCredentials, "*****");
     setauthenticated(userCredentials.loggedIn);
   }
 
+
+
+  console.log("LOGGED IN ::: ", userCredentials.loggedIn);
   useEffect(() => {
     
     checkAuthentication();
 
-    return () => {
-      
-    }
-  }, [userCredentials])
+    checkAuthentication();
+
+  }, [authenticated])
+
 
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path={["/", "/home"]} render={() => (
-            <React.Fragment>
-              <Heropane component={<Content />} />
-              <Footer />
-            </React.Fragment>
+        <Route exact path={["/", "/home"]} render={() => (
+            <Layout showLogin={!authenticated} hero={true} component={<Content />}>
+            </Layout>
           )}>
           </Route>
 
@@ -59,7 +64,12 @@ function App() {
           </Route>
 
           <Route path="/seek" render={() => (
-            <Layout component={<ServiceProvider />} />
+            <Layout showLogin={!authenticated} component={<Seek />} />
+          )}>
+          </Route>
+
+          <Route path="/join" render={() => (
+            <Layout showLogin={!authenticated} component={<Join />} />
           )}>
             
           </Route>

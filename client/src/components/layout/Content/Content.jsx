@@ -2,34 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import './content.scss';
 import CustomCard from '../../utilities/customs/CustomCard/CustomCard';
+import configuration from '../../../config';
 
 function Content(props) {
     
    const [heading, setheading] = useState("");
-   const [loading, setloading] = useState(true)
-
-    const services = [{
-        service: "Service 1",
-        description: "Random description",
-    }, {
-        service: "Service 1",
-        description: "Random description",
-    }, {
-        service: "Service 1",
-        description: "Random description",
-    }, {
-        service: "Service 1",
-        description: "Random description",
-    }, {
-        service: "Service 1",
-        description: "Random description",
-    }, {
-        service: "Service 1",
-        description: "Random description",
-    }, {
-        service: "Service 1",
-        description: "Random description",
-    }]
+   const [loading, setloading] = useState(true);
+   const [servicesToDisplay, setServicesToDisplay] = useState([]);
 
     const { state } = useLocation();
     const history = useHistory();
@@ -43,14 +22,51 @@ function Content(props) {
         })
     }
 
+    const getAllServices = (serviceSelected) => {
+        fetch(`${configuration.URL}/domains`)
+            .then((response) => response.json())
+            .then((domains) => {
+                let servicesArray = [];
+                domains.map((item, index) => {
+                        item.skills.map((skill) => {
+                            if(skill.skillName != "Other") {
+                                servicesArray.push(skill);
+                            }
+                        })
+                });
+                populateServicesToDisplay(servicesArray, serviceSelected, domains);
+            });
+    }
+
+    const populateServicesToDisplay = (servicesArray, serviceSelected, domains) => {
+        if(serviceSelected === "") {
+            setServicesToDisplay(servicesArray);
+        }
+        else {
+            domains.map((item, index) => {
+                if(serviceSelected === item.name) {
+                    let servicesArray = [];
+                    item.skills.map((skill) => {
+                        if(skill.skillName != "Other") {
+                            servicesArray.push(skill);
+                        }
+                    })
+                    setServicesToDisplay(servicesArray);
+                }
+            })
+        }
+    }
+
     useEffect(() => {
-        console.log(state);
         if(state) {
             const { service } =  state;
-            setheading(service)
+            setheading(service);
+            getAllServices(service);
         }
+        else {
+            getAllServices("");
 
-    
+        }
     }, [state])
 
     return (
@@ -62,9 +78,9 @@ function Content(props) {
             
             <div className="content-services">
                 {
-                    services.map((item, index) => {
+                    servicesToDisplay.map((item, index) => {
                         return (<div className="content-services-service">
-                            <CustomCard index={index} service={item.service} handleDomainClick={handleDomainClick} >
+                            <CustomCard index={index} imagePath={item.imagePath} cardTitle={item.skillName} service={item.service} handleDomainClick={handleDomainClick} >
 
                             </CustomCard>
                         </div>)

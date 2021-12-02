@@ -64,3 +64,61 @@ export const loginUser = async (req, res) => {
 
     }
 }
+
+export const getUserInfo = async(req,res)=>{
+    try{
+        const id = req.params.id;
+        const result = await UserService.checkExistingUserID(id)
+        successHandler("success",result, res)
+    }
+    catch(err){
+        errorHandler(err.message, res);
+    }
+}
+
+export const checkUserName = async (req, res) => {
+    try {
+
+        const result =  await UserService.checkUsername(req.params.username);
+
+        if(result !== null) {
+            successHandler("success", result, res);
+        } else {
+            errorHandler("failed", res);
+        }
+    } catch (err) {
+
+        errorHandler(err.message, res);
+    }
+}
+
+export const getSeekers = async (req, res) =>{
+
+    try{
+
+        const result = await UserService.seekAndFilter(req.body)
+
+        successHandler("success",result,res);
+
+    } catch(err){
+
+        errorHandler(err.message, res)
+
+    }
+
+}
+export const updateUserByID = async (req, res) => {
+    try {
+
+        const result = await UserService.updateUser(req);
+
+        if(result !== null) {
+            successHandler("success", result, res);
+        } else {
+            errorHandler("failed", res);
+        }
+
+    } catch(err) {
+        errorHandler(err.message, res);
+    }
+}

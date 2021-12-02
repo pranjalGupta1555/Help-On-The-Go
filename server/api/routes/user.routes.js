@@ -12,5 +12,19 @@ Router.route('/user')
 Router.route('/login')
     .post(UserController.loginUser);
 
+Router.route('/user/:id')
+    .get(UserController.getUserInfo);
+
+    
+Router.route('/join/id')
+.put(UserController.updateUserByID);
+
+Router.route('/validate/:username')
+    .get(UserController.checkUserName);
+
+Router.route('/seek')
+    .post(UserController.getSeekers)
+
+
 
 export default Router;

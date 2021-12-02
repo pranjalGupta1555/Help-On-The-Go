@@ -14,6 +14,15 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
+
+    firstName:{
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
     token: {
         type: String
     },
@@ -21,8 +30,35 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         default: 'user'
     },
+    location:{
+        type: String,
+        required: true
+    },
     skillset: [],
-    interaction: []
+    interaction: [],
+    profileImage: {
+        type: String
+    },
+    tagLine: {
+        type: String
+    },
+    introductoryStatement: {
+        type: String
+    },
+    experience: {
+        type: String
+    },
+    days: [],
+    wage: {
+        type: String
+    },
+    location: {
+        type: String
+    },
+    domains: [],
+    address: {
+        type: String
+    }
 
 }, {
     versionKey: false
