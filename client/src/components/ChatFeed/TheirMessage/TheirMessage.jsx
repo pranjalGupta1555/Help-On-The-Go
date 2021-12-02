@@ -3,11 +3,6 @@ const TheirMessage=({lastMessage, message})=>{
     const isFirstMessageByUser = !lastMessage || lastMessage.sender.username !== message.sender.username;
     return(
         <div className="message-row">
-            {isFirstMessageByUser && (
-                <div 
-                    className="message-avatar"
-                />
-            )}
             {
              (message?.attachments?.length>0)
                 ?(
@@ -17,7 +12,7 @@ const TheirMessage=({lastMessage, message})=>{
                         className="message-image"
                     />
                 ):(
-                    <div className="message" style={{float:'left', backgroundColor: '#CABCBC'}}>
+                    <div className="message" style={{float:'left', backgroundColor: 'rgb(184, 212, 184)'}}>
                         {message.text}    
                     </div>
                 )

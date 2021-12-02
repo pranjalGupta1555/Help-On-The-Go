@@ -12,7 +12,7 @@ import ServiceProvider from './components/ServiceProvider/ServiceProvider';
 import Header from './components/layout/Header/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
 import {ChatEngine} from 'react-chat-engine';
-import ChatFeed  from './components/ChatFeed/ChatFeed';
+import ChatFeed from './components/ChatFeed/ChatFeed/ChatFeed';
 import Registration from './components/Administration/Registration/Registration';
 import Login from './components/Administration/Login/Login';
 
@@ -83,8 +83,8 @@ function App() {
             <Layout component={localStorage.getItem("username")?<ChatEngine
               height="100vh"
               projectID="4fdaabe1-eb81-452a-b540-34f5c8c56f37"
-              userName={localStorage.getItem("username")}
-              userSecret={localStorage.getItem("password")}
+              userName="TestUser1"
+              userSecret="Node@112233"
               renderChatFeed={(chatAppProps)=><ChatFeed {...chatAppProps}/>} />:<h2>User not logged in</h2>} />
           )}/>
 

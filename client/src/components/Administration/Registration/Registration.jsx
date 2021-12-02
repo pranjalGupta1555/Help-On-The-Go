@@ -4,7 +4,7 @@ import configuration from '../../../config';
 import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import validate from 'validator';
-import './registration.scss';
+import './Registration.scss';
 
 export default function Registration(props) {
 
@@ -119,6 +119,25 @@ export default function Registration(props) {
             setunerror('Please use a valid username! A username could be alphanumeric.')
         }
     }
+    const registerUserOnChat = async(e)=>{
+        const authObject={'PRIVATE-KEY':'6e604667-7878-480b-b9d0-cc41b6eff929'}
+        const data={
+            "username": username,
+            "first_name": firstName,
+            "last_name": lastName,
+            "secret": password,
+        }
+        fetch("https://api.chatengine.io/users/", {
+            method: 'POST',
+            headers: authObject,
+            body: data
+        }).then(response=>{
+            return((response.status==200) ? "success" : "failed");
+        }).catch((error)=>{
+            console.log("Faileed chat registration")
+            return("failed");
+        });
+    }
 
     const userSignUp = (e) => {
 
@@ -142,7 +161,8 @@ export default function Registration(props) {
             }).then((response) => response.json())
                 .then((data) => {
                     console.log(data, " ::: ");
-                    if (data.message === "success") {
+                    let chatRegisterStatus=registerUserOnChat();
+                    if (data.message === "success" && chatRegisterStatus === "success") {
                         setvariant('success');
                         setmessage('Registration successful!');
                         alertUser();
@@ -166,36 +186,6 @@ export default function Registration(props) {
             alertUser();
         }
 
-    const userNameHandler = (event) =>{
-        setUsername(event.target.value);
-    }
-    const passwordHandler = (event) =>{
-        setPassword(event.target.value)
-    }
-    const firstNameHandler = (event) =>{
-        setFirstName(event.target.value)
-    }
-    const lastNameHandler = (event) =>{
-        setLastName(event.target.value)
-    }
-    const registerUserOnChat = async(e)=>{
-        const authObject={'PRIVATE-KEY':'6e604667-7878-480b-b9d0-cc41b6eff929'}
-        const data={
-            "username": username,
-            "first_name": firstName,
-            "last_name": lastName,
-            "secret": password,
-        }
-        try{
-            await axios.post("https://api.chatengine.io/users/",data,{headers:authObject});
-            localStorage.setItem('username',username);
-            localStorage.setItem('password',password)
-        }catch(error){
-            setError("Something went wrong!")
-        }
-    }
-    const userSignUp = () => {
-        registerUserOnChat();
     }
 
     return (
@@ -212,17 +202,6 @@ export default function Registration(props) {
                     <Form.Text className="error-text"> {emailerror} </Form.Text>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicFirstName">
-                    <Form.Label>FirstName</Form.Label>
-                    <Form.Control type="text" placeholder="First Name" onChange={firstNameHandler}/>
-                    <Form.Text className="error-text">  </Form.Text>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicUsername">
-                    <Form.Label>LastName</Form.Label>
-                    <Form.Control type="text" placeholder="Last Name" onChange={lastNameHandler}/>
-                    <Form.Text className="error-text">  </Form.Text>
-                </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
@@ -256,13 +235,11 @@ export default function Registration(props) {
                     <CustomButton variant={"lightButton"} text={"SIGN UP"} clickFn={userSignUp} />
                     <div>
                         Already have an account with us?
-                        <a href="/signIn" > Log In. </a>
+                        <a href="#" onClick={props.setToggle} > Log In. </a>
                     </div>
 
                 </div>
-                <h2 className="error">
-                    {error}
-                </h2>
+
             </Form>
         </div>
     )

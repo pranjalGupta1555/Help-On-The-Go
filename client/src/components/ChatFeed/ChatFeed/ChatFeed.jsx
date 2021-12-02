@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { render } from 'react-dom';
-import MessageForm from './MessageForm';
-import MyMessage from './MyMessage';
-import TheirMessage from './TheirMessage';
+import MessageForm from '../MessageForm/MessageForm'
+import MyMessage from '../MyMessage/MyMessage';
+import TheirMessage from '../TheirMessage/TheirMessage';
+import './ChatFeed.scss'
 
 const ChatFeed = (props)=>{
     const { chats, activeChat, userName, messages } = props;
