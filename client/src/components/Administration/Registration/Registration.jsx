@@ -80,7 +80,7 @@ export default function Registration(props) {
         if(retypePassword === password) {
             setretypeError('')
         } else {
-            setretypeError('Passwords do not match!')
+            setretypeError('')
         }
     }
 
@@ -161,8 +161,8 @@ export default function Registration(props) {
             }).then((response) => response.json())
                 .then((data) => {
                     console.log(data, " ::: ");
-                    let chatRegisterStatus=registerUserOnChat();
-                    if (data.message === "success" && chatRegisterStatus === "success") {
+                    // let chatRegisterStatus=registerUserOnChat();
+                    if (data.message === "success") {
                         setvariant('success');
                         setmessage('Registration successful!');
                         alertUser();

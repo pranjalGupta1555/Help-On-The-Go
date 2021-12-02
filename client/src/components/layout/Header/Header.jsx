@@ -5,7 +5,7 @@ import logoLite from '../../../logoBike.png';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import { useHistory } from 'react-router';
 import { useStateValue } from '../../../StateProvider';
-import { FaShoppingBag, FaShoppingCart, FaUser } from 'react-icons/fa';
+import { FaComment, FaShoppingBag, FaShoppingCart, FaUser } from 'react-icons/fa';
 
 
 function Header(props) {
@@ -29,6 +29,11 @@ function Header(props) {
     const gotoJoin = (e) => {
         e.preventDefault();
         navigate.push('/join');
+    }
+
+    const handleChatClick = (e) =>{
+        e.preventDefault();
+        navigate.push('/chat');
     }
 
     useEffect(() => {
@@ -83,7 +88,7 @@ function Header(props) {
             <div className="main-header-side" hidden={props.hideSide}>
                 {/* signin button */}
                 {
-                    userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaShoppingCart /> <FaUser /> </div> : <div className="main-header-side-signin">
+                    userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaComment onClick={handleChatClick}/> <FaShoppingCart /> <FaUser /> </div> : <div className="main-header-side-signin">
                         <CustomButton variant={"outlineButton"} text="Sign In" clickFn={showLoginPage} ></CustomButton>
                     </div>
 

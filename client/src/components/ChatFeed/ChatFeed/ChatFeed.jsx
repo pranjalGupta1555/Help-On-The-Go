@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import MessageForm from '../MessageForm/MessageForm'
 import MyMessage from '../MyMessage/MyMessage';
 import TheirMessage from '../TheirMessage/TheirMessage';
-import './ChatFeed.scss'
+import '../ChatFeed.scss'
 
 const ChatFeed = (props)=>{
     const { chats, activeChat, userName, messages } = props;
@@ -20,6 +20,7 @@ const ChatFeed = (props)=>{
             />
         ))
     }
+
     const renderMessages = () =>{
         const keys=Object.keys(messages);
         return keys.map((key,index)=>{
