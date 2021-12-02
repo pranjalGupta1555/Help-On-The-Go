@@ -45,6 +45,7 @@ export const getAllReviewInfoByHelperId = async(request, response) => {
             const seekerInfo = await userService.checkExistingUserID(reviewItem.seekerId);
             updatedReviewsArray.push({
                 review: reviewItem.review,
+                rating: reviewItem.rating,
                 seekerId: reviewItem.seekerId,
                 seekerFirstName: seekerInfo.firstName,
                 seekerLastName: seekerInfo.lastName,

@@ -17,18 +17,28 @@ export const getAllReviewsOfHelper = async (allOrdersOfHelper) => {
     allOrdersOfHelper.map(async (order) => {
         reviewsArray.push({
             review: order.review,
-            seekerId: order.seekerId
+            seekerId: order.seekerId,
+            ...(order.rating !== undefined) && {rating: order.rating}
         });
     });
     return reviewsArray;
 }
 
 export const getAverageRatingOfHelper = async (allOrdersOfHelper) => {
-    let averageRating = 0;
+    let sumOfRatings = 0;
+    let count = 0;
     allOrdersOfHelper.map((order) => {
-        averageRating = averageRating + order.rating;
+        if(order.rating !== undefined && order.rating != '' && order.rating != null) {
+            sumOfRatings = sumOfRatings + order.rating;
+            count++;
+        }
     });
-    return averageRating;
+    if(count > 0) {
+        return Math.round(sumOfRatings/count);
+    }
+    else {
+        return null;
+    }
 }
 
 export const getAllReviewInfoOfHelper = async (helperId) => {
@@ -37,7 +47,6 @@ export const getAllReviewInfoOfHelper = async (helperId) => {
     let averageRating = 0;
     reviewsArray = await getAllReviewsOfHelper(allOrdersOfHelper);
     averageRating = await getAverageRatingOfHelper(allOrdersOfHelper);
-    averageRating = Math.round(averageRating/reviewsArray.length);
     return {
         helperId: helperId,
         reviews: reviewsArray,
