@@ -4,7 +4,7 @@ import configuration from '../../../config';
 import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import validate from 'validator';
-import './Registration.scss';
+import './registration.scss';
 
 export default function Registration(props) {
 
@@ -120,7 +120,8 @@ export default function Registration(props) {
         }
     }
     const registerUserOnChat = async(e)=>{
-        const authObject={'PRIVATE-KEY':'6e604667-7878-480b-b9d0-cc41b6eff929'}
+
+        const authObject={'PRIVATE-KEY':'6e604667-7878-480b-b9d0-cc41b6eff929','Content-type': 'application/json'}
         const data={
             "username": username,
             "first_name": firstName,
@@ -130,9 +131,11 @@ export default function Registration(props) {
         fetch("https://api.chatengine.io/users/", {
             method: 'POST',
             headers: authObject,
-            body: data
+            body: JSON.stringify(data)
         }).then(response=>{
-            return((response.status==200) ? "success" : "failed");
+            console.log(response.status)
+            console.log("Chat registered")
+            return((response.status==201) ? "success" : "failed");
         }).catch((error)=>{
             console.log("Faileed chat registration")
             return("failed");
@@ -160,21 +163,41 @@ export default function Registration(props) {
                 body: JSON.stringify(data)
             }).then((response) => response.json())
                 .then((data) => {
-                    console.log(data, " ::: ");
-                    // let chatRegisterStatus=registerUserOnChat();
                     if (data.message === "success") {
-                        setvariant('success');
-                        setmessage('Registration successful!');
-                        alertUser();
+                        const authObject={'PRIVATE-KEY':'6e604667-7878-480b-b9d0-cc41b6eff929','Content-type': 'application/json'}
+                        const data={
+                            "username": username,
+                            "first_name": firstName,
+                            "last_name": lastName,
+                            "secret": password,
+                        }
+                        fetch("https://api.chatengine.io/users/", {
+                            method: 'POST',
+                            headers: authObject,
+                            body: JSON.stringify(data)
+                        }).then(response=>{
+                            console.log(response.status)
+                            console.log("Chat registered")
+                            if(response.status==201){
+                                setvariant('success');
+                                setmessage('Registration successful!');
+                                alertUser();
 
-                        setTimeout(() => {
-                            props.closeAdministration();
-                        }, 1000);
-                    } else {
+                                setTimeout(() => {
+                                    props.closeAdministration();
+                                }, 1000);
+                            } else {
+                                setvariant('danger');
+                                setmessage('Failed!');
+                                alertUser();
+                            }
+                        }
+                        )
+                    }else{
                         setvariant('danger');
                         setmessage('Failed!');
                         alertUser();
-                    }
+                    }  
                 }).catch((err) => {
                     setvariant('danger');
                     setmessage('Oops! Something went wrong x(');
