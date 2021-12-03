@@ -1,6 +1,7 @@
 export default {
-    URI: 'mongodb://',
-    PORT: 27017,
+    URI: 'mongodb+srv',
+    USERNAME: 'webdev2',
+    PASSWORD: 'Node%21112233',
     DB: "HelpOnTheGo",
-    HOST: "localhost"
+    HOST: "cluster0.iguyz.mongodb.net"
 };
