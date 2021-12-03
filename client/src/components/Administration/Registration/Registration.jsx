@@ -80,7 +80,7 @@ export default function Registration(props) {
         if(e.target.value === password) {
             setretypeError('')
         } else {
-            setretypeError('')
+            setretypeError('Passwords do not match!')
         }
     }
 
