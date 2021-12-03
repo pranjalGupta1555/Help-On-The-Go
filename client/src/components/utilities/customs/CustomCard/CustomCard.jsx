@@ -8,7 +8,8 @@ import './CustomCard.scss'
 function CustomCard(props) {
     const navigate = useHistory();
     const handleDomainClick=()=>{
-        navigate.push("/seek/61a0f9d110cdb5b2e03a4995") //the id will be extracted from the props once the search flow is done
+        const  skillSelected = props.cardTitle;
+        navigate.push({ pathname: '/seek', state: {skillSelected} });
     }
     return (
         <Card className="w-25rem">
@@ -20,7 +21,7 @@ function CustomCard(props) {
                 </Card.Text>
                 <Button variant="success" key={props.index} onClick={(e) => {
                     e.preventDefault();
-                    props.handleDomainClick(props.service);
+                    handleDomainClick(props.service);
                 }}>Go somewhere</Button>
             </Card.Body>
         </Card>

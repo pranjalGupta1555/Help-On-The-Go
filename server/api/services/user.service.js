@@ -1,5 +1,7 @@
 import User from '../models/User.js';
 import jwt from "jsonwebtoken";
+import * as orderService from './order.service.js';
+
 
 export const allUsers = async () => {
     const data = await User.find().exec();
@@ -21,12 +23,35 @@ export const existingUser = async (request_data) => {
     })
 }
 
+export const getAllReviewsOfHelper = async (response) => {
+    let reviewsArray = [];
+    const allOrders = await orderService.getOrdersByHelper(response.id);
+    allOrders.map(async (order) => {
+        const seekerInfo = await checkExistingUserID(order.seekerId);
+        reviewsArray.push({
+            "review": order.review,
+            "firstName": seekerInfo.firstName,
+            "lastName": seekerInfo.lastName,
+            "profileImage": seekerInfo.profileImage
+        });
+    });
+    return reviewsArray;
+}
+
+export const getAverageRatingOfHelper = async (response) => {
+    let averageRating = 0;
+    const allOrders = await orderService.getOrdersByHelper(response.id);
+    allOrders.map((order) => {
+        averageRating = averageRating + order.rating;
+    });
+    return averageRating;
+}
+
 export const checkExistingUserID = async (extractedID) => {
     return new Promise((resolve, reject) => {
         User.findOne({
             _id: extractedID,
-        }).then((response) => {
-            console.log(response);
+        }).then(async (response) => {
             resolve(response)
         }).catch((err) => {
             reject(err)
