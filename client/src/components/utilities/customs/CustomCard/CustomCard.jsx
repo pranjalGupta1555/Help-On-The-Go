@@ -3,6 +3,7 @@ import { Card, Button, Dropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import PropTypes from "prop-types";
 import './CustomCard.scss'
+import { FaArrowRight } from 'react-icons/fa';
 
 
 function CustomCard(props) {
@@ -21,8 +22,9 @@ function CustomCard(props) {
                 </Card.Text>
                 <Button variant="success" key={props.index} onClick={(e) => {
                     e.preventDefault();
-                    handleDomainClick(props.service);
-                }}>Go somewhere</Button>
+                    props.handleDomainClick(props.service);
+                }}>Explore  <FaArrowRight /> </Button>
+
             </Card.Body>
         </Card>
     )

@@ -4,7 +4,7 @@ import logo from '../../../logoBikeDark.png';
 import logoLite from '../../../logoBike.png';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import { useHistory } from 'react-router';
-import { useStateValue } from '../../../StateProvider';
+import { useStateValue } from '../../../Store/StateProvider';
 import { FaShoppingBag, FaShoppingCart, FaUser } from 'react-icons/fa';
 
 
@@ -21,7 +21,7 @@ function Header(props) {
         e.preventDefault();
         console.log(props);
         props.showAdmin();
-        navigate.go();
+        // navigate.go();
     }
 
     console.log(props);

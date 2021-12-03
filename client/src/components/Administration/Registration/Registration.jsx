@@ -133,7 +133,7 @@ export default function Registration(props) {
         }
 
         if (unerror === '' && passwordError == '' && retypeError == '' && fnerror === '' && lnerror === '' && emailerror === '') {
-            fetch(`${configuration.URL}/user`, {
+            fetch(`${configuration.URL}/users`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'

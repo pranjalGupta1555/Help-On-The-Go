@@ -11,7 +11,7 @@ import Seek from './components/Seek/Seek';
 import ServiceProvider from './components/ServiceProvider/ServiceProvider';
 import Header from './components/layout/Header/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
-import { useStateValue } from './StateProvider';
+import { useStateValue } from './Store/StateProvider';
 import Join from './components/Administration/Join/Join';
 
 
@@ -48,13 +48,13 @@ function App() {
       <Router>
         <Switch>
         <Route exact path={["/", "/home"]} render={() => (
-            <Layout showLogin={!authenticated} hero={true} component={<Content />}>
+            <Layout showLogin={authenticated} hero={true} component={<Content />}>
             </Layout>
           )}>
           </Route>
 
           <Route path="/services" render={() => (
-            <Layout showLogin={!authenticated} component={<Content />} />
+            <Layout showLogin={authenticated} component={<Content />} />
           )}>
           </Route>
 
@@ -64,7 +64,7 @@ function App() {
           </Route>
 
           <Route path="/join" render={() => (
-            <Layout showLogin={!authenticated} component={<Join />} />
+            <Layout showLogin={authenticated} component={<Join />} />
           )}>
           </Route>
 

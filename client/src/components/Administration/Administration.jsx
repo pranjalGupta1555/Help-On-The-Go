@@ -1,7 +1,8 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useStateValue } from '../../StateProvider';
+import { useHistory } from 'react-router';
+import { useStateValue } from '../../Store/StateProvider';
 import './Administration.scss';
 import Login from './Login/Login';
 import Registration from './Registration/Registration';
@@ -13,6 +14,7 @@ export default function Administration(props) {
     const [showRegistration, setshowRegistration] = useState(false);
     const [close, setclose] = useState(props.close);
 
+    const history = useHistory();
 
     const toggleRegistration = () => {
         setshowRegistration(true);
@@ -22,15 +24,20 @@ export default function Administration(props) {
         setshowRegistration(false);
     }
 
+    const hideAdministration = () => {
+        setclose(true);
+        document.body.style.overflow = "auto";
+    }
+
     const closeAdministration = () => {
         setclose(false);
         document.body.style.overflow = "auto";
+        history.go();
     }
 
     console.log("CLOSE :: ", close);
 
     useEffect(() => {
-        console.log("CALLED ADMIN");
         if(userCredentials.loggedIn) {
             window.scrollTo(0, 0);
             setTimeout(() => {
@@ -51,7 +58,7 @@ export default function Administration(props) {
         return (
             <div className="container">
                 {
-                    showRegistration ? <Registration setToggle={toggleLogin} closeAdministration={closeAdministration} /> : <Login setToggle={toggleRegistration} closeAdministration={closeAdministration} />
+                    showRegistration ? <Registration setToggle={toggleLogin} closeAdministration={closeAdministration} /> : <Login setToggle={toggleRegistration} hideAdministration={hideAdministration} closeAdministration={closeAdministration} />
                 }
             </div>
         )

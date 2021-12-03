@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Carousel, Dropdown, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router';
-import { useStateValue } from '../../../StateProvider';
+import { useStateValue } from '../../../Store/StateProvider';
 import configuration from '../../../config';
 import './join.scss';
 import validate from 'validator';
@@ -196,17 +196,17 @@ export default function Join() {
                     console.log(data);
                     setmessage("Welcome to our community!");
                     setvariant('success');
-                    setalert();
+                    alertUser();
 
                 }).catch((err) => {
                     console.log(err);
                     setmessage("Oops! Something went wrong!");
                     setvariant('danger');
-                    setalert();
+                    alertUser();
                 })
         } else {
             // call user post
-            fetch(`${configuration.URL}/user`, {
+            fetch(`${configuration.URL}/users`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -217,7 +217,7 @@ export default function Join() {
                     console.log(data, " IN NEW CREATION ");
                     setmessage("Welcome to our community!");
                     setvariant('success');
-                    setalert();
+                    alertUser();
 
                     setTimeout(() => {
                         history.push('/');
@@ -226,7 +226,7 @@ export default function Join() {
                     console.log(err);
                     setmessage("Oops! Something went wrong!");
                     setvariant('danger');
-                    setalert();
+                    alertUser();
                 })
         }
 
