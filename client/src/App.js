@@ -9,6 +9,8 @@ import Layout from './components/layout/Layout';
 import { useHistory, useLocation } from 'react-router';
 import Seek from './components/Seek/Seek';
 import ServiceProvider from './components/ServiceProvider/ServiceProvider';
+import {ChatEngine} from 'react-chat-engine';
+import ChatFeed from './components/ChatFeed/ChatFeed/ChatFeed';
 import Header from './components/layout/Header/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
 import { useStateValue } from './Store/StateProvider';
@@ -67,7 +69,14 @@ function App() {
             <Layout showLogin={authenticated} component={<Join />} />
           )}>
           </Route>
-
+          <Route exact path="/chat" render={() => (
+            <Layout component={userCredentials.loggedIn?<ChatEngine
+              height="100vh"
+              projectID="4fdaabe1-eb81-452a-b540-34f5c8c56f37"
+              userName={userCredentials.userDetails.username}  //"TestUser1"
+              userSecret={userCredentials.userDetails.password} //"Node@112233"
+              renderChatFeed={(chatAppProps)=><ChatFeed {...chatAppProps}/>} />:<h2>User not logged in</h2>} />
+          )}/>
           <Route path="/err" render={() => (
             <>
               <Header hideSide={true} />
