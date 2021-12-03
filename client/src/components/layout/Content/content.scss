@@ -2,7 +2,7 @@
 
 .content-body {
     height: 500px;
-    margin-top: 70px;
+    margin-top: 30px;
     padding: 5%;
     height: auto;
     margin-bottom: 5%;
@@ -23,12 +23,26 @@
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: 4;
         gap: 20px;
-        // border: 1px solid;
         height: 500px;
         height: 100%;
         grid-auto-flow: row;
         width: 100%;
-        // overflow: scroll;
         
+    }
+
+    .loadmore {
+
+        width: 10%;
+        padding: 1%;
+        margin: 3% auto auto auto;
+        text-align: center;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 1px 1px 10px lightsteelblue;
+
+        &:hover {
+            color: green;
+            cursor: pointer;
+        }
     }
 }

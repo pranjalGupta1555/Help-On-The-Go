@@ -6,7 +6,7 @@ import img1 from '../../../assets/webdesigner.jpg';
 import img2 from '../../../assets/tutoring.jpg';
 import img3 from '../../../assets/homeService.jpg';
 import Administration from '../../Administration/Administration';
-import { useStateValue } from '../../../StateProvider';
+import { useStateValue } from '../../../Store/StateProvider';
 import { useHistory } from 'react-router';
 
 

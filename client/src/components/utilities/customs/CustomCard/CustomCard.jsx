@@ -3,13 +3,14 @@ import { Card, Button, Dropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import PropTypes from "prop-types";
 import './CustomCard.scss'
+import { FaArrowRight } from 'react-icons/fa';
 
 
 function CustomCard(props) {
     const navigate = useHistory();
-    const handleDomainClick=()=>{
-        const  skillSelected = props.cardTitle;
-        navigate.push({ pathname: '/seek', state: {skillSelected} });
+    const handleDomainClick=(skillChosen)=>{
+        console.log("CAME HERE !!");
+        navigate.push({ pathname: '/seek', state: {skillChosen} });
     }
     return (
         <Card className="w-25rem">
@@ -20,9 +21,12 @@ function CustomCard(props) {
                     {props.cardDescription}
                 </Card.Text>
                 <Button variant="success" key={props.index} onClick={(e) => {
+                    console.log("CAME HERE ");
                     e.preventDefault();
-                    handleDomainClick(props.service);
-                }}>Go somewhere</Button>
+                    handleDomainClick(props.cardTitle);
+
+                }}>Explore  <FaArrowRight /> </Button>
+
             </Card.Body>
         </Card>
     )

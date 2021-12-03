@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import configuration from '../../../config';
+import Loader from '../../utilities/Loader';
 
 import './subheader.scss';
 
@@ -8,6 +9,7 @@ function SubHeader() {
 
     const history = useHistory();
     const [domains, setDomains] = useState([]);
+    const [loading, setloading] = useState(true);
 
     const hitService = (link, servicePass) => {
         history.push({
@@ -38,11 +40,12 @@ function SubHeader() {
             .then((response) => response.json())
             .then((data) => {
                 setDomains(data);
+                setloading(false)
             });
     }
 
     useEffect(() => {
-
+        setloading(true)
         handleScroll();
         getAllDomains();
 
@@ -51,22 +54,41 @@ function SubHeader() {
         }
 
     }, [])
-
-
-    return (
-        <div className="main-sub-header">
-            <nav className="menu">
-                {domains.map((item, index) => {
-                    return (
-                        <li key={index} onClick={(e) => { e.preventDefault();
-                            hitService("/services", item.name) }}>
-                             {item.name} 
-                        </li>
-                    )
-                })}
-            </nav>
-        </div>
-    )
+    if (!loading) {
+        return (
+            <div className="main-sub-header">
+                <nav className="menu">
+                    {domains.map((item, index) => {
+                        return (
+                            <li key={index} onClick={(e) => {
+                                e.preventDefault();
+                                hitService("/services", item.name)
+                            }}>
+                                {item.name}
+                            </li>
+                        )
+                    })}
+                </nav>
+            </div>
+        )
+    } else {
+        return (
+            <div className="main-sub-header">
+                <nav className="menu">
+                    {domains.map((item, index) => {
+                        return (
+                            <li key={index} onClick={(e) => {
+                                e.preventDefault();
+                                hitService("/services", item.name)
+                            }}>
+                                {item.name}
+                            </li>
+                        )
+                    })}
+                </nav>
+            </div>
+        )
+    }
 }
 
 export default SubHeader

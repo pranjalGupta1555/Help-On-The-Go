@@ -9,6 +9,12 @@ export const allUsers = async () => {
     return data;
 }
 
+export const allUserHelpers = async () => {
+    const data = await User.find({ userType: 'helper' }).exec();
+
+    return data;
+}
+
 export const existingUser = async (request_data) => {
     return new Promise((resolve, reject) => {
         User.findOne({
@@ -108,46 +114,30 @@ export const userInfo = async (id) => {
     return data;
 }
 
-export const getUsersBySkill = async (data) => {
-    const requiredSkill = data.skill;
-    const users = allUsers();
-    const responseList = [];
-    (await users).forEach(user => {
-        user.skillset.forEach(skill => {
-            if (skill.skill == requiredSkill) {
-                responseList.push(user)
-            }
-        })
-    })
-    return responseList;
-}
 
-export const seekAndFilter = async (data) => {
-    const requiredSkill = data.skill;
-    const users = getUsersBySkill({
-        skill: requiredSkill
-    });
+export const seekAndFilter = async (users, data) => {
+
+    let userList = [];
     const priceMin = ('min' in data) ? data.min : 0;
-    const priceMax = ('max' in data) ? data.max : Number.MAX_SAFE_INTEGER;
-    let responseList = [];
-    (await users).forEach(user => {
-        if ('seekLoc' in data) {
-            const location = data.seekLoc;
-            user.skillset.forEach(skill => {
-                if ((skill.skill == requiredSkill) && (skill.charge >= priceMin && skill.charge <= priceMax) && (location.includes(user.location))) {
-                    responseList.push(user)
-                }
-            })
+    const priceMax = ('max' in data) ? data.max : 100;
+
+    console.log(Object.keys(data));
+
+    await users.forEach(element => {
+        if (Object.keys(data).includes("seekLocation")) {
+            if (element.skillset.includes(data.skill) && (element.wage >= priceMin && element.wage <= priceMax) && data.seekLocation.includes(element.location)) {
+                console.log(element.wage);
+                userList.push(element);
+            }
+        } else {
+            if (element.skillset.includes(data.skill) && (element.wage >= priceMin && element.wage <= priceMax)) {
+                console.log(element.wage);
+                userList.push(element);
+            }
         }
-        else {
-            user.skillset.forEach(skill => {
-                if ((skill.skill == requiredSkill) && (skill.charge > priceMin && skill.charge < priceMax)) {
-                    responseList.push(user)
-                }
-            })
-        }
-    })
-    return responseList;
+    });
+
+    return userList;
 }
 
 export const updateUser = async (req) => {

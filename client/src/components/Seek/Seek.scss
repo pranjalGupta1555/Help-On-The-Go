@@ -1,107 +1,119 @@
-.main {
-    margin-top: 120px;
-    padding: 0px // background: #131313;
-}
+@import '../../styles/utilities';
 
-$primary: #11998e;
-$secondary: #3e5ab9;
-$white: #fff;
-$gray: #9b9b9b;
-.input-group {
-    position: relative;
-    padding: 15px 0 0;
-    margin-top: 10px;
-    width: 30%;
-}
-
-.form-control {
-    width: 100px;
-}
-
-.form__field {
-    font-family: inherit;
+.seek-container {
+    margin-top: 150px;
     width: 100%;
-    border: 0;
-    border-bottom: 2px solid $gray;
-    outline: 0;
-    font-size: 1.3rem;
-    color: $white;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-    &::placeholder {
-        color: transparent;
+    @include flexProperties(true, true);
+
+    &-price {
+        width: 900px;
+        @include flexProperties(true, true);
     }
-    &:placeholder-shown~.form__label {
-        font-size: 1.3rem;
-        cursor: text;
-        top: 20px;
+
+    button {
+        margin-top: 14px;
     }
 }
 
-.form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: $gray;
-}
-
-.form__field:focus {
-    ~.form__label {
-        position: absolute;
-        top: 0;
-        display: block;
-        transition: 0.2s;
-        font-size: 1rem;
-        color: $primary;
-        font-weight: 700;
-    }
-    padding-bottom: 6px;
-    font-weight: 700;
-    border-width: 3px;
-    border-image: linear-gradient(to right, $primary, $secondary);
-    border-image-slice: 1;
-}
-
-
-/* reset input */
-
-.form__field {
-    &:required,
-    &:invalid {
-        box-shadow: none;
-    }
-}
-
-.button {
-    margin-top: 20px;
-    width: 120px;
-    margin-bottom: 40px;
-    color: white;
-    background-color: #008000;
-}
-
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-
-/* demo */
-
-// body {
-//     font-family: 'Poppins', sans-serif;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: center;
-//     min-height: 100vh;
-//     font-size: 1.5rem;
-//     background-color: #222222;
+// $primary: #11998e;
+// $secondary: #3e5ab9;
+// $white: #fff;
+// $gray: #9b9b9b;
+// .input-group {
+//     position: relative;
+//     padding: 15px 0 0;
+//     margin-top: 10px;
+//     width: 30%;
 // }
+
+// .form-control {
+//     width: 100px;
+// }
+
+// .form__field {
+//     font-family: inherit;
+//     width: 100%;
+//     border: 0;
+//     border-bottom: 2px solid $gray;
+//     outline: 0;
+//     font-size: 1.3rem;
+//     color: $white;
+//     padding: 7px 0;
+//     background: transparent;
+//     transition: border-color 0.2s;
+//     &::placeholder {
+//         color: transparent;
+//     }
+//     &:placeholder-shown~.form__label {
+//         font-size: 1.3rem;
+//         cursor: text;
+//         top: 20px;
+//     }
+// }
+
+// .form__label {
+//     position: absolute;
+//     top: 0;
+//     display: block;
+//     transition: 0.2s;
+//     font-size: 1rem;
+//     color: $gray;
+// }
+
+// .form__field:focus {
+//     ~.form__label {
+//         position: absolute;
+//         top: 0;
+//         display: block;
+//         transition: 0.2s;
+//         font-size: 1rem;
+//         color: $primary;
+//         font-weight: 700;
+//     }
+//     padding-bottom: 6px;
+//     font-weight: 700;
+//     border-width: 3px;
+//     border-image: linear-gradient(to right, $primary, $secondary);
+//     border-image-slice: 1;
+// }
+
+
+// /* reset input */
+
+// .form__field {
+//     &:required,
+//     &:invalid {
+//         box-shadow: none;
+//     }
+// }
+
+// .button {
+//     margin-top: 20px;
+//     width: 120px;
+//     margin-bottom: 40px;
+//     color: white;
+//     background-color: #008000;
+// }
+
+// .dropbtn {
+//     background-color: #4CAF50;
+//     color: white;
+//     padding: 16px;
+//     font-size: 16px;
+//     border: none;
+//     cursor: pointer;
+// }
+
+
+// /* demo */
+
+// // body {
+// //     font-family: 'Poppins', sans-serif;
+// //     display: flex;
+// //     flex-direction: column;
+// //     justify-content: center;
+// //     align-items: center;
+// //     min-height: 100vh;
+// //     font-size: 1.5rem;
+// //     background-color: #222222;
+// // }

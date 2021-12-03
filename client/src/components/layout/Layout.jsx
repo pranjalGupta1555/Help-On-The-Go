@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useStateValue } from '../../StateProvider'
+import { useStateValue } from '../../Store/StateProvider'
 import Administration from '../Administration/Administration'
 import Footer from './Footer/Footer'
 import Header from './Header/Header'

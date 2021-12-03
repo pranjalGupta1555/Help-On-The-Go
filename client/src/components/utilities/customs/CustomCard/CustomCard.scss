@@ -6,4 +6,23 @@
 
 .w-25rem {
     width: 25rem;
+    background-color: rgba(211, 211, 211, 0.397);
+    box-shadow: 0.5px 0.5px 14px rgba(2, 92, 2, 0.226);
+    border: none;
+    border-radius: 1%;
+
+    &:hover {
+        background-color: white;
+        cursor: pointer;
+        transform: scale(1,1.02) ;
+
+        button {
+            background-color: black;
+            border: 2px solid green;
+        }
+    }
+
+    button {
+        float: right;
+    }
 }

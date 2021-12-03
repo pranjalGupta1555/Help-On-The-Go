@@ -77,7 +77,7 @@ export default function Registration(props) {
     }
 
     const validateRetypePassword = (e) => {
-        if(retypePassword === password) {
+        if(e.target.value === password) {
             setretypeError('')
         } else {
             setretypeError('')
@@ -155,7 +155,7 @@ export default function Registration(props) {
         }
 
         if (unerror === '' && passwordError == '' && retypeError == '' && fnerror === '' && lnerror === '' && emailerror === '') {
-            fetch(`${configuration.URL}/user`, {
+            fetch(`${configuration.URL}/users`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
