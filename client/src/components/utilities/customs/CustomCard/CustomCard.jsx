@@ -8,9 +8,9 @@ import { FaArrowRight } from 'react-icons/fa';
 
 function CustomCard(props) {
     const navigate = useHistory();
-    const handleDomainClick=()=>{
-        const  skillSelected = props.cardTitle;
-        navigate.push({ pathname: '/seek', state: {skillSelected} });
+    const handleDomainClick=(skillChosen)=>{
+        console.log("CAME HERE !!");
+        navigate.push({ pathname: '/seek', state: {skillChosen} });
     }
     return (
         <Card className="w-25rem">
@@ -21,8 +21,10 @@ function CustomCard(props) {
                     {props.cardDescription}
                 </Card.Text>
                 <Button variant="success" key={props.index} onClick={(e) => {
+                    console.log("CAME HERE ");
                     e.preventDefault();
-                    props.handleDomainClick(props.service);
+                    handleDomainClick(props.cardTitle);
+
                 }}>Explore  <FaArrowRight /> </Button>
 
             </Card.Body>

@@ -77,7 +77,7 @@ export default function Registration(props) {
     }
 
     const validateRetypePassword = (e) => {
-        if(retypePassword === password) {
+        if(e.target.value === password) {
             setretypeError('')
         } else {
             setretypeError('Passwords do not match!')

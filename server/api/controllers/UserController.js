@@ -96,9 +96,17 @@ export const getSeekers = async (req, res) =>{
 
     try{
 
-        const result = await UserService.seekAndFilter(req.body)
+        let request_data = {...req.body};
 
-        successHandler("success",result,res);
+        let result = await UserService.allUserHelpers();
+        
+        if(request_data.skill !== "") {
+            result = await UserService.seekAndFilter(result, request_data );
+            successHandler("success", result, res);
+        } else {
+            successHandler("success", result, res);
+        }
+
 
     } catch(err){
 

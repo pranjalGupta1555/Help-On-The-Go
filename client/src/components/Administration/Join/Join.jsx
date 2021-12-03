@@ -12,9 +12,6 @@ import { makeStyles } from '@material-ui/core';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
 
-function valuetext(value) {
-    return `$ ${value}`;
-}
 
 const useStyles = makeStyles({
     root: {
@@ -76,6 +73,10 @@ export default function Join() {
 
     const history = useHistory();
 
+    const valuetext = (value) => {
+        setwage(value);
+    }
+
     const handleSelect = (selectedIndex, e) => {
         setindex(selectedIndex);
     }
@@ -84,9 +85,6 @@ export default function Join() {
         setalert(true);
     }
 
-    const handleWage = (e) => {
-        setwage(e.target.value);
-    }
 
     const handleDayChange = (e) => {
         setday(e.target.value);
@@ -373,7 +371,7 @@ export default function Join() {
 
     return (
         <div className="join-container">
-            <CustomAlert variant={variant} message={message} />
+            {alert ? <CustomAlert variant={variant} message={message} show={true} /> : <></>}
             <span onClick={takeMeHome} >
                 <FaHome className="close" />
             </span>
@@ -474,15 +472,14 @@ export default function Join() {
                             Wage per hour
                             <Slider
                                 className={classes.root}
-                                defaultValue={30}
+                                defaultValue={wage}
                                 getAriaValueText={valuetext}
                                 aria-labelledby="discrete-slider"
                                 valueLabelDisplay="auto"
                                 step={5}
-                                marks
                                 min={10}
                                 max={90}
-                                onChange={handleWage}
+                                marks
                             />
                         </div>
 

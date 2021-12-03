@@ -59,7 +59,7 @@ function App() {
           </Route>
 
           <Route path="/seek" render={() => (
-            <Layout showLogin={!authenticated} component={<Seek />} />
+            <Layout showLogin={authenticated} component={<Seek />} />
           )}>
           </Route>
 
