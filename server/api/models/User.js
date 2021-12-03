@@ -58,6 +58,12 @@ const UserSchema = new Mongoose.Schema({
     domains: [],
     address: {
         type: String
+    },
+    reviews: {
+        type: Array
+    },
+    averageRating: {
+        type: Number
     }
 
 }, {
