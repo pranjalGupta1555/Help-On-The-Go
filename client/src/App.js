@@ -15,6 +15,7 @@ import Header from './components/layout/Header/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
 import { useStateValue } from './Store/StateProvider';
 import Join from './components/Administration/Join/Join';
+import UserProfile from './components/UserProfile/UserProfile';
 
 
 function App() {
@@ -57,6 +58,11 @@ function App() {
 
           <Route path="/services" render={() => (
             <Layout showLogin={authenticated} component={<Content />} />
+          )}>
+          </Route>
+
+          <Route path="/userprofile" render={() => (
+            <Layout showLogin={!authenticated} component={<UserProfile />} />
           )}>
           </Route>
 

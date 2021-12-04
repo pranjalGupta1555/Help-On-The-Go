@@ -257,7 +257,6 @@ export default function Join() {
 
     const handleProfilePicture = (e) => {
         setprofilePicFile(URL.createObjectURL(e.target.files[0]));
-
     }
 
     const handleDescription = (e) => {

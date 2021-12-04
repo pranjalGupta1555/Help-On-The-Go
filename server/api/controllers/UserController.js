@@ -117,7 +117,7 @@ export const getSeekers = async (req, res) =>{
 }
 export const updateUserByID = async (req, res) => {
     try {
-
+        
         const result = await UserService.updateUser(req);
 
         if(result !== null) {

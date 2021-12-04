@@ -17,8 +17,8 @@ Router.route('/login')
     .post(UserController.loginUser);
 
 Router.route('/users/:id')
-    .get(UserController.getUserInfo);
-
+    .get(UserController.getUserInfo)
+    .put(UserController.updateUserByID);
     
 Router.route('/join/:id')
 .put(UserController.updateUserByID);

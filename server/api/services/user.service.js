@@ -103,31 +103,31 @@ export const getUsersBySkill = async(data) => {
     return responseList;
 }
 
-export const seekAndFilter = async(data) => {
-    const requiredSkill = data.skill;
-    const users = getUsersBySkill({
-        skill: requiredSkill
-    });
-    const priceMin = ('min' in data) ? data.min : 0;
-    const priceMax = ('max' in data) ? data.max : Number.MAX_SAFE_INTEGER;
-    let responseList = [];
-    (await users).forEach(user => {
-        if ('seekLoc' in data) {
-            const location = data.seekLoc;
-            user.skillset.forEach(skill => {
-                if ((skill.skill == requiredSkill) && (skill.charge >= priceMin && skill.charge <= priceMax) && (location.includes(user.location))) {
-                    responseList.push(user)
-                }
-            })
-        } else {
-            user.skillset.forEach(skill => {
-                if ((skill.skill == requiredSkill) && (skill.charge > priceMin && skill.charge < priceMax)) {
-                    responseList.push(user)
-                }
-            })
-        }
-    })
-}
+// export const seekAndFilter = async(data) => {
+//     const requiredSkill = data.skill;
+//     const users = getUsersBySkill({
+//         skill: requiredSkill
+//     });
+//     const priceMin = ('min' in data) ? data.min : 0;
+//     const priceMax = ('max' in data) ? data.max : Number.MAX_SAFE_INTEGER;
+//     let responseList = [];
+//     (await users).forEach(user => {
+//         if ('seekLoc' in data) {
+//             const location = data.seekLoc;
+//             user.skillset.forEach(skill => {
+//                 if ((skill.skill == requiredSkill) && (skill.charge >= priceMin && skill.charge <= priceMax) && (location.includes(user.location))) {
+//                     responseList.push(user)
+//                 }
+//             })
+//         } else {
+//             user.skillset.forEach(skill => {
+//                 if ((skill.skill == requiredSkill) && (skill.charge > priceMin && skill.charge < priceMax)) {
+//                     responseList.push(user)
+//                 }
+//             })
+//         }
+//     })
+// }
 
 
 export const seekAndFilter = async(users, data) => {

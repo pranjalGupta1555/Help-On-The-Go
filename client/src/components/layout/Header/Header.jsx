@@ -32,6 +32,11 @@ function Header(props) {
         navigate.push('/join');
     }
 
+    const goToUserProfile = (e) => {
+        e.preventDefault();
+        navigate.push('/userprofile');
+    }
+    
     const handleChatClick = (e) =>{
         e.preventDefault();
         navigate.push('/chat');
@@ -89,7 +94,7 @@ function Header(props) {
             <div className="main-header-side" hidden={props.hideSide}>
                 {/* signin button */}
                 {
-                    userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaComment onClick={handleChatClick}/> <FaShoppingCart /> <FaUser /> </div> : <div className="main-header-side-signin">
+                    userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaComment onClick={handleChatClick}/> <FaShoppingCart /> <FaUser onClick={goToUserProfile}/> </div> : <div className="main-header-side-signin">
                         <CustomButton variant={"outlineButton"} text="Sign In" clickFn={showLoginPage} ></CustomButton>
                     </div>
 
