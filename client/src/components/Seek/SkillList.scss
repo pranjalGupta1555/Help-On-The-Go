@@ -1,8 +1,17 @@
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+// * {
+//     font-family: 'Poppins', sans-serif;
+// }
+// body {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     min-height: 100vh;
+//     background: #131313;
 // // @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 // // * {
 // //     font-family: 'Poppins', sans-serif;
 // // }
-
 // // // body {
 // // //     display: flex;
 // // //     justify-content: center;
@@ -13,7 +22,6 @@
 // // .container {
 // //     position: relative;
 // // }
-
 //  .card {
 //     position: relative;
 //     width: 320px;
@@ -34,11 +42,9 @@
 //     clip-path: circle(150px at 80% 20%);
 //     transition: 0.5s ease-in-out;
 // }
-
 //  .card:hover:before {
 //     clip-path: circle(300px at 80% -20%);
 // }
-
 //  .card:after {
 //     content: 'Seek';
 //     position: absolute;
@@ -49,7 +55,6 @@
 //     font-style: italic;
 //     color: rgba(40, 16, 105, 0.05)
 // }
-
 // .card .imgBx {
 //     position: absolute;
 //     top: 35%;
@@ -60,12 +65,10 @@
 //     transition: 0.5s;
 //     border-radius: 30px;
 // }
-
 //  .card:hover .imgBx {
 //     top: 5%;
 //     transform: translateY(0%);
 // }
-
 // .card .imgBx img {
 //     position: absolute;
 //     border-radius: 5px;
@@ -74,7 +77,6 @@
 //     transform: translate(-50%, -50%);
 //     width: 230px;
 // }
-
 // // .container .card .contentBx {
 // //     position: absolute;
 // //     bottom: 0;
@@ -84,11 +86,9 @@
 // //     transition: 1s;
 // //     z-index: 1;
 // // }
-
 // // .container .card:hover .contentBx {
 // //     height: 250px;
 // // }
-
 // // .container .card .contentBx h2 {
 // //     position: relative;
 // //     font-weight: 300;
@@ -97,11 +97,9 @@
 // //     color: #fff;
 // //     margin: 0;
 // // }
-
 // // .container .card:hover .contentBx h2 {
 // //     display: none;
 // // }
-
 // // .container .card .contentBx h1 {
 // //     position: relative;
 // //     font-weight: 300;
@@ -110,16 +108,13 @@
 // //     color: #fff;
 // //     margin: 0;
 // // }
-
 // // .container .card .contentBx h1 {
 // //     display: none;
 // // }
-
 // // .container .card:hover .contentBx h1 {
 // //     justify-content: center;
 // //     align-items: center;
 // // }
-
 // // .container .card .contentBx .size,
 // // .container .card .contentBx .color {
 // //     display: flex;
@@ -132,20 +127,17 @@
 // //     padding-top: 0;
 // //     padding-bottom: 0;
 // // }
-
 // // .container .card:hover .contentBx:hover button:hover {
 // //     background-color: #5d78c4;
 // //     padding: 5px;
 // //     color: white;
 // //     transition: 0.1s;
 // // }
-
 // // .container .card:hover .contentBx:hover button {
 // //     background-color: white;
 // //     padding: 5px;
 // //     transition: 0s;
 // // }
-
 // // .container .card .contentBx button {
 // //     display: inline-block;
 // //     background: #fff;
@@ -156,7 +148,6 @@
 // //     transform: translateY(50px);
 // //     transition: 0.2s;
 // // }
-
 // // .container .card:hover .contentBx button {
 // //     opacity: 1;
 // //     transform: translateY(0px);

@@ -1,15 +1,12 @@
 @import '../../styles/utilities';
-
 .seek-container {
     margin-top: 150px;
     width: 100%;
     @include flexProperties(true, true);
-
     &-price {
         width: 900px;
         @include flexProperties(true, true);
     }
-
     button {
         margin-top: 14px;
     }
@@ -25,11 +22,9 @@
 //     margin-top: 10px;
 //     width: 30%;
 // }
-
 // .form-control {
 //     width: 100px;
 // }
-
 // .form__field {
 //     font-family: inherit;
 //     width: 100%;
@@ -50,7 +45,6 @@
 //         top: 20px;
 //     }
 // }
-
 // .form__label {
 //     position: absolute;
 //     top: 0;
@@ -59,7 +53,6 @@
 //     font-size: 1rem;
 //     color: $gray;
 // }
-
 // .form__field:focus {
 //     ~.form__label {
 //         position: absolute;
@@ -76,17 +69,13 @@
 //     border-image: linear-gradient(to right, $primary, $secondary);
 //     border-image-slice: 1;
 // }
-
-
 // /* reset input */
-
 // .form__field {
 //     &:required,
 //     &:invalid {
 //         box-shadow: none;
 //     }
 // }
-
 // .button {
 //     margin-top: 20px;
 //     width: 120px;
@@ -94,7 +83,6 @@
 //     color: white;
 //     background-color: #008000;
 // }
-
 // .dropbtn {
 //     background-color: #4CAF50;
 //     color: white;
@@ -103,10 +91,7 @@
 //     border: none;
 //     cursor: pointer;
 // }
-
-
 // /* demo */
-
 // // body {
 // //     font-family: 'Poppins', sans-serif;
 // //     display: flex;
