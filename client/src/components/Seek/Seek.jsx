@@ -4,22 +4,42 @@ import { useParams } from 'react-router-dom';
 import { useHistory, useLocation } from 'react-router-dom';
 import shortid from 'shortid';
 import SkillList from './SkillList';
+import { makeStyles } from '@material-ui/styles';
+import { Form } from 'react-bootstrap';
+import CustomDropdown from '../utilities/customs/CustomDropdown/CustomDropdown';
+import CustomButton from '../utilities/customs/CustomButton/CustomButton';
+
+const useStyles = makeStyles({
+    root: {
+        width: 200
+    }
+})
+
 
 const Seek = (props) => {
+
+    const classes = useStyles();
+
     const [users, setUsers] = useState([]);
     const [rating, setRating] = useState(0);
     const [loading, setLoading] = useState(true);
     // const id = useParams();
     // const location = useLocation();
     let { state } = useLocation();
+    console.log(state, " !!");
     // const skill = state.skillSelected;
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [seekerlocation, setSeekerlocation] = useState('');
 
+    const places = ['San Fransico', 'Boston', 'Los Angeles']
+
     useEffect(() => {
+
+        const { skillChosen } = state;
+
         const fetchUsers = async () => {
-            const req = { "skill": "coding" };
+            const req = { "skill": skillChosen };
             const postOptions = {
                 method: 'POST',
                 headers: {
@@ -36,16 +56,26 @@ const Seek = (props) => {
     }, []);
 
 
+    const handleMinPrice = (e) => {
+        setMinPrice(e.target.value);
+    }
+
+    const handleMaxPrice = (e) => {
+        setMaxPrice(e.target.value);
+    }
+
+    const handleLocationChange = (e) => {
+        setSeekerlocation(e.target.value);
+
+    }
+
     const handleSubmit = async () => {
-        // let filter = { min: minPrice, max: maxPrice, skill: 'coding' };
-        // filter = seekerlocation === "" ?
-        //     { min: minPrice, max: maxPrice, skill: 'coding' }
-        //     : { min: minPrice, max: maxPrice, skill: 'coding', seekLoc: seekerlocation };
+        
         console.log("check1 " + maxPrice)
         let filter = {
-            ...(minPrice != "" && {min: minPrice}),
-            ...(maxPrice != "" && {max: maxPrice}),
-            ...(seekerlocation != "" && {seekLoc: seekerlocation}),
+            ...(minPrice != "" && { min: minPrice }),
+            ...(maxPrice != "" && { max: maxPrice }),
+            ...(seekerlocation != "" && { seekLoc: seekerlocation }),
             skill: 'coding'
         }
         console.log(filter);
@@ -63,31 +93,30 @@ const Seek = (props) => {
         setMaxPrice('');
         setSeekerlocation('');
     }
+
+    console.log("MINN MAX ", minPrice, maxPrice);
+
     // if (!loading) {
     return (
         <>
-            <div className="main">
-                {/* <p>{state.dom} {state.skill}</p> */}
-                <div className="input-group">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="">Min and Max Price</span>
-                    </div>
-                    <input type="text" className="form-control" placeholder="Min Price" value={minPrice}
-                        onChange={(e) => { e.preventDefault(); setMinPrice(e.target.value); }} />
-                    <input type="text" className="form-control" placeholder="Max Price" value={maxPrice}
-                        onChange={(e) => { e.preventDefault(); setMaxPrice(e.target.value); }} />
+            <div className="seek-container">
+                <div className="seek-container-price">
+                    <Form.Group className="mb-3" className={classes.root} controlId="formBasicUsername" onChange={handleMinPrice} >
+                        <Form.Label>Min Price</Form.Label>
+                        <Form.Control type="username" placeholder="10" value={minPrice} />
+                    </Form.Group>
+                    <Form.Group className="mb-3" className={classes.root} controlId="formBasicUsername" onChange={handleMaxPrice} >
+                        <Form.Label>Max Price</Form.Label>
+                        <Form.Control type="username" placeholder="100" value={maxPrice} />
+                    </Form.Group>
 
+                    <CustomDropdown datalist={places} title="choose location"
+                        selectedItem={seekerlocation} multiple={false} handleChange={handleLocationChange} />
+                    <CustomButton variant={'darkButton'} clickFn={handleSubmit} text="Filter" />
                 </div>
-                <div className="input-group">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="">Location</span>
-                    </div>
-                    <input type="text" className="form-control" value={seekerlocation} placeholder="Location"
-                        onChange={(e) => { e.preventDefault(); setSeekerlocation(e.target.value); }} />
-                </div>
+
             </div>
-            <button className="btn btn-success button" onClick={(e) => { e.preventDefault(); handleSubmit() }}> Submit </button>
-            <SkillList users={users}></SkillList>
+            {/* <SkillList users={users}></SkillList> */}
 
         </>
     )

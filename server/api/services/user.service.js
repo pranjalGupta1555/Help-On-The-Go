@@ -8,6 +8,12 @@ export const allUsers = async() => {
     return data;
 }
 
+export const allUserHelpers = async() => {
+    const data = await User.find({ userType: 'helper' }).exec();
+
+    return data;
+}
+
 export const existingUser = async(request_data) => {
     return new Promise((resolve, reject) => {
         User.findOne({
@@ -121,7 +127,32 @@ export const seekAndFilter = async(data) => {
             })
         }
     })
-    return responseList;
+}
+
+
+export const seekAndFilter = async(users, data) => {
+
+    let userList = [];
+    const priceMin = ('min' in data) ? data.min : 0;
+    const priceMax = ('max' in data) ? data.max : 100;
+
+    console.log(Object.keys(data));
+
+    await users.forEach(element => {
+        if (Object.keys(data).includes("seekLocation")) {
+            if (element.skillset.includes(data.skill) && (element.wage >= priceMin && element.wage <= priceMax) && data.seekLocation.includes(element.location)) {
+                console.log(element.wage);
+                userList.push(element);
+            }
+        } else {
+            if (element.skillset.includes(data.skill) && (element.wage >= priceMin && element.wage <= priceMax)) {
+                console.log(element.wage);
+                userList.push(element);
+            }
+        }
+    });
+
+    return userList;
 }
 
 export const updateUser = async(req) => {

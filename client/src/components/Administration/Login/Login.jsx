@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { FaEject, FaRegTimesCircle } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
-import { actionTypes } from '../../../reducer';
-import { useStateValue } from '../../../StateProvider';
+import { actionTypes } from '../../../Store/reducer';
+import { useStateValue } from '../../../Store/StateProvider';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
 import configuration from '../../../config';
-import './Login.scss';
+import './login.scss';
 
 export default function Login(props) {
     const [{ userCredentials }, dispatch] = useStateValue();
@@ -114,7 +114,7 @@ export default function Login(props) {
                     setmessage('Login successful!');
                     alertUser();
 
-                    props.closeAdministration();
+                    props.hideAdministration();
 
                 }).catch((err) => {
                     setvariant('danger');

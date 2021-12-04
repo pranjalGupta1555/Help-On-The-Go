@@ -6,8 +6,8 @@ import shortid from 'shortid';
 const SkillList = ({ users }) => {
     if (users.length > 1) {
         return (
-            <div className="container">
-                <div className="row row-cols-3">
+            <div>
+                <div>
                     {users.map((user) => (
                         <div className="card" key={shortid.generate()}>
                             <div className="imgBx">
@@ -48,8 +48,8 @@ const SkillList = ({ users }) => {
     } else if (users.length == 1) {
         console.log(users);
         return (
-            <div className="container">
-                <div className="row row-cols-3">
+            <div>
+                <div>
                     <div className="card" >
                         <div className="imgBx">
                             <img src="https://www.stepsoftware.com/media/k2/items/cache/184b7cb84d7b456c96a0bdfbbeaa5f14_XL.jpg" />
