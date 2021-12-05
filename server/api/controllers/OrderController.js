@@ -38,9 +38,9 @@ export const getOrderById = async(request, response) => {
 export const getAllReviewInfoByHelperId = async(request, response) => {
     try {
         const helperId = request.params.id;
-        const allReviewInfoOfHelper = await orderService.getAllReviewInfoOfHelper(helperId);
+        let allReviewInfoOfHelper = await orderService.getAllReviewInfoOfHelper(helperId);
         const reviewsArray = allReviewInfoOfHelper.reviews;
-        const updatedReviewsArray = [];
+        let updatedReviewsArray = [];
         reviewsArray.map(async (reviewItem, index) => {
             const seekerInfo = await userService.checkExistingUserID(reviewItem.seekerId);
             updatedReviewsArray.push({
@@ -56,6 +56,30 @@ export const getAllReviewInfoByHelperId = async(request, response) => {
                 setSuccessResponse(allReviewInfoOfHelper, response);
             }
         });
+    } catch (e) {
+        errorhandler(e.message, response);
+    }
+}
+
+export const getSeekerInfoByHelperId = async(request, response) => {
+    try {
+        const helperId = request.params.helperId;
+        const allOrdersOfHelper = await orderService.getAllOrdersOfAHelper(helperId);
+        let allSeekersByHelper = [];
+        allOrdersOfHelper.map(async (orderItem, index) => {
+            const seekerInfo = await userService.checkExistingUserID(orderItem.seekerId);
+            allSeekersByHelper.push({
+                firstName: seekerInfo.firstName,
+                lastName: seekerInfo.lastName,
+                profileImageURL: seekerInfo.profileImage,
+                domainName: orderItem.domainName,
+                skillName: orderItem.skillName,
+                createdDate: orderItem.createdDate
+            });
+            if(index == allOrdersOfHelper.length-1) {
+                setSuccessResponse(allSeekersByHelper, response);
+            }
+        })
     } catch (e) {
         errorhandler(e.message, response);
     }
