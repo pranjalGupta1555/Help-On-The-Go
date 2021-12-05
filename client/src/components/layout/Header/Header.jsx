@@ -36,10 +36,16 @@ function Header(props) {
         e.preventDefault();
         navigate.push('/userprofile');
     }
-    
-    const handleChatClick = (e) =>{
+
+    const handleChatClick = (e) => {
         e.preventDefault();
         navigate.push('/chat');
+    }
+
+    const handlePreviousOrders = (e) => {
+        navigate.push({
+            pathname: "previousOrders",
+        })
     }
 
     useEffect(() => {
@@ -86,7 +92,7 @@ function Header(props) {
 
             {/* Search bar */}
             <div className="main-header-searchbar" style={{ display: hideSearch }}>
-                <input type="search" ></input>
+                <input type="search" style={{ marginTop: "0px" }}></input>
                 <CustomButton variant={variant} text="Search"></CustomButton>
             </div>
 
@@ -94,7 +100,15 @@ function Header(props) {
             <div className="main-header-side" hidden={props.hideSide}>
                 {/* signin button */}
                 {
-                    userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaComment onClick={handleChatClick}/> <FaShoppingCart /> <FaUser onClick={goToUserProfile}/> </div> : <div className="main-header-side-signin">
+                    userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaComment onClick={handleChatClick} /> <FaShoppingCart />
+                        <FaUser />
+                        <li className="nav__listitem">
+                            <ul className="nav__listitemdrop">
+                                <li onClick={goToUserProfile}>My Profile</li>
+                                <li onClick={handlePreviousOrders}>My Orders</li>
+                            </ul>
+                        </li>
+                    </div> : <div className="main-header-side-signin">
                         <CustomButton variant={"outlineButton"} text="Sign In" clickFn={showLoginPage} ></CustomButton>
                     </div>
 

@@ -2,14 +2,21 @@
 .seek-container {
     margin-top: 150px;
     width: 100%;
+    margin-bottom: 50px;
     @include flexProperties(true, true);
     &-price {
         width: 900px;
         @include flexProperties(true, true);
     }
     button {
-        margin-top: 14px;
+        margin-top: 34px;
     }
+}
+
+.seek-filter-container {
+    width: 100%;
+    margin-bottom: 50px;
+    @include flexProperties(true, true);
 }
 
 // $primary: #11998e;

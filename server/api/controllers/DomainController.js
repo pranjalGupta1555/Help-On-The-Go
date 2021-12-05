@@ -35,24 +35,9 @@ export const getDomainById = async(request, response) => {
     }
 };
 
-export const getAllDomains = async(request, response) => {
-    try {
-        const domain = await domainService.getAllDomainNames();
-        setSuccessResponse(domain, response);
-    } catch (e) {
-        errorhandler(e.message, response);
-    }
-};
 
-export const getSkillsForDomain = async(request, response) => {
-    try {
-        const domainName = request.params.name;
-        const domain = await domainService.getSkills(domainName);
-        setSuccessResponse(domain, response);
-    } catch (e) {
-        errorhandler(e.message, response);
-    }
-};
+
+
 
 export const findUsersBySkills = async(request, response) => {
     try {
@@ -60,6 +45,16 @@ export const findUsersBySkills = async(request, response) => {
         const skillName = request.params.skillName;
         const domain = await domainService.findUsersBySkills(domainName, skillName);
         setSuccessResponse(domain, response);
+    } catch (e) {
+        errorhandler(e.message, response);
+    }
+};;
+
+export const getDomainSkills = async(request, response) => {
+    try {
+        const domain = request.params.domain;
+        const skills = await domainService.getAllSkills(domain);
+        setSuccessResponse(skills, response);
     } catch (e) {
         errorhandler(e.message, response);
     }

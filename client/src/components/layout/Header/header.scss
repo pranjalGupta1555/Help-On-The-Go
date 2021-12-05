@@ -1,26 +1,21 @@
 @import "../../../styles/utilities";
-
 .main-header {
     @include flexProperties(true, false);
-
     background-color: transparent !important;
     height: 80px;
     top: 0;
     position: fixed;
     width: 100%;
     z-index: 10;
-
     &-icon {
         padding-left: 10%;
         // border: 1px solid yellow;
     }
-
     &-searchbar {
         padding: auto;
         margin: auto;
         max-width: 400px;
         width: 100%;
-
         @include flexProperties(true, true);
         input {
             height: 30px;
@@ -31,7 +26,6 @@
             padding: 2%;
         }
     }
-
     &-side {
         float: right;
         margin-right: 5%;
@@ -39,31 +33,77 @@
         padding: auto;
         // margin: auto;
         width: 280px;
-
         @include flexProperties(true, false);
-
         &-icons {
             color: rgba(12, 116, 59, 0.671);
             font-size: 30pt;
-
-            & > * {
+            &>* {
                 border: 2px solid;
                 border-radius: 50%;
                 padding: 3px;
                 margin-top: -30px;
                 margin-right: 5px;
             }
-
-            & > * :hover {
+            &>* :hover {
                 color: green;
                 cursor: pointer;
                 box-shadow: 1px 2px 20px lightgreen;
             }
         }
-
         &-signin,
         &-join {
             margin: 2px;
+        }
+    }
+}
+
+.nav__listitem {
+    list-style: none;
+    font-weight: 300;
+    position: relative;
+    margin-top: -60px;
+    width: 40px;
+    margin-left: 100px;
+    height: 40px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    &:hover::after,
+    &:focus::after {
+        width: 80%;
+    }
+    &:hover ul,
+    &:focus ul {
+        opacity: 1;
+        visibility: visible;
+    }
+    &drop {
+        position: absolute;
+        top: 35px;
+        left: 1rem;
+        font-size: 14px;
+        box-shadow: 0 0 10px #e1e5ee;
+        background-color: white;
+        border-radius: 10px;
+        width: 8rem;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 0rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 200ms ease-in-out;
+        li {
+            list-style: none;
+            padding: 0.2rem .05rem;
+            font-size: 14px;
+            margin-left: 10px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: background-color 200ms ease-in-out;
+            &:hover,
+            &:focus {
+                background-color: #eafce4a8;
+            }
         }
     }
 }

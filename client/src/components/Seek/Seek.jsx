@@ -23,23 +23,28 @@ const Seek = (props) => {
     const [users, setUsers] = useState([]);
     const [rating, setRating] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [domains, setDomains] = useState([]);
+    const [skills, setSkills] = useState([]);
+    const [locations, setLocations] = useState([]);
+    const [selectedDomain, setSelectedDomain] = useState('');
+    const [selectedSkill, setSelectedSkill] = useState('');
     // const id = useParams();
     // const location = useLocation();
     let { state } = useLocation();
     console.log(state, " !!");
+    let { skillChosen } = state;
+    let seekerLoc = '';
     // const skill = state.skillSelected;
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [seekerlocation, setSeekerlocation] = useState('');
 
-    const places = ['San Fransico', 'Boston', 'Los Angeles']
+    // const places = ['San Fransico', 'Boston', 'Los Angeles']
 
     useEffect(() => {
-
-        const { skillChosen } = state;
-
         const fetchUsers = async () => {
             const req = { "skill": skillChosen };
+            setSelectedSkill(skillChosen);
             const postOptions = {
                 method: 'POST',
                 headers: {
@@ -48,11 +53,41 @@ const Seek = (props) => {
                 body: JSON.stringify(req)
             };
             const result = await fetch('http://localhost:4000/seek', postOptions).then(response => response.json());
-            console.log(result);
             setUsers(result.data);
             setLoading(false);
         }
         fetchUsers();
+        const fetchDomains = async () => {
+            const postOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            };
+            const result = await fetch('http://localhost:4000/domains', postOptions).then(response => response.json());
+            let domainNames = []
+            result.map((domain) => domainNames.push(domain.name));
+            setDomains(domainNames);
+            setLoading(false);
+        }
+        fetchDomains();
+        const fetchLocations = async () => {
+            const postOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            };
+            const result = await fetch('http://localhost:4000/locations', postOptions).then(response => response.json());
+            console.log( result.data[0].places);
+            let places = [];
+            result.data[0].places.map((place) => {
+                places.push(place);
+            })
+            setLocations(places);
+            setLoading(false);
+        }
+        fetchLocations();
     }, []);
 
 
@@ -66,19 +101,40 @@ const Seek = (props) => {
 
     const handleLocationChange = (e) => {
         setSeekerlocation(e.target.value);
+        seekerLoc = e.target.value;
+    }
 
+    const handleDomainChange = (e) => {
+        setSelectedDomain(e.target.value)
+        const fetchSkills = async () => {
+            const postOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            };
+            const result = await fetch('http://localhost:4000/skills/' + e.target.value, postOptions).then(response => response.json());
+            console.log(result);
+            setSkills(result);
+            setLoading(false);
+        }
+        fetchSkills();
+    }
+
+    const handleSkillChange = (e) => {
+        skillChosen = (e.target.value);
+        setSelectedSkill(e.target.value)
     }
 
     const handleSubmit = async () => {
-        
         console.log("check1 " + maxPrice)
         let filter = {
             ...(minPrice != "" && { min: minPrice }),
             ...(maxPrice != "" && { max: maxPrice }),
             ...(seekerlocation != "" && { seekLoc: seekerlocation }),
-            skill: 'coding'
+            skill: selectedSkill
         }
-        console.log(filter);
+        console.log(JSON.stringify(filter));
         const postOptions = {
             method: 'POST',
             headers: {
@@ -95,8 +151,6 @@ const Seek = (props) => {
     }
 
     console.log("MINN MAX ", minPrice, maxPrice);
-
-    // if (!loading) {
     return (
         <>
             <div className="seek-container">
@@ -110,13 +164,22 @@ const Seek = (props) => {
                         <Form.Control type="username" placeholder="100" value={maxPrice} />
                     </Form.Group>
 
-                    <CustomDropdown datalist={places} title="choose location"
+                    <CustomDropdown datalist={locations} title="choose location"
                         selectedItem={seekerlocation} multiple={false} handleChange={handleLocationChange} />
                     <CustomButton variant={'darkButton'} clickFn={handleSubmit} text="Filter" />
                 </div>
 
             </div>
-            {/* <SkillList users={users}></SkillList> */}
+            <div className="seek-filter-container">
+                <div>
+                    <CustomDropdown datalist={domains} title="Choose a Domain"
+                        selectedItem={selectedDomain} multiple={false} handleChange={handleDomainChange} />
+                    <CustomDropdown datalist={skills} 
+                        selectedItem={selectedSkill} multiple={false} handleChange={handleSkillChange} />
+                    <CustomButton variant={'darkButton'} clickFn={handleSubmit} text="Search" />
+                </div>
+            </div>
+            <SkillList users={users}></SkillList>
 
         </>
     )

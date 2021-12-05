@@ -17,31 +17,8 @@ export const getDomainById = (id) => {
     return promise;
 }
 
-export const getAllDomainNames = async(params = {}) => {
-    const promise = await User.find().exec();
-    let dom = []
-    dom.push('Select a Domain')
-    for (let i = 0; i < promise.length; i++) {
-        for (let j = 0; j < promise[i].skillset.length; j++) {
-            dom.push(promise[i].skillset[j].domain);
-        }
-    }
-    return [...new Set(dom)];
-};
 
-export const getSkills = async(domain) => {
-    const promise = await User.find().exec();
-    let skills = []
-    skills.push('Select a Skill')
-    for (let i = 0; i < promise.length; i++) {
-        for (let j = 0; j < promise[i].skillset.length; j++) {
-            if (promise[i].skillset[j].domain == domain) {
-                skills.push(promise[i].skillset[j].skill);
-            }
-        }
-    }
-    return [...new Set(skills)];
-};
+
 
 export const findUsersBySkills = async(domainName, skillName) => {
     const promise = await User.find().exec();
@@ -54,4 +31,20 @@ export const findUsersBySkills = async(domainName, skillName) => {
         }
     }
     return users;
+};
+
+export const getAllSkills = async(domain) => {
+    const promise = await Domain.find().exec();
+    let filteredskills = [];
+    const domainName = domain;
+    promise.map((domain) => {
+        if (domain.name == domainName) {
+            domain.skills.map((skill) => {
+                filteredskills.push(skill.skillName);
+            })
+        }
+    })
+    return filteredskills.filter(function(el) {
+        return el != null;
+    });;
 };

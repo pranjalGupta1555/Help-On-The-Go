@@ -14,6 +14,15 @@ const setSuccessResponse = (data, response) => {
     response.json(data);
 }
 
+const errorHandler = (message, res) => {
+    res.status(400).json({ error: message });
+}
+
+// this function sets the response from the data passed to it
+const successHandler = (message, data, res) => {
+    res.status(200).json({ message: message, data: data });
+}
+
 // this is used to fetch all the Orders from the Orders Service
 export const getAllOrders = async(request, response) => {
     try {
@@ -35,13 +44,30 @@ export const getOrderById = async(request, response) => {
     }
 };
 
+export const getAllHelpersForSeeker = async(request, response) => {
+    try {
+        const seekerId = request.params.id;
+        const result = await orderService.getAllHelpersForASeeker(seekerId);
+        let helpers = [];
+        for (let i = 0; i < result.length; i++) {
+            console.log(result[i]);
+            const helper = await userService.userInfo(result[i]);
+            helpers.push(helper);
+        }
+        successHandler("success", helpers, response);
+    } catch (err) {
+        errorHandler(err.message, response);
+    }
+};
+
+
 export const getAllReviewInfoByHelperId = async(request, response) => {
     try {
         const helperId = request.params.id;
         let allReviewInfoOfHelper = await orderService.getAllReviewInfoOfHelper(helperId);
         const reviewsArray = allReviewInfoOfHelper.reviews;
         let updatedReviewsArray = [];
-        reviewsArray.map(async (reviewItem, index) => {
+        reviewsArray.map(async(reviewItem, index) => {
             const seekerInfo = await userService.checkExistingUserID(reviewItem.seekerId);
             updatedReviewsArray.push({
                 review: reviewItem.review,
@@ -51,7 +77,7 @@ export const getAllReviewInfoByHelperId = async(request, response) => {
                 seekerLastName: seekerInfo.lastName,
                 seekerProfilePage: seekerInfo.profileImage
             });
-            if(index == reviewsArray.length-1) {
+            if (index == reviewsArray.length - 1) {
                 allReviewInfoOfHelper.reviews = updatedReviewsArray;
                 setSuccessResponse(allReviewInfoOfHelper, response);
             }
@@ -66,7 +92,7 @@ export const getSeekerInfoByHelperId = async(request, response) => {
         const helperId = request.params.helperId;
         const allOrdersOfHelper = await orderService.getAllOrdersOfAHelper(helperId);
         let allSeekersByHelper = [];
-        allOrdersOfHelper.map(async (orderItem, index) => {
+        allOrdersOfHelper.map(async(orderItem, index) => {
             const seekerInfo = await userService.checkExistingUserID(orderItem.seekerId);
             allSeekersByHelper.push({
                 firstName: seekerInfo.firstName,
@@ -76,7 +102,7 @@ export const getSeekerInfoByHelperId = async(request, response) => {
                 skillName: orderItem.skillName,
                 createdDate: orderItem.createdDate
             });
-            if(index == allOrdersOfHelper.length-1) {
+            if (index == allOrdersOfHelper.length - 1) {
                 setSuccessResponse(allSeekersByHelper, response);
             }
         })

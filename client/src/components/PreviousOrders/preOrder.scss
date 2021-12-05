@@ -1,0 +1,102 @@
+.PRcards {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 10px;
+    margin-top: 130px;
+    margin-left: 100px;
+}
+
+.PRcards .PRcard {
+    position: relative;
+    min-width: 300px;
+    height: 360px;
+    color: grey;
+    background-color: darkcyan;
+    font-weight: 500;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 5px 5px 5px 5px #888888;
+}
+
+.PRcards .PRcard:hover {
+    transform: scale(1.02);
+}
+
+.PRcards .PRcard:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    Left: 0;
+    width: 100%;
+    height: 100%;
+    background: #9bdc28;
+    clip-path: circle(10% at 0% 0%);
+    transition: clip-path 0.5s ease-in-out;
+}
+
+.PRcards .PRcard:hover:before {
+    clip-path: circle(20% at 0% 0%);
+}
+
+.PRcards .PRcard:after {
+    content: 'Seek';
+    position: absolute;
+    top: 30%;
+    Left: -20%;
+    font-size: 12em;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.04);
+}
+
+.PRcard-content {
+    background-color: white;
+    border-radius: 10px;
+    line-height: 20px;
+}
+
+.PRcard-content p {
+    color: gray;
+    margin-left: 20px;
+}
+
+.PRcards .PRcard .PRcard-content .imgBx {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10000;
+    width: 50%;
+    height: 220px;
+    transition: 0.5s;
+}
+
+.PRcards .PRcard:hover .PRcard-content .imgBx {
+    top: 20%;
+    position: relative;
+    transform: translateY(0%);
+}
+
+.PRcards .PRcard .PRcard-content p {
+    position: relative;
+    letter-spacing: 0px;
+    margin-bottom: 0px;
+}
+
+.PRbutton {
+    margin-top: 10px;
+    margin-left: 80px;
+    background-color: #008000;
+    color: white;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
+.PRbutton::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+}

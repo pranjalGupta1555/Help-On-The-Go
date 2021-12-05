@@ -9,12 +9,13 @@ import Layout from './components/layout/Layout';
 import { useHistory, useLocation } from 'react-router';
 import Seek from './components/Seek/Seek';
 import ServiceProvider from './components/ServiceProvider/ServiceProvider';
-import {ChatEngine} from 'react-chat-engine';
+import { ChatEngine } from 'react-chat-engine';
 import ChatFeed from './components/ChatFeed/ChatFeed/ChatFeed';
 import Header from './components/layout/Header/Header';
 import ErrorComponent from './components/utilities/ErrorComponent';
 import { useStateValue } from './Store/StateProvider';
 import Join from './components/Administration/Join/Join';
+import PreOrder from './components/PreviousOrders/preOrder';
 import UserProfile from './components/UserProfile/UserProfile';
 
 
@@ -38,7 +39,7 @@ function App() {
 
   console.log("LOGGED IN ::: ", userCredentials.loggedIn);
   useEffect(() => {
-    
+
     checkAuthentication();
 
     checkAuthentication();
@@ -50,7 +51,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-        <Route exact path={["/", "/home"]} render={() => (
+          <Route exact path={["/", "/home"]} render={() => (
             <Layout showLogin={authenticated} hero={true} component={<Content />}>
             </Layout>
           )}>
@@ -76,13 +77,13 @@ function App() {
           )}>
           </Route>
           <Route exact path="/chat" render={() => (
-            <Layout component={userCredentials.loggedIn?<ChatEngine
+            <Layout component={userCredentials.loggedIn ? <ChatEngine
               height="100vh"
               projectID="4fdaabe1-eb81-452a-b540-34f5c8c56f37"
               userName={userCredentials.userDetails.username}  //"TestUser1"
               userSecret={userCredentials.userDetails.password} //"Node@112233"
-              renderChatFeed={(chatAppProps)=><ChatFeed {...chatAppProps}/>} />:<h2>User not logged in</h2>} />
-          )}/>
+              renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />} /> : <h2>User not logged in</h2>} />
+          )} />
           <Route path="/err" render={() => (
             <>
               <Header hideSide={true} />
@@ -91,6 +92,11 @@ function App() {
           )}>
 
           </Route>
+          <Route path="/previousOrders" render={() => (
+            <>
+              <Layout showLogin={!authenticated} component={<PreOrder />} />
+            </>
+          )} ></Route>
         </Switch>
       </Router>
 

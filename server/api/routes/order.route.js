@@ -12,4 +12,7 @@ router.route('/orders/:id')
 router.route('/serviceProvidedHistory/:helperId')
     .get(orderController.getSeekerInfoByHelperId) // gets called when request method is GET with a request param of
 
+router.route('/seekerOrders/:id')
+    .get(orderController.getAllHelpersForSeeker)
+
 export default router;
