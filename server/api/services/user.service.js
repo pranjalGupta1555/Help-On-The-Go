@@ -1,19 +1,20 @@
 import User from '../models/User.js';
 import jwt from "jsonwebtoken";
-import * as orderService from './order.service.js';
 
-
+// fetch all users
 export const allUsers = async() => {
     const data = await User.find().exec();
     return data;
 }
 
+// fetch all helpers only
 export const allUserHelpers = async() => {
     const data = await User.find({ userType: 'helper' }).exec();
 
     return data;
 }
 
+// existing user check - username and password match for login
 export const existingUser = async(request_data) => {
     return new Promise((resolve, reject) => {
         User.findOne({
@@ -28,6 +29,7 @@ export const existingUser = async(request_data) => {
     })
 }
 
+// check if the userId exists 
 export const checkExistingUserID = async(extractedID) => {
     return new Promise((resolve, reject) => {
         User.findOne({
@@ -40,6 +42,7 @@ export const checkExistingUserID = async(extractedID) => {
     })
 }
 
+// check for the username existing
 export const checkUsername = async(username) => {
     return new Promise((resolve, reject) => {
         User.findOne({
@@ -53,8 +56,9 @@ export const checkUsername = async(username) => {
     })
 }
 
+// create a new user
 export const addUser = async(req) => {
-    const checkUser = await existingUser({...req.body });
+    const checkUser = await existingUser({ ...req.body });
 
     if (checkUser === null) {
         const newUser = await new User({
@@ -70,6 +74,7 @@ export const addUser = async(req) => {
 
 }
 
+// generate a jwt token
 export const configureToken = async(data) => {
     console.log("CAME to CONFIGURE TOKEN");
     const jwttoken = await jwt.sign({ _id: data._id }, process.env.TOKEN_SECRET);
@@ -89,6 +94,7 @@ export const userInfo = async(id) => {
     return data;
 }
 
+// fetch user information based on the required skill filter
 export const getUsersBySkill = async(data) => {
     const requiredSkill = data.skill;
     const users = allUsers();
@@ -155,6 +161,7 @@ export const seekAndFilter = async(users, data) => {
     return userList;
 }
 
+// A service to update the user details
 export const updateUser = async(req) => {
     const promise = await User.findByIdAndUpdate({ _id: req.params.id }, {...req.body }, {
         new: true

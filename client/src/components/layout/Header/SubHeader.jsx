@@ -7,19 +7,20 @@ import './subheader.scss';
 
 function SubHeader() {
 
+    // states 
     const history = useHistory();
     const [domains, setDomains] = useState([]);
     const [loading, setloading] = useState(true);
 
+    // Hit the service provider
     const hitService = (link, servicePass) => {
         history.push({
             pathname: link,
             state: { service: servicePass }
         });
-        console.log("came");
-        // window.location.href = link;
-    }
 
+    }
+    // scroll bar settings 
     const handleScroll = () => {
         if (window.location.href.split("/")[3] === 'join') {
             document.body.style.backgroundColor = '#1987547a';
@@ -58,6 +59,7 @@ function SubHeader() {
         return (
             <div className="main-sub-header">
                 <nav className="menu">
+                    {/* display the domains on sub header */}
                     {domains.map((item, index) => {
                         return (
                             <li key={index} onClick={(e) => {
@@ -74,18 +76,7 @@ function SubHeader() {
     } else {
         return (
             <div className="main-sub-header">
-                <nav className="menu">
-                    {domains.map((item, index) => {
-                        return (
-                            <li key={index} onClick={(e) => {
-                                e.preventDefault();
-                                hitService("/services", item.name)
-                            }}>
-                                {item.name}
-                            </li>
-                        )
-                    })}
-                </nav>
+
             </div>
         )
     }

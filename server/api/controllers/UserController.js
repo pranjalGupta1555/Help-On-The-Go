@@ -1,4 +1,8 @@
-import * as UserService from "../services/user.service.js";
+import * as UserService from "../services/user.service.js"
+import * as ProfileService from "../services/profile.service.js";
+import multer from 'multer';
+
+const upload = multer({dest: 'uploads/'})
 
 // error and success handlers
 
@@ -10,6 +14,7 @@ const successHandler = (message, data, res) => {
     res.status(200).json({ message: message, data: data });
 }
 
+// fetch all users
 export const allUsers = async (req, res) => {
     try {
 
@@ -21,6 +26,7 @@ export const allUsers = async (req, res) => {
     }
 }
 
+// post a user to DB
 export const addUser = async (req, res) => {
     try {
 
@@ -37,6 +43,35 @@ export const addUser = async (req, res) => {
     }
 }
 
+// upload image
+export const uploadUserImage = async (req, res) => {
+    console.log(req);
+
+    const result = await ProfileService.uploadUserImage(req);
+
+    if(result !== null) {
+        successHandler("success", result.image, res);
+    } else {
+        errorHandler(err.message, res);
+    }
+}
+
+// Fetch profile image 
+export const fetchProfileImage = async (req, res) => {
+    console.log(req);
+
+    const result = await ProfileService.getUserImage(req.params.id);
+
+    
+    if(result !== null) {
+        res.set('Content-Type', 'image/png')
+        res.send(result.image);
+    } else {
+        errorHandler(err.message, res);
+    }
+}
+
+// user login process
 export const loginUser = async (req, res) => {
     try {
 
@@ -65,6 +100,7 @@ export const loginUser = async (req, res) => {
     }
 }
 
+// get a user's info
 export const getUserInfo = async(req,res)=>{
     try{
         const id = req.params.id;
@@ -76,6 +112,7 @@ export const getUserInfo = async(req,res)=>{
     }
 }
 
+// check user name validity
 export const checkUserName = async (req, res) => {
     try {
 
@@ -115,6 +152,8 @@ export const getSeekers = async (req, res) =>{
     }
 
 }
+
+// put request to update user details by ID
 export const updateUserByID = async (req, res) => {
     try {
         
@@ -131,6 +170,7 @@ export const updateUserByID = async (req, res) => {
     }
 }
 
+// fetching user info by id
 export const getUserInfoById = async (userId) => {
     const seekerInfo = await UserService.checkExistingUserID(userId);
     return seekerInfo;

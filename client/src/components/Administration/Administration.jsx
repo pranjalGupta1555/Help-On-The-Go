@@ -9,6 +9,7 @@ import Registration from './Registration/Registration';
 
 export default function Administration(props) {
 
+    // state variables
     const [{ userCredentials }, dispatch] = useStateValue();
 
     const [showRegistration, setshowRegistration] = useState(false);
@@ -16,29 +17,28 @@ export default function Administration(props) {
 
     const history = useHistory();
 
+    // toggle the view of registration on click of sign up btn
     const toggleRegistration = () => {
         setshowRegistration(true);
     }
-
+    // toggle login and show register
     const toggleLogin = () => {
         setshowRegistration(false);
     }
-
+    // hide the popup 
     const hideAdministration = () => {
         setclose(true);
         document.body.style.overflow = "auto";
     }
-
+    // close the popup and refresh the page 
     const closeAdministration = () => {
         setclose(false);
         document.body.style.overflow = "auto";
         history.go();
     }
 
-    console.log("CLOSE :: ", close);
-
     useEffect(() => {
-        if(userCredentials.loggedIn) {
+        if (userCredentials.loggedIn) {
             window.scrollTo(0, 0);
             setTimeout(() => {
                 document.body.style.overflow = "hidden";
@@ -54,7 +54,7 @@ export default function Administration(props) {
 
     }, [props.close])
 
-    if(close) {
+    if (close) {
         return (
             <div className="container">
                 {

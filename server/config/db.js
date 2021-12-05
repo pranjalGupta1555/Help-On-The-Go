@@ -13,6 +13,11 @@ mongoose.connect(`${configDb.URI}://${configDb.USERNAME}:${configDb.PASSWORD}@${
     useNewUrlParser: true,
 })
 
+// mongoose.connect(`mongodb://${configDb.HOST}:${configDb.PORT}/${configDb.DB}`, {
+//     useUnifiedTopology: true,
+//     useNewUrlParser: true,
+// })
+
 const db =  mongoose.connection
 
 export default db;

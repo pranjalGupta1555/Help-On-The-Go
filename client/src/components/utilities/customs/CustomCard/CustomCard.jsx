@@ -24,7 +24,6 @@ function CustomCard(props) {
                     console.log("CAME HERE ");
                     e.preventDefault();
                     handleDomainClick(props.cardTitle);
-
                 }}>Explore  <FaArrowRight /> </Button>
 
             </Card.Body>

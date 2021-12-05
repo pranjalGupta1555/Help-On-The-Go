@@ -9,9 +9,10 @@ import './layout.scss';
 
 function Layout(props) {
 
+    // state variables
     const [{ userCredentials }, dispatch] = useStateValue();
     const [showLogin, setshowLogin] = useState(props.showLogin);
-
+    // handle the login pop up visibility
     const setAdminPageVisibility = () => {
         setshowLogin(true);
     }
@@ -26,29 +27,30 @@ function Layout(props) {
 
     }, [])
 
+    // display in case of home page only
     if (props.hero) {
         return (
             <>
-                <MenuBar show={props.showLogin} hideAdmin={hideAdminVisibility} showAdmin={setAdminPageVisibility} component = {props.component}/>
+                <MenuBar show={props.showLogin} hideAdmin={hideAdminVisibility} showAdmin={setAdminPageVisibility} component={props.component} />
                 <Footer />
             </>
         )
     } else {
-    return (
-        <div className="main-layout">
+        return (
+            <div className="main-layout">
 
-            <Header show={props.showLogin} hideAdmin={hideAdminVisibility} showAdmin={setAdminPageVisibility} />
-            <SubHeader />
+                <Header show={props.showLogin} hideAdmin={hideAdminVisibility} showAdmin={setAdminPageVisibility} />
+                <SubHeader />
 
-            {
-                showLogin && userCredentials.loggedIn == false ?
-                    <Administration close={userCredentials.loggedIn} /> : <></>
-            }
-            {props.component}
-            <Footer />
-        </div>
-    )
-        }
+                {
+                    showLogin && userCredentials.loggedIn == false ?
+                        <Administration close={userCredentials.loggedIn} /> : <></>
+                }
+                {props.component}
+                <Footer />
+            </div>
+        )
+    }
 }
 
 export default Layout

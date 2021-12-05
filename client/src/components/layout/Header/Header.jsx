@@ -4,16 +4,18 @@ import logo from '../../../logoBikeDark.png';
 import logoLite from '../../../logoBike.png';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import { useHistory } from 'react-router';
-import { FaComment, FaShoppingBag, FaShoppingCart, FaUser } from 'react-icons/fa';
+import { FaComment, FaShoppingBag, FaShoppingCart, FaTools, FaUser } from 'react-icons/fa';
 import { useStateValue } from '../../../Store/StateProvider';
+import configuration from '../../../config';
 
 
 
 function Header(props) {
-
+    // state variables
     const [Icon, setIcon] = useState(logo);
     const [variant, setvariant] = useState('darkButton');
-    const [hideSearch, sethideSearch] = useState('none');
+    const [profImage, setprofImage] = useState(null);
+
     const navigate = useHistory();
 
     const [{ userCredentials }, dispatch] = useStateValue();
@@ -26,20 +28,38 @@ function Header(props) {
     }
 
     console.log(props);
-
+    // Route to join
     const gotoJoin = (e) => {
         e.preventDefault();
         navigate.push('/join');
     }
-
+    // Route to userprofile
     const goToUserProfile = (e) => {
         e.preventDefault();
         navigate.push('/userprofile');
     }
-
+    // Route to chat
     const handleChatClick = (e) => {
         e.preventDefault();
         navigate.push('/chat');
+    }
+
+
+    const setUserProfileImage = (id) => {
+        fetch(`${configuration.URL}/upload/${id}`, {
+            method: 'GET',
+            // headers: {
+            //     'Content-Type': 'image/png'
+            // }
+
+        }).then((response) => {
+            response.blob().then(blobResponse => {
+                let data = URL.createObjectURL(blobResponse);
+                console.log(data);
+                setprofImage(data);
+            })
+        })
+
     }
 
     const handlePreviousOrders = (e) => {
@@ -48,40 +68,47 @@ function Header(props) {
         })
     }
 
-    useEffect(() => {
 
+
+
+    useEffect(() => {
+        // To set the styling for joinee
         if (window.location.href.split("/")[3] === 'join') {
             document.body.style.backgroundColor = '#1987547a';
             setIcon(logo);
             setvariant('darkButton');
-            sethideSearch('none');
         }
         else if (window.location.href.split("/")[3] === "home" || window.location.href.split("/")[3] === "") {
+            // handle scrolling
+            document.body.style.backgroundColor = 'white';
             window.addEventListener('scroll', function () {
-                let header = document.querySelector('.main-header, .main-header-searchbar');
+                let header = document.querySelector('.main-header');
                 let windowPosition = window.scrollY > 0;
                 header.classList.toggle('scrolling-active', windowPosition);
 
                 if (windowPosition > 0) {
                     setIcon(logoLite);
                     setvariant('lightButton');
-                    sethideSearch('');
+
                 } else {
                     setIcon(logo);
                     setvariant('darkButton');
-                    sethideSearch('none');
+
                 }
 
             })
         }
         else {
-            document.querySelector('.main-header, .main-header-searchbar').classList.toggle('no-scroll');
+            document.querySelector('.main-header').classList.toggle('no-scroll');
             setIcon(logoLite);
             setvariant('lightButton');
-            sethideSearch('');
+
         }
 
-    }, [])
+        if (userCredentials.loggedIn) {
+            setUserProfileImage(userCredentials.userDetails.id);
+        }
+    }, [userCredentials.userDetails])
 
     return (
         <div className="main-header">
@@ -90,25 +117,24 @@ function Header(props) {
                 <img src={Icon} height="70px" />
             </div>
 
-            {/* Search bar */}
-            <div className="main-header-searchbar" style={{ display: hideSearch }}>
-                <input type="search" style={{ marginTop: "0px" }}></input>
-                <CustomButton variant={variant} text="Search"></CustomButton>
-            </div>
+
 
             {/* set the display from state of the application */}
             <div className="main-header-side" hidden={props.hideSide}>
                 {/* signin button */}
                 {
+              
                     userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaComment onClick={handleChatClick} /> <FaShoppingCart />
-                        <FaUser />
+                        <img src={profImage} width="50px" height="50px" />
                         <li className="nav__listitem">
                             <ul className="nav__listitemdrop">
                                 <li onClick={goToUserProfile}>My Profile</li>
                                 <li onClick={handlePreviousOrders}>My Orders</li>
                             </ul>
                         </li>
+                   
                     </div> : <div className="main-header-side-signin">
+
                         <CustomButton variant={"outlineButton"} text="Sign In" clickFn={showLoginPage} ></CustomButton>
                     </div>
 

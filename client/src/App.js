@@ -1,14 +1,10 @@
-import logo from './logo.svg';
 import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Content from './components/layout/Content/Content';
-import Heropane from './components/layout/Heropane/HeroPane';
-import Footer from './components/layout/Footer/Footer';
 import React, { useEffect, useState } from 'react';
 import Layout from './components/layout/Layout';
 import { useHistory, useLocation } from 'react-router';
 import Seek from './components/Seek/Seek';
-import ServiceProvider from './components/ServiceProvider/ServiceProvider';
 import { ChatEngine } from 'react-chat-engine';
 import ChatFeed from './components/ChatFeed/ChatFeed/ChatFeed';
 import Header from './components/layout/Header/Header';
@@ -21,23 +17,16 @@ import UserProfile from './components/UserProfile/UserProfile';
 
 function App() {
 
-  const routepaths = [" ", "home", "services", "seek"];
-
-  const history = useHistory();
-
   const [{ userCredentials }, dispatch] = useStateValue();
 
   const [authenticated, setauthenticated] = useState(false);
 
-
+  // Authentication check
   const checkAuthentication = () => {
-    console.log(userCredentials, "*****");
     setauthenticated(userCredentials.loggedIn);
   }
 
 
-
-  console.log("LOGGED IN ::: ", userCredentials.loggedIn);
   useEffect(() => {
 
     checkAuthentication();
@@ -51,31 +40,34 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
+          {/* route to the landing page */}
           <Route exact path={["/", "/home"]} render={() => (
             <Layout showLogin={authenticated} hero={true} component={<Content />}>
             </Layout>
           )}>
           </Route>
-
+          {/* Route to services */}
           <Route path="/services" render={() => (
             <Layout showLogin={authenticated} component={<Content />} />
           )}>
           </Route>
-
+          {/* Route to user profile */}
           <Route path="/userprofile" render={() => (
             <Layout showLogin={!authenticated} component={<UserProfile />} />
           )}>
           </Route>
-
+          {/* Route to seekers */}
           <Route path="/seek" render={() => (
             <Layout showLogin={authenticated} component={<Seek />} />
           )}>
           </Route>
-
+          {/* Route to join */}
           <Route path="/join" render={() => (
             <Layout showLogin={authenticated} component={<Join />} />
           )}>
           </Route>
+
+          {/* Route to chat interface */}
           <Route exact path="/chat" render={() => (
             <Layout component={userCredentials.loggedIn ? <ChatEngine
               height="100vh"
@@ -84,6 +76,7 @@ function App() {
               userSecret={userCredentials.userDetails.password} //"Node@112233"
               renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />} /> : <h2>User not logged in</h2>} />
           )} />
+          {/* handle invalid url */}
           <Route path="/err" render={() => (
             <>
               <Header hideSide={true} />

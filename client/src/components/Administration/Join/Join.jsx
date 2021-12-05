@@ -58,7 +58,7 @@ export default function Join() {
     const [experience, setexperience] = useState('');
     const [day, setday] = useState([]);
     const [location, setlocation] = useState([]);
-
+    const [Image, setImage] = useState(null);
     const [domainSkillCombo, setdomainSkillCombo] = useState([]);
 
     const [field, setField] = useState(false);
@@ -166,6 +166,27 @@ export default function Join() {
 
     }
 
+    const uploadImage = (id) => {
+        const formData = new FormData();
+        formData.append('upload', Image);
+
+        fetch(`${configuration.URL}/upload/${id}`, {
+            method: 'PUT',
+            body: formData
+        }).then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            setmessage("Welcome to our community!");
+            setvariant('success');
+            alertUser();
+           
+            setTimeout(() => {
+                history.push('/');
+            }, 2000);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
 
     const sendData = () => {
         let formData = {
@@ -184,24 +205,24 @@ export default function Join() {
             domains: selectedDomain,
             experience: experience,
             days: day,
-            wage: wage
+            wage: wage,
         }
+
 
         if (loggedin) {
             // call update 
             fetch(`${configuration.URL}/join/${userCredentials.userDetails.id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/json',
                 },
                 body: JSON.stringify(formData)
             }).then((response) => response.json())
                 .then((data) => {
                     console.log(data);
-                    setmessage("Welcome to our community!");
-                    setvariant('success');
-                    alertUser();
 
+                    uploadImage(data.data.id);
+                   
                 }).catch((err) => {
                     console.log(err);
                     setmessage("Oops! Something went wrong!");
@@ -219,13 +240,10 @@ export default function Join() {
             }).then((response) => response.json())
                 .then((data) => {
                     console.log(data, " IN NEW CREATION ");
-                    setmessage("Welcome to our community!");
-                    setvariant('success');
-                    alertUser();
+                   
+                    uploadImage(data.data.id);
 
-                    setTimeout(() => {
-                        history.push('/');
-                    }, 2000);
+                   
                 }).catch((err) => {
                     console.log(err);
                     setmessage("Oops! Something went wrong!");
@@ -263,6 +281,7 @@ export default function Join() {
 
     const handleProfilePicture = (e) => {
         setprofilePicFile(URL.createObjectURL(e.target.files[0]));
+        setImage(e.target.files[0]);
     }
 
     const handleDescription = (e) => {
@@ -324,7 +343,6 @@ export default function Join() {
 
     }
 
-    console.log(profilePicFile, " %%%%%%%%%%%%%%%");
 
     const takeMeHome = (e) => {
         e.preventDefault();
@@ -352,6 +370,18 @@ export default function Join() {
             })
     }
 
+    const getLocations = () => {
+        fetch(`${configuration.URL}/locations`, {
+            method: 'GET'
+        }).then((response) => response.json())
+        .then((data) => {
+            console.log("LOCATIONS -- ", data);
+            setlocation(data);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
     useEffect(() => {
 
         if (userCredentials.loggedIn) {
@@ -371,15 +401,14 @@ export default function Join() {
         }
 
         getAllDomains();
+        getLocations();
 
     }, [userCredentials.loggedIn])
 
     return (
         <div className="join-container">
             {alert ? <CustomAlert variant={variant} message={message} show={true} /> : <></>}
-            <span onClick={takeMeHome} >
-                <FaHome className="close" />
-            </span>
+           
 
             <Carousel activeIndex={index} onSelect={handleSelect} className="carousel" controls={false} wrap={true} interval={null}>
                 <Carousel.Item>

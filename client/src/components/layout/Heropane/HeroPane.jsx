@@ -7,18 +7,16 @@ import img2 from '../../../assets/tutoring.jpg';
 import img3 from '../../../assets/homeService.jpg';
 import Administration from '../../Administration/Administration';
 import { useStateValue } from '../../../Store/StateProvider';
-import { useHistory } from 'react-router';
 
 
 function MenuBar(props) {
 
-
-    const [{userCredentials}, dispatch] = useStateValue();
+    // state variables
+    const [{ userCredentials }, dispatch] = useStateValue();
     const [img, setimg] = useState(img1);
     const [showLogin, setshowLogin] = useState(props.show);
 
-    const history = useHistory();
-
+    // image animations
     const rollImages = () => {
         setInterval(() => {
             setimg(img2);
@@ -35,14 +33,11 @@ function MenuBar(props) {
 
 
     const setAdminVisible = () => {
-        console.log("HEROPANE");
         setshowLogin(true);
-        // history.go();
     }
 
-    
+
     const hideAdminVisible = () => {
-        console.log("HEROPANE hide");
         setshowLogin(false);
     }
 
@@ -55,6 +50,7 @@ function MenuBar(props) {
     return (
         <div className="main-body-layout">
             <div>
+                {/* hero pane */}
                 <div className="main-container-hero" style={{ backgroundImage: `url(${img})` }} >
                     <Header showAdmin={setAdminVisible} hideAdmin={hideAdminVisible} />
                     <SubHeader />
@@ -64,7 +60,7 @@ function MenuBar(props) {
                     }
                 </div>
 
-                <div className="title">
+                <div className="htitle">
                     <h1> Help On The Go </h1>
 
                     <div className="subtitle">

@@ -5,3 +5,10 @@ export default {
     DB: "HelpOnTheGo",
     HOST: "cluster0.iguyz.mongodb.net"
 };
+
+// export default {
+//     URI: 'mongodb://',
+//     PORT: 27017,
+//     DB: "HelpOnTheGo",
+//     HOST: "localhost"
+// };
