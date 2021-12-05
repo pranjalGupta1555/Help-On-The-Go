@@ -35,3 +35,16 @@
         color: #ffff;
     }
 }
+
+.lightOpaqueButton {
+    @include btn();
+    background-color: rgba(0, 128, 0, 0.61);
+}
+
+.roundedButton {
+    border-radius: 12px;
+}
+
+.m-bottom20 {
+    margin-bottom: 20px;
+}

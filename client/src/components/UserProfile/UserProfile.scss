@@ -19,6 +19,44 @@
     padding: 0 0 0.5em 0;
   }
 
+  
+input, textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+label {
+  font-family: $font-family-verdana;
+  font-size: 15px;
+}
+
+.m-bottom20 {
+  margin-bottom: 20px;
+}
+
+.formDiv {
+  width: 500px;
+}
+
+button[name="submit"] {
+  display: inline-block;
+  border-radius: 10px;
+  font-family: sans-serif;
+  font-weight: 500;
+  color: #FFFFFF;
+  background-color: $bg-color-darkBlue;
+  text-align: center;
+  transition: all 0.2s;
+  box-shadow: 20px;
+  height: 50px;
+  width: 100%;
+}
+
   .profile {
       text-align: center;
       img {
@@ -81,7 +119,7 @@
 
   .navWrapper {
     margin: 20px auto 50px auto;
-    text-align: center
+    text-align: center;
   }
 
 .container-profile {
@@ -130,4 +168,12 @@
     border-radius: 50%;
     width: 200px;
     height: 150px;
+}
+
+.display {
+  display: block;
+}
+
+.hide {
+  display: none;
 }

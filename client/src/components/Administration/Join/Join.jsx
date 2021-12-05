@@ -44,6 +44,7 @@ export default function Join() {
     const [domains, setdomains] = useState([]);
     const [skills, setskills] = useState([]);
     const [address, setaddress] = useState('');
+    const [tagLine, setTagLine] = useState('');
     const [description, setdescription] = useState('');
     const [firstName, setfirstName] = useState('');
     const [lastName, setlastName] = useState('');
@@ -129,6 +130,10 @@ export default function Join() {
         setlastName(e.target.value);
     }
 
+    const handleTagLine = (e) => {
+        setTagLine(e.target.value);
+    }
+
     const validateName = (e) => {
         if (firstName.trim().length === 0) {
             setfnerror('Please provide your first name :(')
@@ -169,6 +174,7 @@ export default function Join() {
             password: password,
             firstName: firstName,
             lastName: lastName,
+            tagLine: tagLine,
             introductoryStatement: description,
             profileImage: profilePicFile,
             location: selectedLocation,
@@ -429,6 +435,12 @@ export default function Join() {
                             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                 <Form.Label>Your address</Form.Label>
                                 <Form.Control as="textarea" rows={2} cols={50} value={address} onChange={handleAddress} required />
+                            </Form.Group>
+                        </div>
+                        <div>
+                            <Form.Group className="mb-3" controlId="formBasicTagLine">
+                                <Form.Label>Tag Line</Form.Label>
+                                <Form.Control placeholder="Enter your tag line" value={tagLine} onChange={handleTagLine} />
                             </Form.Group>
                         </div>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">

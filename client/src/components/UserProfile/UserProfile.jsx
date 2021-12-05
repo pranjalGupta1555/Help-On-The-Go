@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useStateValue } from '../../Store/StateProvider';
 
 // @material-ui/core components
+import Slider from '@material-ui/core/Slider';
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
@@ -16,6 +17,7 @@ import NavPills from "../NavPills/NavPills";
 import Parallax from "../Parallax/Parallax";
 import CustomButton from '../utilities/customs/CustomButton/CustomButton';
 import CustomDropdown from "../utilities/customs/CustomDropdown/CustomDropdown";
+import CustomModal from '../utilities/customs/CustomModal/CustomModal';
 import Badge from "../Badge/Badge";
 
 import configuration from '../../config.js';
@@ -44,6 +46,12 @@ export default function ProfilePage(props) {
   const [selectedDomains, setSelectedDomains] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [temporaryDomainSkills, setTemporaryDomainSkills] = useState([]);
+  const [displayModal, setDisplayModal] = useState("hide");
+
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  const years = ['< 1 year', ' 1-2 years', '3-4 years', '> 5 years']
+  const places = ['San Fransico', 'Boston', 'Los Angeles']
+
 
   const containerFluid = {
     paddingRight: "15px",
@@ -79,6 +87,7 @@ export default function ProfilePage(props) {
         return response.json()})
       .then((jsonResponse) => {
         let data = jsonResponse.data;
+        console.log("check51 "+JSON.stringify(data));
         if(data.hasOwnProperty('firstName') && data.firstName != "") {
           setFirstName(data.firstName);
         }
@@ -169,7 +178,7 @@ export default function ProfilePage(props) {
     setSelectedSkills(e.target.value);
   } 
 
-  const updateDomainAndSkills = (formData) => {
+  const updateUser = (formData) => {
     fetch(`${configuration.URL}/users/${userCredentials.userDetails.id}`, {
       method: 'PUT',
       headers: {
@@ -190,7 +199,53 @@ export default function ProfilePage(props) {
         skillset: [...new Set([...skillset,selectedSkills])],
         domains: [...new Set([...userDomains,selectedDomains])],
     }
-    updateDomainAndSkills(formData);
+    updateUser(formData);
+  }
+
+  const submitUserInfo = () => {
+    let formData = {
+        tagLine: tagLine,
+        introductoryStatement: introductoryStatement,
+        experience: experience,
+        days: daysOfWorking,
+        location: location
+    }
+    updateUser(formData);
+    setDisplayModal("hide");
+  }
+
+  const changeDisplayStyle = (str) => {
+    if(str == "view") {
+      setDisplayModal("display");
+    }
+    else if(str == "close"){
+      getGeneralUserInfo();
+      setDisplayModal("hide");
+    }
+  }
+
+  const handleLocationChange = (e) => {
+    setLocation(e.target.value);
+  }
+
+  const handleDaysChange = (e) => {
+    setDaysOfWorking(e.target.value);
+  }
+
+  const handleExperienceChange = (e) => {
+    setExperience(e.target.value);
+  }
+
+  const handleTagLineChange = (e) => {
+    setTagLine(e.target.value);
+  }
+
+  const handleIntroductoryStatementChange = (e) => {
+    setIntroductoryStatement(e.target.value);
+  }
+
+  const handleWageChange = (value) => {
+    setHourlyWage(value);
   }
 
   useEffect(() => {
@@ -292,6 +347,40 @@ export default function ProfilePage(props) {
                 {introductoryStatement}
               </p>
             </div>
+            <div className="description">
+              <CustomButton variant="lightOpaqueButton roundedButton m-bottom20" text="UPDATE" clickFn={() => changeDisplayStyle("view")}/>
+            </div>
+            <CustomModal displayStyle={displayModal} heading="UPDATE PROFILE" changeDisplayStyle={changeDisplayStyle}>
+            <div className="formDiv">
+                    {/* <form> */}
+                        <label for="username">Username: </label>
+                        <input className="m-bottom20" type="text" id="username" name="username" defaultValue={userCredentials.username} readOnly></input><br></br>
+                        <label for="tagline">Tag Line: </label>
+                        <input className="m-bottom20" type="text" id="tagline" name="tagline" placeholder="Enter your Tag line" defaultValue={tagLine} onChange={handleTagLineChange}></input><br></br>
+                        <label for="desc">Description: </label>
+                        <textarea className="m-bottom20" type="text" id="desc" name="desc" placeholder="Something about yourself" cols="50" rows="4" defaultValue={introductoryStatement} onChange={handleIntroductoryStatementChange}></textarea><br></br>
+                        <CustomDropdown datalist={places} title="Choose location"
+                                selectedItem={location} multiple={false} handleChange={handleLocationChange} /> <br/>
+                        <CustomDropdown datalist={years} title="Choose Years of Experience"
+                                selectedItem={experience} multiple={false} handleChange={handleExperienceChange} /> <br/>
+                        <CustomDropdown datalist={days} title="Choose Days of Working"
+                                selectedItem={daysOfWorking} multiple={true} handleChange={handleDaysChange} /> <br/>
+                        <label>Wage per hour: </label>
+                        <Slider
+                                className={classes.root}
+                                defaultValue={hourlyWage}
+                                getAriaValueText={handleWageChange}
+                                aria-labelledby="discrete-slider"
+                                valueLabelDisplay="auto"
+                                step={5}
+                                min={10}
+                                max={90}
+                                marks
+                        />
+                        <button name="submit" onClick={submitUserInfo} class="p-10">Submit</button>
+                    {/* </form> */}
+                </div>
+            </CustomModal>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className="navWrapper">
                 <NavPills
@@ -369,43 +458,6 @@ export default function ProfilePage(props) {
                         </GridContainer>
                       ),
                     },
-                    // {
-                    //   tabButton: "Favorite",
-                    //   tabIcon: Favorite,
-                    //   tabContent: (
-                    //     <GridContainer justify="center">
-                    //       <GridItem xs={12} sm={12} md={4}>
-                    //         <img
-                    //           alt="..."
-                    //           // src={work4}
-                    //           className={navImageClasses}
-                    //         />
-                    //         <img
-                    //           alt="..."
-                    //           // src={studio3}
-                    //           className={navImageClasses}
-                    //         />
-                    //       </GridItem>
-                    //       <GridItem xs={12} sm={12} md={4}>
-                    //         <img
-                    //           alt="..."
-                    //           // src={work2}
-                    //           className={navImageClasses}
-                    //         />
-                    //         <img
-                    //           alt="..."
-                    //           // src={work1}
-                    //           className={navImageClasses}
-                    //         />
-                    //         <img
-                    //           alt="..."
-                    //           // src={studio1}
-                    //           className={navImageClasses}
-                    //         />
-                    //       </GridItem>
-                    //     </GridContainer>
-                    //   ),
-                    // },
                   ]}
                 />
               </GridItem>
