@@ -53,3 +53,8 @@ export const getAllReviewInfoOfHelper = async (helperId) => {
         averageRating: averageRating
     }
 }
+
+export const getAllOrdersOfAHelper = async (helperId) => {
+    const allOrdersOfHelper = await Order.find({helperId: helperId}).exec();
+    return allOrdersOfHelper;
+}

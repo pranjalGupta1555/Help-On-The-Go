@@ -18,6 +18,18 @@ const OrderSchema = new Mongoose.Schema({
     },
     "review": {
         type: String // specifies review given by the seeker
+    },
+    "skillName": {
+        type: String, // specifies skill of the helper which seeker asked for
+        default: ''
+    },
+    "domainName": {
+        type: String, // specifies domain of the helper which seeker asked for
+        default: ''
+    },
+    "createdDate": {
+        type: Date,
+        default: Date.now // default value of createdDate property is current date and time
     }
 }, {
     versionKey: false
