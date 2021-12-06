@@ -1,9 +1,14 @@
-@import 'themeVariablesUserProfile.scss';
+  @import 'themeVariablesUserProfile.scss';
+
+  @mixin width-height($w, $h) {
+    width: $w;
+    height: $h
+  }
 
   dl {
-    // border: 3px double #ccc;
     padding: 0.5em;
   }
+
   dt {
     float: left;
     clear: left;
@@ -11,51 +16,26 @@
     text-align: right;
     color: green;
   }
-  dt::after {
-    content: ":";
-  }
+
   dd {
     margin: 0 0 0 110px;
     padding: 0 0 0.5em 0;
   }
 
+  input, textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
   
-input, textarea {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-label {
-  font-family: $font-family-verdana;
-  font-size: 15px;
-}
-
-.m-bottom20 {
-  margin-bottom: 20px;
-}
-
-.formDiv {
-  width: 500px;
-}
-
-button[name="submit"] {
-  display: inline-block;
-  border-radius: 10px;
-  font-family: sans-serif;
-  font-weight: 500;
-  color: #FFFFFF;
-  background-color: $bg-color-darkBlue;
-  text-align: center;
-  transition: all 0.2s;
-  box-shadow: 20px;
-  height: 50px;
-  width: 100%;
-}
+  label {
+    font-family: $font-family-verdana;
+    font-size: 15px;
+  }
 
   .profile {
       text-align: center;
@@ -80,8 +60,7 @@ button[name="submit"] {
 
   .main {
     background: $white;
-    position: relative;
-    z-index: 3
+    position: relative
   }
 
   .mainRaised {
@@ -105,31 +84,19 @@ button[name="submit"] {
     text-decoration: none
   }
 
-  .socials {
-    margin-top: 0;
-    width: 100%;
-    transform: none;
-    left: 0;
-    top: 0;
-    height: 100%;
-    line-height: 41px;
-    font-size: 20px;
-    color: #999
-  }
-
   .navWrapper {
     margin: 20px auto 50px auto;
     text-align: center;
   }
 
-.container-profile {
+  .container-profile {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.container-profile > div {
+  .container-profile > div {
     background-color: #f1f1f1;
     width: 100%;
     margin: 10px;
@@ -138,57 +105,80 @@ button[name="submit"] {
     font-size: 30px;
   }
 
-.card-top {
+  .card-top {
     margin-left: 270px;
-}
+  }
 
-.rating-container {
+  .rating-container {
     height: 20px;
-}
+  }
 
-.p-top50 {
-    margin-top: 50px;
-}
+  .imageIcon {
+    @include width-height(80px, 80px);
 
-.imageIcon {
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
-}
+  }
 
-.reviewDescription {
+  .reviewDescription {
+      display: inline-block;
+  }
+
+  .reviewDescription span {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .profileImage {
+    @include width-height(200px, 150px);
+
+    border-radius: 50%;
+  }
+
+  .display {
+    display: block;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  /* The Close Button */
+  .close {
+    color: $white;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: 8px;
+  }
+
+  .m-bottom0 {
+    margin-bottom: 0px;
+  }
+
+  .close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  button[name="submit"] {
     display: inline-block;
-}
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: 500;
+    color: $white;
+    background-color: $bg-color-darkBlue;
+    text-align: center;
+    transition: all 0.2s;
+    box-shadow: 20px;
+    height: 50px;
+    width: 100%;
+  }
 
-.m-top40 {
-    margin-top: 40px;
-}
+  button[name="submit"]:hover {
+    background-color: $bg-color-navyBlue;
+  }
 
-.profileImage {
-    border-radius: 50%;
-    width: 200px;
-    height: 150px;
-}
-
-.display {
-  display: block;
-}
-
-.hide {
-  display: none;
-}
-
-/* The Close Button */
-.close {
-  color: #FFFFFF;
-  float: left;
-  font-size: 15px;
-  font-weight: bold;
-  margin-right: 8px;
-}
-
-.close:hover, .close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
+  dt::after {
+    content: ":";
+  }

@@ -47,7 +47,7 @@ export default function NavPills(props) {
     </Tabs>
   );
   const tabContent = (
-    <div className="contentWrapper">
+    <div className="m-top50">
       {tabs.map((prop, key) => {
         if (key === active) {
           return (

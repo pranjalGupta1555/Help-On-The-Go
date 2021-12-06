@@ -315,7 +315,7 @@ export default function ProfilePage(props) {
                     <h6>{tagLine}</h6>
                     <dl>
                       {
-                        <div>
+                        <div className="m-top10">
                           {
                             experience != '' ? (
                               <diV>
@@ -366,7 +366,7 @@ export default function ProfilePage(props) {
                   starDimension={20}
                   starSpacing={5}
                   rating={averageRating}
-                  starRatedColor="blue"
+                  starRatedColor="gold"
                   numberOfStars={5}
                   name='rating'
                   />
@@ -386,10 +386,10 @@ export default function ProfilePage(props) {
               </p>
             </div>
             <div className="description">
-              <CustomButton variant="lightOpaqueButton roundedButton m-bottom20" text="UPDATE" clickFn={() => changeDisplayStyle("view")}/>
+              <CustomButton variant="lightOpaqueButton roundedButton m-bottom20 btnHover" text="UPDATE" clickFn={() => changeDisplayStyle("view")}/>
             </div>
             <CustomModal displayStyle={displayModal} heading="UPDATE PROFILE" changeDisplayStyle={changeDisplayStyle}>
-            <div className="formDiv">
+            <div className="w-500">
                     {/* <form> */}
                         <label for="username">Username: </label>
                         <input className="m-bottom20" type="text" id="username" name="username" defaultValue={userCredentials.username} readOnly></input><br></br>
@@ -415,11 +415,11 @@ export default function ProfilePage(props) {
                                 max={90}
                                 marks
                         />
-                        <button name="submit" onClick={submitUserInfo} class="p-10">Submit</button>
+                        <button name="submit" onClick={submitUserInfo} className="p-10 btnHover">Submit</button>
                     {/* </form> */}
                 </div>
             </CustomModal>
-            <GridContainer justify="center">
+            <GridContainer justify="center" className="m-left20 m-top20">
               <GridItem xs={12} sm={12} md={8} className="navWrapper">
                 <NavPills
                   alignCenter
@@ -431,13 +431,13 @@ export default function ProfilePage(props) {
                       tabContent: (
                         <GridContainer justify="center">
                           <GridItem xs={12} sm={12} md={10}>
-                            <h6>DOMAINS</h6>
+                            <h4>DOMAINS</h4>
                             {
                               userDomains.map((domainName) => {
                                 return <Badge><a onClick={() => deleteUserDomain(domainName)}><span className="close">&times;</span></a>{domainName}</Badge>
                               })
                             }
-                            <h6 className="m-top40">SKILLS</h6>
+                            <h4 className="m-top40">SKILLS</h4>
                             {
                               skillset.map((skillName) => {
                                 return <Badge><a onClick={() => deleteUserSkill(skillName)}><span className="close">&times;</span></a>{skillName}</Badge>
@@ -449,7 +449,7 @@ export default function ProfilePage(props) {
                                  datalist={temporaryDomainSkills} handleChange={handleSkillChange}/>
                           </GridItem>
                           <GridItem xs={12} sm={12} md={10}>
-                            <CustomButton text="ADD SKILLS" variant="lightButton" clickFn={saveDomainsAndSkills}/>
+                            <CustomButton text="ADD SKILLS" variant="lightOpaqueButton roundedButton m-bottom20 btnHover" clickFn={saveDomainsAndSkills}/>
                           </GridItem>
                         </GridContainer>
                       ),
@@ -474,17 +474,17 @@ export default function ProfilePage(props) {
                                   />
                                   </div>
                                   <div className="reviewDescription">
-                                    <p className="test">{reviewItem.seekerFirstName} {reviewItem.seekerLastName}</p>
+                                    <p className="m-bottom0"><span>{reviewItem.seekerFirstName} {reviewItem.seekerLastName}</span></p>
                                     <StarRatings
                                     className="m-top0"
                                     starDimension={15}
                                     starSpacing={0}
                                     rating={reviewItem.rating}
-                                    starRatedColor="blue"
+                                    starRatedColor="gold"
                                     numberOfStars={5}
                                     name='rating'
                                     />
-                                    <p className="test">{reviewItem.review}</p>
+                                    <p className="m-bottom0">{reviewItem.review}</p>
                                   </div>
                                  </GridItem>
                                  :

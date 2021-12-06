@@ -8,14 +8,15 @@ import Grid from "@material-ui/core/Grid";
 import "./GridContainer.scss";
 
 export default function GridContainer(props) {
-  const { children, ...rest } = props;
+  const { children, className, ...rest } = props;
   return (
-    <Grid container {...rest} className="gridContainer">
+    <Grid container {...rest} className={`gridContainer m-left20 ${className}`}>
       {children}
     </Grid>
   );
 }
 
 GridContainer.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string
 };
