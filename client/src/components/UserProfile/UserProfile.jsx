@@ -36,7 +36,7 @@ export default function ProfilePage(props) {
   const [profileImage, setProfileImage] = useState('');
   const [tagLine, setTagLine] = useState('');
   const [introductoryStatement, setIntroductoryStatement] = useState('');
-  const [averageRating, setAverageRating] = useState('');
+  const [averageRating, setAverageRating] = useState(0);
   const [userDomains, setUserDomains] = useState([]);
   const [skillset, setSkillSet] = useState([]);
   const [reviews, setReviews] = useState([]);
