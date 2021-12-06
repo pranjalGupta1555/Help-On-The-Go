@@ -11,7 +11,7 @@ import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
-
+import cool from '../../../assets/cool.jpeg';
 
 const useStyles = makeStyles({
     root: {
@@ -40,7 +40,7 @@ export default function Join() {
     const [retypepassword, setretypepassword] = useState('');
     const [retypepasswordError, setretypepasswordError] = useState('');
     const [email, setemail] = useState('');
-    const [profilePicFile, setprofilePicFile] = useState('https://files.freebiemockups.com/wp-content/uploads/2021/07/21174033/cool-profile-picture-mockup-for-instagram_60f85c1183743.jpeg');
+    const [profilePicFile, setprofilePicFile] = useState(cool);
     const [domains, setdomains] = useState([]);
     const [skills, setskills] = useState([]);
     const [address, setaddress] = useState('');
@@ -119,7 +119,7 @@ export default function Join() {
 
     const handleUsername = (e) => {
         setusername(e.target.value);
-        
+
     }
 
     const handleFirstName = (e) => {
@@ -137,10 +137,10 @@ export default function Join() {
     const validateName = (e) => {
         if (firstName.trim().length === 0) {
             setfnerror('Please provide your first name :(')
-            
+
         } else if (firstName.trim().length > 0 && lastName.trim().length === 0) {
             setlnerror('Please provide your last name :(')
-            
+
         } else {
             setfnerror('');
             setlnerror('');
@@ -149,19 +149,28 @@ export default function Join() {
 
     const handleLocationChange = (e) => {
         setselectedLocation(e.target.value);
-        
+
     }
 
     const handleJoin = (e) => {
 
         if (username.trim().length > 0 && firstName.trim().length > 0 && lastName.trim().length > 0
             && email.length > 0 && password.length > 0 && retypepassword.length > 0 && selectedLocation.length > 0 &&
-            selectedDomain.length > 0 && selectedSkill.length > 0 ) {
+            selectedDomain.length > 0 && selectedSkill.length > 0) {
 
-            sendData();
+            if (unerror === "" && emerror === "" && passwordError === "" & retypepasswordError === "") {
+
+                sendData();
+            } else {
+                setmessage("You have an invalid field!");
+                setvariant('danger');
+                alertUser();
+            }
 
         } else {
-            window.alert('You must be missing some fields!')
+            setmessage("Oops! Please fill all fields!");
+            setvariant('danger');
+            alertUser();
         }
 
     }
@@ -174,18 +183,18 @@ export default function Join() {
             method: 'PUT',
             body: formData
         }).then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            setmessage("Welcome to our community!");
-            setvariant('success');
-            alertUser();
-           
-            setTimeout(() => {
-                history.push('/');
-            }, 2000);
-        }).catch((err) => {
-            console.log(err);
-        })
+            .then((data) => {
+                console.log(data);
+                setmessage("Welcome to our community!");
+                setvariant('success');
+                alertUser();
+
+                setTimeout(() => {
+                    history.push('/');
+                }, 2000);
+            }).catch((err) => {
+                console.log(err);
+            })
     }
 
     const sendData = () => {
@@ -222,6 +231,7 @@ export default function Join() {
                     console.log(data);
 
                     uploadImage(data.data.id);
+
                    
                 }).catch((err) => {
                     console.log(err);
@@ -374,12 +384,12 @@ export default function Join() {
         fetch(`${configuration.URL}/locations`, {
             method: 'GET'
         }).then((response) => response.json())
-        .then((data) => {
-            console.log("LOCATIONS -- ", data);
-            setlocation(data);
-        }).catch((err) => {
-            console.log(err);
-        })
+            .then((data) => {
+                console.log("LOCATIONS -- ", data);
+                setlocation(data.data[0].places);
+            }).catch((err) => {
+                console.log(err);
+            })
     }
 
     useEffect(() => {
@@ -479,7 +489,7 @@ export default function Join() {
                         <div>
                             Where are you located?
 
-                            <CustomDropdown datalist={places} title="choose location"
+                            <CustomDropdown datalist={location} title="choose location"
                                 selectedItem={selectedLocation} multiple={false} handleChange={handleLocationChange} required />
                         </div>
 

@@ -53,11 +53,16 @@ function Header(props) {
             // }
 
         }).then((response) => {
-            response.blob().then(blobResponse => {
-                let data = URL.createObjectURL(blobResponse);
-                console.log(data);
-                setprofImage(data);
-            })
+            if(response.status === 200) {
+                response.blob().then(blobResponse => {
+                    let data = URL.createObjectURL(blobResponse);
+                    console.log(data);
+                    setprofImage(data);
+                })
+            } else {
+                setprofImage(null);
+            }
+            
         })
 
     }

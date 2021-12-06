@@ -87,7 +87,7 @@ function App() {
           </Route>
           <Route path="/previousOrders" render={() => (
             <>
-              <Layout showLogin={!authenticated} component={<PreOrder />} />
+              <Layout showLogin={authenticated} component={<PreOrder />} />
             </>
           )} ></Route>
         </Switch>

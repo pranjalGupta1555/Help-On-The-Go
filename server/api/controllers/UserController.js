@@ -45,30 +45,40 @@ export const addUser = async (req, res) => {
 
 // upload image
 export const uploadUserImage = async (req, res) => {
-    console.log(req);
+    try {
+        console.log(req);
 
-    const result = await ProfileService.uploadUserImage(req);
-
-    if(result !== null) {
-        successHandler("success", result.image, res);
-    } else {
+        const result = await ProfileService.uploadUserImage(req);
+    
+        if(result !== null) {
+            successHandler("success", result.image, res);
+        } else {
+            errorHandler("failed", res);
+        }
+    } catch(err) {
         errorHandler(err.message, res);
     }
+    
 }
 
 // Fetch profile image 
 export const fetchProfileImage = async (req, res) => {
-    console.log(req);
+    try {
+        console.log(req);
 
-    const result = await ProfileService.getUserImage(req.params.id);
-
+        const result = await ProfileService.getUserImage(req.params.id);
     
-    if(result !== null) {
-        res.set('Content-Type', 'image/png')
-        res.send(result.image);
-    } else {
+        
+        if(result !== null) {
+            res.set('Content-Type', 'image/png')
+            res.send(result.image);
+        } else {
+            errorHandler("failed", res);
+        }
+    } catch(err) {
         errorHandler(err.message, res);
     }
+    
 }
 
 // user login process
