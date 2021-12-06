@@ -177,3 +177,18 @@ button[name="submit"] {
 .hide {
   display: none;
 }
+
+/* The Close Button */
+.close {
+  color: #FFFFFF;
+  float: left;
+  font-size: 15px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.close:hover, .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

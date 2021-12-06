@@ -43,8 +43,8 @@ export default function ProfilePage(props) {
   const [allSkills, setAllSkills] = useState([]);
   const [allDomains, setAllDomains] = useState([]);
   const [allDomainsWithSkills, setAllDomainsWithSkills] = useState([]);
-  const [selectedDomains, setSelectedDomains] = useState([]);
-  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedDomains, setSelectedDomains] = useState('');
+  const [selectedSkills, setSelectedSkills] = useState('');
   const [temporaryDomainSkills, setTemporaryDomainSkills] = useState([]);
   const [displayModal, setDisplayModal] = useState("hide");
 
@@ -195,9 +195,47 @@ export default function ProfilePage(props) {
   }
 
   const saveDomainsAndSkills = () => {
-    let formData = {
+    if(selectedDomains != '' && selectedSkills != '') {
+      let formData = {
         skillset: [...new Set([...skillset,selectedSkills])],
         domains: [...new Set([...userDomains,selectedDomains])],
+      }
+      updateUser(formData);
+      setSelectedDomains('');
+      setSelectedSkills('');
+    }
+  }
+
+  const deleteUserDomain = (domainName) => {
+    let skillsArrayOfUserDomain = [];
+    allDomainsWithSkills.map((item) => {
+      if(item.name === domainName) {
+        skillsArrayOfUserDomain = item.skills;
+      }
+    })
+    let skillNamesUnderUserDomain = [];
+    skillsArrayOfUserDomain.map((skillItem) => {
+      skillNamesUnderUserDomain.push(skillItem.skillName);
+    })
+    let updatedUserDomainsArray = userDomains.filter((item) => {
+      return item != domainName;
+    })
+    let updatedUserSkillsArray = skillset.filter((item) => {
+      return !skillNamesUnderUserDomain.includes(item);
+    })
+    let formData = {
+      skillset: updatedUserSkillsArray,
+      domains: updatedUserDomainsArray
+    }
+    updateUser(formData);
+  }
+
+  const deleteUserSkill = (skillName) => {
+    let updatedUserSkillsArray = skillset.filter((item) => {
+      return item != skillName;
+    }) 
+    let formData = {
+      skillset: updatedUserSkillsArray
     }
     updateUser(formData);
   }
@@ -396,13 +434,13 @@ export default function ProfilePage(props) {
                             <h6>DOMAINS</h6>
                             {
                               userDomains.map((domainName) => {
-                                return <Badge>{domainName}</Badge>
+                                return <Badge><a onClick={() => deleteUserDomain(domainName)}><span className="close">&times;</span></a>{domainName}</Badge>
                               })
                             }
                             <h6 className="m-top40">SKILLS</h6>
                             {
                               skillset.map((skillName) => {
-                                return <Badge>{skillName}</Badge>
+                                return <Badge><a onClick={() => deleteUserSkill(skillName)}><span className="close">&times;</span></a>{skillName}</Badge>
                               })
                             }
                             <CustomDropdown title={"Add Domains"}
@@ -411,7 +449,7 @@ export default function ProfilePage(props) {
                                  datalist={temporaryDomainSkills} handleChange={handleSkillChange}/>
                           </GridItem>
                           <GridItem xs={12} sm={12} md={10}>
-                            <CustomButton text="EDIT SKILLS" variant="lightButton" onClick={saveDomainsAndSkills} clickFn={saveDomainsAndSkills}/>
+                            <CustomButton text="ADD SKILLS" variant="lightButton" clickFn={saveDomainsAndSkills}/>
                           </GridItem>
                         </GridContainer>
                       ),
