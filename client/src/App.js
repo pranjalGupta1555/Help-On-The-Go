@@ -21,7 +21,9 @@ function App() {
 
   const [authenticated, setauthenticated] = useState(false);
 
-  // Authentication check
+  const [chatId, setChatId] = useState();
+
+
   const checkAuthentication = () => {
     setauthenticated(userCredentials.loggedIn);
   }
@@ -58,7 +60,7 @@ function App() {
           </Route>
           {/* Route to seekers */}
           <Route path="/seek" render={() => (
-            <Layout showLogin={authenticated} component={<Seek />} />
+            <Layout showLogin={authenticated} component={<Seek setChatId={setChatId} userCredentials={userCredentials}/>} />
           )}>
           </Route>
           {/* Route to join */}
@@ -72,11 +74,11 @@ function App() {
             <Layout component={userCredentials.loggedIn ? <ChatEngine
               height="100vh"
               projectID="4fdaabe1-eb81-452a-b540-34f5c8c56f37"
-              userName={userCredentials.userDetails.username}  //"TestUser1"
-              userSecret={userCredentials.userDetails.password} //"Node@112233"
-              renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />} /> : <h2>User not logged in</h2>} />
-          )} />
-          {/* handle invalid url */}
+              userName={userCredentials.userDetails.username}  
+              userSecret={userCredentials.userDetails.password}
+              activeChat={chatId}
+              renderChatFeed={(chatAppProps)=><ChatFeed {...chatAppProps}/>} />:<h2>User not logged in</h2>} />
+          )}/>
           <Route path="/err" render={() => (
             <>
               <Header hideSide={true} />

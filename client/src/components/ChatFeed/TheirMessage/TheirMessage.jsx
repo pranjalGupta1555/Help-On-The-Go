@@ -1,6 +1,5 @@
 import React from 'react';
-const TheirMessage=({lastMessage, message})=>{
-    const isFirstMessageByUser = !lastMessage || lastMessage.sender.username !== message.sender.username;
+const TheirMessage=({ message})=>{
     return(
         <div className="message-row">
             {

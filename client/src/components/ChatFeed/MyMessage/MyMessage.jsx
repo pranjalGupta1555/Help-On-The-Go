@@ -11,8 +11,10 @@ const MyMessage=({message})=>{
         )
     }
     return(
-        <div className="message">
-            {message.text}
+        <div className="mymessage-row">
+            <div className="message" style={{ float: 'right', backgroundColor: 'rgb(184, 212, 184)' }}>
+                {message.text}
+            </div>
         </div>
     )
 }

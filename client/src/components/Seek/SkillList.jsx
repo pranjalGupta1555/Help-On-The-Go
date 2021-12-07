@@ -1,8 +1,31 @@
 import React from 'react';
 import './SkillList.scss';
+import shortid from 'shortid';
+import CustomButton from '../utilities/customs/CustomButton/CustomButton';
+import { useHistory } from 'react-router-dom';
+import configuration from '../../config';
+// import ReactStars from "react-rating-stars-component";
 
-const SkillList = ({ users }) => {
-    //displaying multiple users with userName, image, email and location
+const SkillList = ({ showAdmin, updateChatId, userCredentials,  users }) => {
+    const navigate = useHistory();
+    const handleOrderClick = (user) => {
+        if (!userCredentials.loggedIn) {
+            alert("Login function here!!")
+        }
+        else {
+            fetch(`${configuration.URL}/chat/${userCredentials.userDetails.username}/${user[0].username}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            }).then((response) => response.json())
+                .then((data) => {
+                    updateChatId(data)
+                    navigate.push('/chat');
+         })
+        }
+    }
+
     if (users.length > 1) {
         return (
             <div>
@@ -19,7 +42,7 @@ const SkillList = ({ users }) => {
                                         <p>Wage : ${user.wage}</p>
                                     </div>
                                     <div className="POcard-info">
-                                        <button className="PObutton">Order</button>
+                                        <button className="PObutton" onClick={() => { handleOrderClick(user) }}>Order</button>
                                         <button className="PObutton">View </button>
                                     </div>
                                 </div>
@@ -49,8 +72,8 @@ const SkillList = ({ users }) => {
                                         <p>Wage : ${users[0].wage}</p>
                                     </div>
                                     <div className="POcard-info">
-                                        <button className="PObutton">Order</button>
-                                        <button className="PObutton">View </button>
+                                        <button className="PObutton" type="button" onClick={() => { handleOrderClick(user) }}>Order</button>
+                                        <button className="PObutton" type="button" onClick={console.log("here")}>View </button>
                                     </div>
                                 </div>
                             </div>

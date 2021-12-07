@@ -169,7 +169,9 @@ const Seek = (props) => {
         setMaxPrice('');
         setSeekerlocation('');
     }
-
+    const updateChatId = (chatId) => {
+        props.setChatId(chatId)
+    }
     if (!loading) {
         return (
             <>
@@ -202,7 +204,7 @@ const Seek = (props) => {
                     </div>
                 </div>
 
-                <SkillList users={users}></SkillList>
+                <SkillList updateChatId={updateChatId} userCredentials={props.userCredentials}  users={users}></SkillList>
             </>
         )
     } else {

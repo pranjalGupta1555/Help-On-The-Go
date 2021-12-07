@@ -10,7 +10,12 @@ router.route('/domains/:id')
     .get(domainController.getDomainById) // gets called when request method is GET with a request param of domain id
 
 router.route('/domain/:domainName/:skillName')
-    .get(domainController.findUsersBySkills);
+    .get(domainController.findUsersBySkills)
+    // .get(domainController.getDomainNames);
+
+router.route('/skills/:domain')
+    .get(domainController.getDomainSkills)
+
 
 router.route('/skills/:domain')
     .get(domainController.getDomainSkills)
