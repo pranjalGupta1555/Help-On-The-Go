@@ -34,7 +34,7 @@ const SkillList = ({ showAdmin, updateChatId, userCredentials,  users }) => {
                         {
                             users.map((user) => (
                                 <div className="POcard">
-                                    <img src={user.profileImage} alt="person Image" className="POcard-image" />
+                                    <img src={user.profileImageURL} alt="person Image" className="POcard-image" />
                                     <div className="POcard-content">
                                         <p className="firstp">Name : {user.firstName + ' ' + user.lastName}</p>
                                         <p>Email Id : {user.email}</p>

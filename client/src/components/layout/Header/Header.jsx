@@ -44,6 +44,10 @@ function Header(props) {
         navigate.push('/chat');
     }
 
+    const handleServiceProvided = (e) =>{
+        e.preventDefault();
+        navigate.push('/serviceProvided');
+    }
 
     const setUserProfileImage = (id) => {
         fetch(`${configuration.URL}/upload/${id}`, {
@@ -135,6 +139,7 @@ function Header(props) {
                             <ul className="nav__listitemdrop">
                                 <li onClick={goToUserProfile}>My Profile</li>
                                 <li onClick={handlePreviousOrders}>My Orders</li>
+                                <li onClick={handleServiceProvided}>Helps Provided</li>
                             </ul>
                         </li>
                    

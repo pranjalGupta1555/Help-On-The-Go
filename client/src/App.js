@@ -12,6 +12,7 @@ import ErrorComponent from './components/utilities/ErrorComponent';
 import { useStateValue } from './Store/StateProvider';
 import Join from './components/Administration/Join/Join';
 import PreOrder from './components/PreviousOrders/preOrder';
+import ServiceProvided from './components/ServiceProvider/ServiceProvided';
 import UserProfile from './components/UserProfile/UserProfile';
 
 
@@ -68,6 +69,9 @@ function App() {
             <Layout showLogin={authenticated} component={<Join />} />
           )}>
           </Route>
+          <Route path="/serviceProvided" render={()=>(
+            <Layout showLogin={authenticated} component={<ServiceProvided userDetails={userCredentials.userDetails}/>}/>
+            )}></Route>
 
           {/* Route to chat interface */}
           <Route exact path="/chat" render={() => (
