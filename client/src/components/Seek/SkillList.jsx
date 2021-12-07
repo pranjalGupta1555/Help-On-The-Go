@@ -1,10 +1,8 @@
 import React from 'react';
 import './SkillList.scss';
-import shortid from 'shortid';
-import CustomButton from '../utilities/customs/CustomButton/CustomButton';
-// import ReactStars from "react-rating-stars-component";
 
 const SkillList = ({ users }) => {
+    //displaying multiple users with userName, image, email and location
     if (users.length > 1) {
         return (
             <div>
@@ -30,7 +28,9 @@ const SkillList = ({ users }) => {
                 </div>
             </div>
         )
-    } else if (users.length == 1) {
+    } 
+     //displaying when we get a single uesr with userName, image, email and location
+    else if (users.length == 1) {
         console.log(users);
         const user = users;
         console.log(user);
@@ -61,6 +61,7 @@ const SkillList = ({ users }) => {
         )
     } else {
         return (<div className="seek-details-container">
+            {/* //displaying when we have no users */}
             <h1>Oops......User Not Found!!!</h1>
         </div>)
     }

@@ -58,7 +58,7 @@ export const getAllHelpersForASeeker = async(seekerId) => {
     const allOrdersOfSeeker = await Order.find({ seekerId: seekerId }).exec();
     let helperIds = [];
     allOrdersOfSeeker.map((helpers) => {
-        helperIds.push(helpers.helperId);
+        helperIds.push({ helperId: helpers.helperId, helperDomain: helpers.domainName, helperSkill: helpers.skillName });
     });
     return helperIds;
 }

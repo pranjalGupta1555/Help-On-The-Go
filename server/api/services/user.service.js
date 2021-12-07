@@ -58,7 +58,7 @@ export const checkUsername = async(username) => {
 
 // create a new user
 export const addUser = async(req) => {
-    const checkUser = await existingUser({ ...req.body });
+    const checkUser = await existingUser({...req.body });
 
     if (checkUser === null) {
         const newUser = await new User({
@@ -137,27 +137,20 @@ export const getUsersBySkill = async(data) => {
 
 
 export const seekAndFilter = async(users, data) => {
-
     let userList = [];
-    const priceMin = ('min' in data) ? data.min : 0;
-    const priceMax = ('max' in data) ? data.max : 100;
-
-    console.log(Object.keys(data));
-
-    await users.forEach(element => {
-        if (Object.keys(data).includes("seekLocation")) {
-            if (element.skillset.includes(data.skill) && (element.wage >= priceMin && element.wage <= priceMax) && data.seekLocation.includes(element.location)) {
-                console.log(element.wage);
-                userList.push(element);
-            }
-        } else {
-            if (element.skillset.includes(data.skill) && (element.wage >= priceMin && element.wage <= priceMax)) {
-                console.log(element.wage);
-                userList.push(element);
+    console.log(parseInt(data.seekLoc) != 0)
+    console.log(data.seekLoc);
+    users.forEach((user) => {
+        if ((user.skillset.includes(data.skill)) && (user.wage > parseInt(data.min)) && (user.wage < parseInt(data.max)) && (user.location != 0)) {
+            if (parseInt(data.seekLoc) == 0) {
+                userList.push(user);
+            } else {
+                if (user.location == data.seekLoc) {
+                    userList.push(user);
+                }
             }
         }
-    });
-
+    })
     return userList;
 }
 
