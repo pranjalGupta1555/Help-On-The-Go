@@ -204,7 +204,7 @@ const Seek = (props) => {
                     </div>
                 </div>
 
-                <SkillList updateChatId={updateChatId} userCredentials={props.userCredentials}  users={users}></SkillList>
+                <SkillList selectedDomain={selectedDomain} selectedSkill={selectedSkill} updateChatId={updateChatId} userCredentials={props.userCredentials}  users={users}></SkillList>
             </>
         )
     } else {

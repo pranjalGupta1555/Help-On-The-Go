@@ -14,10 +14,6 @@ const setSuccessResponse = (data, response) => {
     response.json(data);
 }
 
-const errorHandler = (message, res) => {
-    res.status(400).json({ error: message });
-}
-
 // this function sets the response from the data passed to it
 const successHandler = (message, data, res) => {
     res.status(200).json({ message: message, data: data });
@@ -122,6 +118,7 @@ export const getSeekerInfoByHelperId = async(request, response) => {
         allOrdersOfHelper.map(async(orderItem, index) => {
             const seekerInfo = await userService.checkExistingUserID(orderItem.seekerId);
             allSeekersByHelper.push({
+                id:seekerInfo.id,
                 firstName: seekerInfo.firstName,
                 lastName: seekerInfo.lastName,
                 profileImageURL: seekerInfo.profileImage,
@@ -135,5 +132,18 @@ export const getSeekerInfoByHelperId = async(request, response) => {
         })
     } catch (e) {
         errorhandler(e.message, response);
+    }
+}
+
+export const addNewOrder = async(request, response) =>{
+    try{
+        const responseMessage = await orderService.addNewOrder({...request.body});
+        if(responseMessage!=null){
+            setSuccessResponse(responseMessage,response);
+        }else{
+            errorHandler(responseMessage,response);
+        }
+    } catch(e){
+        errorHandler(e.message,response)
     }
 }

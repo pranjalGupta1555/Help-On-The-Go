@@ -6,23 +6,38 @@ import { useHistory } from 'react-router-dom';
 import configuration from '../../config';
 // import ReactStars from "react-rating-stars-component";
 
-const SkillList = ({ showAdmin, updateChatId, userCredentials,  users }) => {
+const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, userCredentials,  users }) => {
     const navigate = useHistory();
     const handleOrderClick = (user) => {
         if (!userCredentials.loggedIn) {
             alert("Login function here!!")
         }
         else {
-            fetch(`${configuration.URL}/chat/${userCredentials.userDetails.username}/${user[0].username}`, {
+            console.log(user);
+            fetch(`${configuration.URL}/newOrder`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "seekerId":userCredentials.userDetails.id,
+                    "helperId": user.id,
+                    "interactionId":"dscx",
+                    "skillName":selectedSkill,
+                    "domainName":selectedDomain,
+                    "createdDate": new Date()
+                })
+            });
+            fetch(`${configuration.URL}/chat/${userCredentials.userDetails.username}/${user.username}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             }).then((response) => response.json())
                 .then((data) => {
-                    updateChatId(data)
+                    updateChatId(data.data.chatId)
                     navigate.push('/chat');
-         })
+         });
         }
     }
 
@@ -72,7 +87,7 @@ const SkillList = ({ showAdmin, updateChatId, userCredentials,  users }) => {
                                         <p>Wage : ${users[0].wage}</p>
                                     </div>
                                     <div className="POcard-info">
-                                        <button className="PObutton" type="button" onClick={() => { handleOrderClick(user) }}>Order</button>
+                                        <button className="PObutton" type="button" onClick={() => { handleOrderClick(user[0]) }}>Order</button>
                                         <button className="PObutton" type="button" onClick={console.log("here")}>View </button>
                                     </div>
                                 </div>

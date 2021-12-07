@@ -16,4 +16,7 @@ router.route('/serviceProvidedHistory/:helperId')
 router.route('/seekerOrders/:id')
     .get(orderController.getAllHelpersForSeeker)
 
+router.route('/newOrder')
+    .post(orderController.addNewOrder)
+
 export default router;

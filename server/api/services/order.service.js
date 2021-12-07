@@ -1,3 +1,4 @@
+import { response } from "express";
 import Order from "../models/Order.js";
 import * as UserService from "../services/user.service.js";
 
@@ -82,4 +83,10 @@ export const getAllHelpersForASeeker = async(seekerId) => {
 export const getAllOrdersOfAHelper = async(helperId) => {
     const allOrdersOfHelper = await Order.find({ helperId: helperId }).exec();
     return allOrdersOfHelper;
+}
+
+export const addNewOrder = async(request) =>{
+    const newOrder = new Order(request)
+    const responseMessage = await newOrder.save();
+    return responseMessage;
 }
