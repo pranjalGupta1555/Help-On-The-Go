@@ -50,9 +50,9 @@ export const getAllHelpersForSeeker = async(request, response) => {
         const result = await orderService.getAllHelpersForASeeker(seekerId);
         let helpers = [];
         for (let i = 0; i < result.length; i++) {
-            console.log(result[i]);
-            const helper = await userService.userInfo(result[i]);
-            helpers.push(helper);
+            // console.log(result[i].helperId, result[i].domainName, result[i].skillName);
+            const helper = await userService.userInfo(result[i].helperId);
+            helpers.push({ helper: helper, helperDomain: result[i].helperDomain, helperSkill: result[i].helperSkill });
         }
         successHandler("success", helpers, response);
     } catch (err) {

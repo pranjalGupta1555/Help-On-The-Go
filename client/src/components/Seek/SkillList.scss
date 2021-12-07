@@ -1,17 +1,11 @@
-// @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-// * {
-//     font-family: 'Poppins', sans-serif;
-// }
-// body {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     min-height: 100vh;
-//     background: #131313;
+// scss variables
+$maxWidth: 1000px;
+$myColor: #484650;
+$myFontWeigth: 600;
 .POcards {
     position: relative;
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: $maxWidth;
     display: grid;
     grid-gap: 1px;
     grid-template-columns: 1fr 1fr 1fr;
@@ -24,7 +18,7 @@
     position: relative;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
-    color: #484650;
+    color: $myColor;
     background-color: gray;
     clip-path: circle(125% at 0% 0%);
     transition: clip-path 0.5s ease-in-out;
@@ -56,7 +50,7 @@
     align-items: center;
     justify-items: center;
     line-height: 5px;
-    font-weight: 600;
+    font-weight: $myFontWeigth;
     background-color: #F3F1F1;
 }
 
@@ -97,7 +91,7 @@
     margin-left: 40px;
     margin-bottom: 20px;
     display: inline-block;
-    font-weight: 600;
+    font-weight: $myFontWeigth;
     text-align: center;
     border-radius: 5px;
     white-space: nowrap;
@@ -115,7 +109,7 @@
     margin-left: 40px;
     margin-bottom: 20px;
     display: inline-block;
-    font-weight: 600;
+    font-weight: $myFontWeigth;
     width: 100px;
     text-align: center;
     border-radius: 10px;
@@ -125,154 +119,3 @@
     color: white;
     transition: 0.1s;
 }
-
-// // @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-// // * {
-// //     font-family: 'Poppins', sans-serif;
-// // }
-// // // body {
-// // //     display: flex;
-// // //     justify-content: center;
-// // //     align-items: center;
-// // //     min-height: 100vh;
-// // //     // background: #131313;
-// // // }
-// // .container {
-// //     position: relative;
-// // }
-//  .card {
-//     position: relative;
-//     width: 320px;
-//     height: 350px;
-//     background: #008000;
-//     border-radius: 10px;
-//     overflow: hidden;
-//     margin-left: 35px;
-//     margin-top: 35px;
-// }
-//  .card:before {
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     background: #5764d8;
-//     clip-path: circle(150px at 80% 20%);
-//     transition: 0.5s ease-in-out;
-// }
-//  .card:hover:before {
-//     clip-path: circle(300px at 80% -20%);
-// }
-//  .card:after {
-//     content: 'Seek';
-//     position: absolute;
-//     top: 30%;
-//     left: -20%;
-//     font-size: 12em;
-//     font-weight: 600;
-//     font-style: italic;
-//     color: rgba(40, 16, 105, 0.05)
-// }
-// .card .imgBx {
-//     position: absolute;
-//     top: 35%;
-//     transform: translateY(-50%);
-//     z-index: 1;
-//     width: 95%;
-//     height: 200px;
-//     transition: 0.5s;
-//     border-radius: 30px;
-// }
-//  .card:hover .imgBx {
-//     top: 5%;
-//     transform: translateY(0%);
-// }
-// .card .imgBx img {
-//     position: absolute;
-//     border-radius: 5px;
-//     top: 40%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//     width: 230px;
-// }
-// // .container .card .contentBx {
-// //     position: absolute;
-// //     bottom: 0;
-// //     width: 100%;
-// //     height: 130px;
-// //     text-align: center;
-// //     transition: 1s;
-// //     z-index: 1;
-// // }
-// // .container .card:hover .contentBx {
-// //     height: 250px;
-// // }
-// // .container .card .contentBx h2 {
-// //     position: relative;
-// //     font-weight: 300;
-// //     font-size: 18px;
-// //     letter-spacing: 1px;
-// //     color: #fff;
-// //     margin: 0;
-// // }
-// // .container .card:hover .contentBx h2 {
-// //     display: none;
-// // }
-// // .container .card .contentBx h1 {
-// //     position: relative;
-// //     font-weight: 300;
-// //     font-size: 18px;
-// //     letter-spacing: 1px;
-// //     color: #fff;
-// //     margin: 0;
-// // }
-// // .container .card .contentBx h1 {
-// //     display: none;
-// // }
-// // .container .card:hover .contentBx h1 {
-// //     justify-content: center;
-// //     align-items: center;
-// // }
-// // .container .card .contentBx .size,
-// // .container .card .contentBx .color {
-// //     display: flex;
-// //     justify-content: center;
-// //     align-items: center;
-// //     padding: 8px 20px;
-// //     transition: 0.5s;
-// //     opacity: 0;
-// //     visibility: hidden;
-// //     padding-top: 0;
-// //     padding-bottom: 0;
-// // }
-// // .container .card:hover .contentBx:hover button:hover {
-// //     background-color: #5d78c4;
-// //     padding: 5px;
-// //     color: white;
-// //     transition: 0.1s;
-// // }
-// // .container .card:hover .contentBx:hover button {
-// //     background-color: white;
-// //     padding: 5px;
-// //     transition: 0s;
-// // }
-// // .container .card .contentBx button {
-// //     display: inline-block;
-// //     background: #fff;
-// //     text-decoration: none;
-// //     font-weight: 600;
-// //     color: #111;
-// //     opacity: 0;
-// //     transform: translateY(50px);
-// //     transition: 0.2s;
-// // }
-// // .container .card:hover .contentBx button {
-// //     opacity: 1;
-// //     transform: translateY(0px);
-// //     transition-delay: 0.45s;
-// //     margin: 5px;
-// //     height: 40px;
-// //     border-radius: 10px;
-// //     margin-top: 120px;
-// //     margin-right: 15px;
-// // }

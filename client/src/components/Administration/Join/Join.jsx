@@ -11,6 +11,7 @@ import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
+import emailjs from 'emailjs-com';
 import cool from '../../../assets/cool.jpeg';
 
 const useStyles = makeStyles({
@@ -157,6 +158,8 @@ export default function Join() {
         if (username.trim().length > 0 && firstName.trim().length > 0 && lastName.trim().length > 0
             && email.length > 0 && password.length > 0 && retypepassword.length > 0 && selectedLocation.length > 0 &&
             selectedDomain.length > 0 && selectedSkill.length > 0) {
+            sendEmail();
+            sendData();
 
             if (unerror === "" && emerror === "" && passwordError === "" & retypepasswordError === "") {
 
@@ -195,6 +198,19 @@ export default function Join() {
             }).catch((err) => {
                 console.log(err);
             })
+    }
+
+    //sending email when a new user Register themselves
+    const sendEmail = () => {
+        emailjs.send("service_htazc2e", "template_tdv6uw4", {
+            from_name: "Help on the Go",
+            to_name: firstName + " " + lastName,
+            message: "Account has been created. Thank you for choosing us.",
+            to_email: email,
+            from_email: "udaysid7@gmail.com",
+        }, "user_uCyIfbFyBbYuSeADhqEqj").then(res => {
+            console.log(res);
+        }).catch(err => console.log(err));
     }
 
     const sendData = () => {
@@ -250,10 +266,10 @@ export default function Join() {
             }).then((response) => response.json())
                 .then((data) => {
                     console.log(data, " IN NEW CREATION ");
-                   
+
                     uploadImage(data.data.id);
 
-                   
+
                 }).catch((err) => {
                     console.log(err);
                     setmessage("Oops! Something went wrong!");
@@ -386,6 +402,7 @@ export default function Join() {
         }).then((response) => response.json())
             .then((data) => {
                 console.log("LOCATIONS -- ", data);
+               // setlocation(data);
                 setlocation(data.data[0].places);
             }).catch((err) => {
                 console.log(err);
@@ -418,7 +435,7 @@ export default function Join() {
     return (
         <div className="join-container">
             {alert ? <CustomAlert variant={variant} message={message} show={true} /> : <></>}
-           
+
 
             <Carousel activeIndex={index} onSelect={handleSelect} className="carousel" controls={false} wrap={true} interval={null}>
                 <Carousel.Item>
