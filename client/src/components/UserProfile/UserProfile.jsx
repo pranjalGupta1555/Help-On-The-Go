@@ -33,7 +33,7 @@ export default function ProfilePage(props) {
   const [daysOfWorking, setDaysOfWorking] = useState([]);
   const [hourlyWage, setHourlyWage] = useState('');
   const [location, setLocation] = useState('');
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState(null);
   const [tagLine, setTagLine] = useState('');
   const [introductoryStatement, setIntroductoryStatement] = useState('');
   const [averageRating, setAverageRating] = useState(0);
@@ -122,6 +122,22 @@ export default function ProfilePage(props) {
           setUserDomains(data.domains);
         }
       })
+  }
+
+  const getProfileImageOfUser = (id) => {
+    fetch(`${configuration.URL}/upload/${userCredentials.userDetails.id}`, {
+        method: 'GET',
+    }).then((response) => {
+        if(response.status === 200) {
+            response.blob().then(blobResponse => {
+                let data = URL.createObjectURL(blobResponse);
+                console.log(data);
+                setProfileImage(data);
+            })
+        } else {
+            setProfileImage(null);
+        }
+    })
   }
 
   const getReviewsOfUser = (userId) => {
@@ -289,6 +305,7 @@ export default function ProfilePage(props) {
   useEffect(() => {
       
     getGeneralUserInfo();
+    getProfileImageOfUser();
     getReviewsOfUser(userCredentials.userDetails.id);
     getAllDomainsAndSkills();
 
@@ -308,7 +325,7 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={6}>
                 <div className="profile">
                   <div>
-                    <img src={require("./bg.jpg")} alt="..." className="profileImage" />
+                    <img src={profileImage} alt="..." className="profileImage" />
                   </div>
                   <div className="name">
                     <h3 className="title">{firstName} {lastName}</h3>
