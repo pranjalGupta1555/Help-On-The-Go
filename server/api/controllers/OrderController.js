@@ -44,15 +44,42 @@ export const getOrderById = async(request, response) => {
     }
 };
 
+export const updateOrderById = async(request, response) => {
+    try {
+        
+        const result = await orderService.updateOrderById(request);
+
+        if(result !== null) {
+            successHandler("success", result, response);
+        } else {
+            errorHandler("failed", response);
+        }
+
+    } catch(err) {
+        errorHandler(err.message, response);
+    }
+}
+
 export const getAllHelpersForSeeker = async(request, response) => {
     try {
         const seekerId = request.params.id;
         const result = await orderService.getAllHelpersForASeeker(seekerId);
         let helpers = [];
         for (let i = 0; i < result.length; i++) {
+            console.log(result[i]);
+            // let helper = await userService.userInfo(result[i].helperID);
+            // helpers.push({...helper.toObject(), 
+            //     orderId: result[i].orderID, 
+            //     rating: result[i].rating});
             // console.log(result[i].helperId, result[i].domainName, result[i].skillName);
             const helper = await userService.userInfo(result[i].helperId);
-            helpers.push({ helper: helper, helperDomain: result[i].helperDomain, helperSkill: result[i].helperSkill });
+            helpers.push({ 
+                helper: helper, 
+                helperDomain: result[i].helperDomain, 
+                helperSkill: result[i].helperSkill,
+                orderId: result[i].orderId,
+                rating: result[i].rating
+            });
         }
         successHandler("success", helpers, response);
     } catch (err) {

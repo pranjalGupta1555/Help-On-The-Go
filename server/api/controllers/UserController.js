@@ -67,7 +67,6 @@ export const fetchProfileImage = async (req, res) => {
         console.log(req);
 
         const result = await ProfileService.getUserImage(req.params.id);
-    
         
         if(result !== null) {
             res.set('Content-Type', 'image/png')

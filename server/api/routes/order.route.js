@@ -8,6 +8,7 @@ router.route('/orders')
 
 router.route('/orders/:id')
     .get(orderController.getOrderById) // gets called when request method is GET with a request param of
+    .put(orderController.updateOrderById)
     
 router.route('/serviceProvidedHistory/:helperId')
     .get(orderController.getSeekerInfoByHelperId) // gets called when request method is GET with a request param of

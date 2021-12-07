@@ -13,6 +13,13 @@ export const getOrderById = (id) => {
     return promise;
 }
 
+export const updateOrderById = async(req) => {
+    const promise = await Order.findByIdAndUpdate({ _id: req.params.id }, {...req.body }, {
+        new: true
+    });
+    return promise;
+}
+
 export const getAllReviewsOfHelper = async(allOrdersOfHelper) => {
     let reviewsArray = [];
     allOrdersOfHelper.map(async(order) => {
@@ -57,9 +64,18 @@ export const getAllReviewInfoOfHelper = async(helperId) => {
 export const getAllHelpersForASeeker = async(seekerId) => {
     const allOrdersOfSeeker = await Order.find({ seekerId: seekerId }).exec();
     let helperIds = [];
-    allOrdersOfSeeker.map((helpers) => {
-        helperIds.push({ helperId: helpers.helperId, helperDomain: helpers.domainName, helperSkill: helpers.skillName });
-    });
+    allOrdersOfSeeker.map((orderItem) => {
+        helperIds.push({
+            helperId: orderItem.helperId,
+            orderId: orderItem.id,
+            rating: orderItem.rating,
+            helperDomain: orderItem.domainName,
+            helperSkill: orderItem.skillName
+        });
+    })
+    // allOrdersOfSeeker.map((helpers) => {
+    //     helperIds.push({ helperId: helpers.helperId, helperDomain: helpers.domainName, helperSkill: helpers.skillName });
+    // });
     return helperIds;
 }
 

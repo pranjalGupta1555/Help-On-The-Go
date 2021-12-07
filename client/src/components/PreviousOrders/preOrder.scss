@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 1200px;
+    max-width: 2000px;
     flex-wrap: wrap;
     gap: 30px;
     padding: 10px;
@@ -13,7 +13,7 @@
 
 .PRcards .PRcard {
     position: relative;
-    min-width: 300px;
+    min-width: 100px;
     height: 400px;
     color: grey;
     background-color: darkcyan;
@@ -21,6 +21,7 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 5px 5px 5px 5px #888888;
+    width:320px
 }
 
 .PRcards .PRcard:hover {
@@ -44,13 +45,11 @@
 }
 
 .PRcards .PRcard:after {
-    content: 'Seek';
-    position: absolute;
     top: 30%;
-    Left: -20%;
+    left: -20%;
     font-size: 12em;
     font-weight: 800;
-    color: rgba(255, 255, 255, 0.04);
+    color: rgba(231, 10, 10, 0.04);
 }
 
 .PRcard-content {
