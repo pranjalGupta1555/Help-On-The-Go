@@ -5,7 +5,6 @@ import { useStateValue } from '../../../Store/StateProvider';
 import configuration from '../../../config';
 import './join.scss';
 import validate from 'validator';
-import { FaHome } from 'react-icons/fa';
 import CustomDropdown from '../../utilities/customs/CustomDropdown/CustomDropdown';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core';
@@ -13,6 +12,8 @@ import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
 import emailjs from 'emailjs-com';
 import cool from '../../../assets/cool.jpeg';
+import { actionTypes } from '../../../Store/reducer';
+
 
 const useStyles = makeStyles({
     root: {
@@ -28,9 +29,9 @@ export default function Join() {
 
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const years = ['< 1 year', ' 1-2 years', '3-4 years', '> 5 years']
-    const places = ['San Fransico', 'Boston', 'Los Angeles']
 
     const [{ userCredentials }, dispatch] = useStateValue();
+    
     const [loggedin, setloggedin] = useState(false);
 
     const [username, setusername] = useState('');
@@ -158,8 +159,6 @@ export default function Join() {
         if (username.trim().length > 0 && firstName.trim().length > 0 && lastName.trim().length > 0
             && email.length > 0 && password.length > 0 && retypepassword.length > 0 && selectedLocation.length > 0 &&
             selectedDomain.length > 0 && selectedSkill.length > 0) {
-            sendEmail();
-            sendData();
 
             if (unerror === "" && emerror === "" && passwordError === "" & retypepasswordError === "") {
 
@@ -188,10 +187,11 @@ export default function Join() {
         }).then((response) => response.json())
             .then((data) => {
                 console.log(data);
+                document.body.style.backgroundColor = 'white';
                 setmessage("Welcome to our community!");
                 setvariant('success');
                 alertUser();
-
+                sendEmail();
                 setTimeout(() => {
                     history.push('/');
                 }, 2000);
@@ -199,7 +199,6 @@ export default function Join() {
                 console.log(err);
             })
     }
-
     //sending email when a new user Register themselves
     const sendEmail = () => {
         emailjs.send("service_htazc2e", "template_tdv6uw4", {
@@ -245,10 +244,16 @@ export default function Join() {
             }).then((response) => response.json())
                 .then((data) => {
                     console.log(data);
-
+                    dispatch({
+                        type: actionTypes.SET_LOGIN,
+                        username: data.data.username,
+                        sessionToken: data.data.token,
+                        userType: data.data.userType,
+                        userData: data.data
+                    });
                     uploadImage(data.data.id);
 
-                   
+
                 }).catch((err) => {
                     console.log(err);
                     setmessage("Oops! Something went wrong!");
@@ -266,7 +271,13 @@ export default function Join() {
             }).then((response) => response.json())
                 .then((data) => {
                     console.log(data, " IN NEW CREATION ");
-
+                    dispatch({
+                        type: actionTypes.SET_LOGIN,
+                        username: data.data.username,
+                        sessionToken: data.data.token,
+                        userType: data.data.userType,
+                        userData: data.data
+                    });
                     uploadImage(data.data.id);
 
 
@@ -402,7 +413,6 @@ export default function Join() {
         }).then((response) => response.json())
             .then((data) => {
                 console.log("LOCATIONS -- ", data);
-               // setlocation(data);
                 setlocation(data.data[0].places);
             }).catch((err) => {
                 console.log(err);

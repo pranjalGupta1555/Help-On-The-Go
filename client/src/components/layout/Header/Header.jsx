@@ -85,7 +85,7 @@ function Header(props) {
         }
         else if (window.location.href.split("/")[3] === "home" || window.location.href.split("/")[3] === "") {
             // handle scrolling
-            document.body.style.backgroundColor = 'white';
+            
             window.addEventListener('scroll', function () {
                 let header = document.querySelector('.main-header');
                 let windowPosition = window.scrollY > 0;
