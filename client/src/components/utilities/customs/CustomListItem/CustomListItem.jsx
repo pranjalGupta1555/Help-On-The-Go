@@ -4,11 +4,11 @@ import './CustomListItem.scss';
 
 function CustomListItem(props){
     return(
-        <Card className="w-25rem">
+        <Card className="w-30rem">
             <Card.Body>
                 <Card.Title>{props.item.firstName} {props.item.lastName}</Card.Title>
                 <div className="help-details">
-                    <Card.Img className="fixImageSize" variant="top" src={props.item.profileImageUrl}/> 
+                    <Card.Img className="fixListImage" variant="top" src={props.item.profileImageUrl}/> 
                     <div className="help-description">
                         <Card.Subtitle className="help-person">
                             Help Details:

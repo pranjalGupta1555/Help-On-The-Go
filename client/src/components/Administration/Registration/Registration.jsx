@@ -4,7 +4,7 @@ import configuration from '../../../config';
 import CustomAlert from '../../utilities/customs/CustomAlert/CustomAlert';
 import CustomButton from '../../utilities/customs/CustomButton/CustomButton';
 import validate from 'validator';
-import './Registration.scss';
+import './registration.scss';
 
 export default function Registration(props) {
 

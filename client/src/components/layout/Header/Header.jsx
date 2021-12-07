@@ -133,15 +133,15 @@ function Header(props) {
                 {/* signin button */}
                 {
               
-                    userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaComment onClick={handleChatClick} /> <FaShoppingCart />
-                        <img src={profImage} width="50px" height="50px" />
+                    userCredentials.loggedIn ? <div className="main-header-side-icons"> <FaComment onClick={handleChatClick} /> <FaShoppingCart onClick={handlePreviousOrders} />
+                        { userCredentials.loggedIn && userCredentials.userType === 'helper' ? <> <img src={profImage} width="50px" height="50px" />
                         <li className="nav__listitem">
                             <ul className="nav__listitemdrop">
                                 <li onClick={goToUserProfile}>My Profile</li>
-                                <li onClick={handlePreviousOrders}>My Orders</li>
                                 <li onClick={handleServiceProvided}>Helps Provided</li>
                             </ul>
                         </li>
+                        </> : <> </> }
                    
                     </div> : <div className="main-header-side-signin">
 

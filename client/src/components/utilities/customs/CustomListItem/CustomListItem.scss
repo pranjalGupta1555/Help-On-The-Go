@@ -9,14 +9,22 @@ h1{
 .help-description{
     padding: 15px;
 }
-.w-25rem{
+.w-30rem{
     width:97%;
     margin-top: 10px;
+    height: 400px;
+    font-size: 15pt;
+    &:hover {
+        transform: scale(1,1.02);
+        box-shadow: 1px 2px 17px lightsteelblue;
+    }
 }
 .help-details{
     display: flex;
     width: 100%;
 }
-.fixImageSize{
-    width: 20%;
+.fixListImage{
+    width: 15%;
+    height: 300px;
+
 } 

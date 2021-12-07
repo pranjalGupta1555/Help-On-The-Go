@@ -38,6 +38,13 @@
             }
         }
 
+        .carousel-indicators {
+            button {
+                background-color: green !important;
+                background-clip: border-box;
+            }
+        }
+
         .profileImg {
             border-radius: 50%;
         }
