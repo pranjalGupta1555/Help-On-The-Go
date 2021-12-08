@@ -1,6 +1,7 @@
 import { response } from 'express';
 import * as orderService from '../services/order.service.js';
 import * as userService from '../services/user.service.js';
+import * as ProfileService from "../services/profile.service.js";
 
 // this function gets called whenever error is occured and sets the response code to 500
 const errorhandler = (message, response) => {
@@ -42,16 +43,16 @@ export const getOrderById = async(request, response) => {
 
 export const updateOrderById = async(request, response) => {
     try {
-        
+
         const result = await orderService.updateOrderById(request);
 
-        if(result !== null) {
+        if (result !== null) {
             successHandler("success", result, response);
         } else {
             errorHandler("failed", response);
         }
 
-    } catch(err) {
+    } catch (err) {
         errorHandler(err.message, response);
     }
 }
@@ -63,18 +64,15 @@ export const getAllHelpersForSeeker = async(request, response) => {
         let helpers = [];
         for (let i = 0; i < result.length; i++) {
             console.log(result[i]);
-            // let helper = await userService.userInfo(result[i].helperID);
-            // helpers.push({...helper.toObject(), 
-            //     orderId: result[i].orderID, 
-            //     rating: result[i].rating});
-            // console.log(result[i].helperId, result[i].domainName, result[i].skillName);
             const helper = await userService.userInfo(result[i].helperId);
-            helpers.push({ 
-                helper: helper, 
-                helperDomain: result[i].helperDomain, 
+            // const image = await ProfileService.getUserImage("61ae711b497e459c86b48f89");
+            helpers.push({
+                helper: helper,
+                helperDomain: result[i].helperDomain,
                 helperSkill: result[i].helperSkill,
                 orderId: result[i].orderId,
-                rating: result[i].rating
+                rating: result[i].rating,
+                // profileImage: image
             });
         }
         successHandler("success", helpers, response);

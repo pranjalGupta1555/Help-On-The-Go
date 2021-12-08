@@ -71,17 +71,17 @@ export const getAllHelpersForASeeker = async(seekerId) => {
     const allOrdersOfSeeker = await Order.find({ seekerId: seekerId }).exec();
     let helperIds = [];
     allOrdersOfSeeker.map((orderItem) => {
-        helperIds.push({
-            helperId: orderItem.helperId,
-            orderId: orderItem.id,
-            rating: orderItem.rating,
-            helperDomain: orderItem.domainName,
-            helperSkill: orderItem.skillName
-        });
-    })
-    // allOrdersOfSeeker.map((helpers) => {
-    //     helperIds.push({ helperId: helpers.helperId, helperDomain: helpers.domainName, helperSkill: helpers.skillName });
-    // });
+            helperIds.push({
+                helperId: orderItem.helperId,
+                orderId: orderItem.id,
+                rating: orderItem.rating,
+                helperDomain: orderItem.domainName,
+                helperSkill: orderItem.skillName
+            });
+        })
+        // allOrdersOfSeeker.map((helpers) => {
+        //     helperIds.push({ helperId: helpers.helperId, helperDomain: helpers.domainName, helperSkill: helpers.skillName });
+        // });
     return helperIds;
 }
 

@@ -33,10 +33,15 @@ $myFontWeigth: 600;
     transition: clip-path 0.5s ease-in-out;
 }
 
-.POcard-image {
+//Using mixin
+@mixin poCardMixin {
     margin-top: 20px;
     width: 80%;
     height: 220px;
+}
+
+.POcard-image {
+    @include poCardMixin;
     display: block;
     margin-left: 35px;
     border-radius: 15px;

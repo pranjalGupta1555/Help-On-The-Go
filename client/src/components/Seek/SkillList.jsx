@@ -4,6 +4,7 @@ import shortid from 'shortid';
 import CustomButton from '../utilities/customs/CustomButton/CustomButton';
 import { useHistory } from 'react-router-dom';
 import configuration from '../../config';
+import Loader from '../utilities/Loader';
 // import ReactStars from "react-rating-stars-component";
 
 const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, userCredentials,  users }) => {
@@ -21,14 +22,14 @@ const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, use
                 },
                 body: JSON.stringify({
                     "seekerId":userCredentials.userDetails.id,
-                    "helperId": user.id,
+                    "helperId": user.helper.id,
                     "interactionId":"dscx",
                     "skillName":selectedSkill,
                     "domainName":selectedDomain,
                     "createdDate": new Date()
                 })
             });
-            fetch(`${configuration.URL}/chat/${userCredentials.userDetails.username}/${user.username}`, {
+            fetch(`${configuration.URL}/chat/${userCredentials.userDetails.username}/${user.helper.username}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
@@ -58,15 +59,16 @@ const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, use
                         {
                             users.map((user) => (
                                 <div className="POcard">
-                                    <img src={user.profileImageURL} alt="person Image" className="POcard-image" />
+                                    {console.log(user, " INNNNNNNNNNNNNNNNNNNNNNNNNNNN ")}
+                                    <img src={user.image} alt="person Image" className="POcard-image" />
                                     <div className="POcard-content">
-                                        <p className="firstp">Name : {user.firstName + ' ' + user.lastName}</p>
-                                        <p>Email Id : {user.email}</p>
-                                        <p>Location : {user.location}</p>
-                                        <p>Wage : ${user.wage}</p>
+                                        <p className="firstp">Name : {user.helper.firstName + ' ' + user.helper.lastName}</p>
+                                        <p>Email Id : {user.helper.email}</p>
+                                        <p>Location : {user.helper.location}</p>
+                                        <p>Wage : ${user.helper.wage}</p>
                                     </div>
                                     <div className="POcard-info">
-                                        <button className="PObutton" onClick={() => { handleOrderClick(user) }}>Order</button>
+                                        <button className="PObutton" onClick={() => { handleOrderClick(user) }}>BOOK</button>
                                         <button className="PObutton" onClick={() => { handleViewClick(user._id) }}>View </button>
                                     </div>
                                 </div>
@@ -88,16 +90,16 @@ const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, use
                         <div>
                             <div className="POcards">
                                 <div className="POcard">
-                                    <img src={user[0].profileImage} alt="person Image" className="POcard-image" />
+                                    <img src={user[0].image} alt="person Image" className="POcard-image" />
                                     <div className="POcard-content">
-                                        <p className="firstp">Name : {users[0].firstName + ' ' + users[0].lastName}</p>
-                                        <p>Email Id : {users[0].email}</p>
-                                        <p>Location : {users[0].location}</p>
-                                        <p>Wage : ${users[0].wage}</p>
+                                        <p className="firstp">Name : {users[0].helper.firstName + ' ' + users[0].helper.lastName}</p>
+                                        <p>Email Id : {users[0].helper.email}</p>
+                                        <p>Location : {users[0].helper.location}</p>
+                                        <p>Wage : ${users[0].helper.wage}</p>
                                     </div>
                                     <div className="POcard-info">
-                                        <button className="PObutton" type="button" onClick={() => { handleOrderClick(user[0]) }}>Order</button>
-                                        <button className="PObutton" type="button" onClick={console.log("here")}>View </button>
+                                        <button className="PObutton" type="button" onClick={() => { handleOrderClick(user[0]) }}>BOOK</button>
+                                        <button className="PObutton" type="button" onClick={() => { handleViewClick(user[0]._id) }}>View </button>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +111,7 @@ const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, use
     } else {
         return (<div className="seek-details-container">
             {/* //displaying when we have no users */}
-            <h1>Oops......User Not Found!!!</h1>
+            <Loader></Loader>
         </div>)
     }
 }

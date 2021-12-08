@@ -152,10 +152,10 @@ export default function Join() {
 
     // validate the name field
     const validateName = (e) => {
-        if (validate.isAlpha(firstName) === false ) {
+        if (validate.isAlpha(firstName) === false) {
             setfnerror('Please provide a valid first name :(')
             setlnerror('')
-            
+
         } else if (firstName.trim().length > 0 && validate.isAlpha(lastName) === false) {
             setlnerror('Please provide a valid last name :(')
             setfnerror('');
@@ -195,7 +195,7 @@ export default function Join() {
     }
 
     // Upload image file AOI
-    const uploadImage = (id) => {
+    const uploadImage = (id, flg) => {
         const formData = new FormData();
         formData.append('upload', Image);
 
@@ -204,22 +204,42 @@ export default function Join() {
             body: formData
         }).then((response) => response.json())
             .then((data) => {
-                const authObject = { 'PRIVATE-KEY': '6e604667-7878-480b-b9d0-cc41b6eff929', 'Content-type': 'application/json' }
-                const user = {
-                    "username": username,
-                    "first_name": firstName,
-                    "last_name": lastName,
-                    "secret": password,
-                }
-                fetch("https://api.chatengine.io/users/", {
-                    method: 'POST',
-                    headers: authObject,
-                    body: JSON.stringify(user)
-                }).then(chatresp => {
-                    console.log(user);
-                    console.log(chatresp, " -- chat registered");
+                if (flg === true) {
 
-                    if(chatresp.status === 201) {
+                    const authObject = { 'PRIVATE-KEY': '6e604667-7878-480b-b9d0-cc41b6eff929', 'Content-type': 'application/json' }
+                    const user = {
+                        "username": username,
+                        "first_name": firstName,
+                        "last_name": lastName,
+                        "secret": password,
+                    }
+                    fetch("https://api.chatengine.io/users/", {
+                        method: 'POST',
+                        headers: authObject,
+                        body: JSON.stringify(user)
+                    }).then(chatresp => {
+                        console.log(user);
+                        console.log(chatresp, " -- chat registered");
+
+                        if (chatresp.status === 201) {
+                            document.body.style.backgroundColor = 'white';
+                            setmessage("Welcome to our community!");
+                            setvariant('success');
+                            alertUser();
+                            sendEmail();
+                            setTimeout(() => {
+                                history.push('/');
+                            }, 2000);
+                        } else {
+                            setmessage('Ran into trouble registering you! Please try again.');
+                            setvariant('danger');
+                            alertUser();
+                        }
+
+                    })
+                } else {
+                    if (data.message === "success") {
+                        console.log(data, " ************* ");
                         document.body.style.backgroundColor = 'white';
                         setmessage("Welcome to our community!");
                         setvariant('success');
@@ -229,13 +249,12 @@ export default function Join() {
                             history.push('/');
                         }, 2000);
                     } else {
-                        setmessage('Ran into trouble registering you! Please try again.');
+                        setmessage('Please try again!');
                         setvariant('danger');
                         alertUser();
                     }
-                    
-                })
-                
+                }
+
             }).catch((err) => {
                 console.log(err);
             })
@@ -292,7 +311,7 @@ export default function Join() {
                         userType: data.data.userType,
                         userData: data.data
                     });
-                    uploadImage(data.data.id);
+                    uploadImage(data.data.id, false);
 
 
                 }).catch((err) => {
@@ -318,7 +337,7 @@ export default function Join() {
                         userType: data.data.userType,
                         userData: data.data
                     });
-                    uploadImage(data.data.id);
+                    uploadImage(data.data.id, true);
 
 
                 }).catch((err) => {

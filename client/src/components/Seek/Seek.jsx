@@ -7,6 +7,7 @@ import { Form } from 'react-bootstrap';
 import CustomDropdown from '../utilities/customs/CustomDropdown/CustomDropdown';
 import CustomButton from '../utilities/customs/CustomButton/CustomButton';
 import Loader from '../utilities/Loader';
+import configuration from '../../config.js';
 
 const useStyles = makeStyles({
     root: {
@@ -29,7 +30,6 @@ const Seek = (props) => {
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [seekerlocation, setSeekerlocation] = useState('');
-
     //using useEffect to fetch domains, locations and users
     useEffect(() => {
         const fetchUsers = async () => {
@@ -49,9 +49,9 @@ const Seek = (props) => {
                 },
                 body: JSON.stringify(filter)
             };
-            const result = await fetch('http://localhost:4000/seek', postOptions).then(response => response.json());
-            setUsers(result.data);
-            setLoading(false);
+            const result = await fetch(`${configuration.URL}/seek`, postOptions).then(response => response.json());
+            // setUsers(result.data);
+            getimages(result.data);
         }
         fetchUsers();
         //fetching all the domains
@@ -62,7 +62,7 @@ const Seek = (props) => {
                     'Content-Type': 'application/json'
                 },
             };
-            const result = await fetch('http://localhost:4000/domains', postOptions).then(response => response.json());
+            const result = await fetch(`${configuration.URL}/domains`, postOptions).then(response => response.json());
             let domainNames = []
             result.map((domain) => domainNames.push(domain.name));
             setDomains(domainNames);
@@ -78,7 +78,7 @@ const Seek = (props) => {
                     'Content-Type': 'application/json'
                 },
             };
-            const result = await fetch('http://localhost:4000/locations', postOptions).then(response => response.json());
+            const result = await fetch(`${configuration.URL}/locations`, postOptions).then(response => response.json());
             console.log(result.data[0].places);
             let places = [];
             result.data[0].places.map((place) => {
@@ -90,6 +90,34 @@ const Seek = (props) => {
         }
         fetchLocations();
     }, []);
+    //fetch images for all the users
+    const getimages = (data) => {
+        let orders = [];
+        let resp = data;
+        console.log(resp);
+        resp.map( (profile, index) => {
+            console.log(`${profile.id} : profileId`)
+            fetch(`${configuration.URL}/upload/${profile.id}`, {
+                method: 'GET',
+            }).then((response) => {
+                if (response.status === 200) {
+                    response.blob().then(blobResponse => {
+                        let data = URL.createObjectURL(blobResponse);
+                        console.log(data);
+                        orders.push({ helper: profile, image: data })
+                    })
+                }
+
+            })
+            console.log("index",index)
+            console.log("res",resp.length)
+            if (index == resp.length-1) {
+                console.log(orders);
+                setUsers(orders);
+                setLoading(false);
+            }
+        })
+    }
     //handle minPrice on change
     const handleMinPrice = (e) => {
         setMinPrice(e.target.value);
@@ -113,7 +141,7 @@ const Seek = (props) => {
                     'Content-Type': 'application/json'
                 },
             };
-            const result = await fetch('http://localhost:4000/skills/' + e.target.value, postOptions).then(response => response.json());
+            const result = await fetch(`${configuration.URL}/skills/` + e.target.value, postOptions).then(response => response.json());
             console.log(result);
             setSkills(result);
             setLoading(false);
@@ -142,8 +170,9 @@ const Seek = (props) => {
             },
             body: JSON.stringify(filter)
         };
-        const result = await fetch('http://localhost:4000/seek', postOptions).then(response => response.json());
-        setUsers(result.data);
+        const result = await fetch(`${configuration.URL}/seek`, postOptions).then(response => response.json());
+        // setUsers(result.data);
+        getimages(result.data);
         setLoading(false);
     }
     // handling submit when the user inputs values for some filters
@@ -162,13 +191,15 @@ const Seek = (props) => {
             },
             body: JSON.stringify(filter)
         };
-        const result = await fetch('http://localhost:4000/seek', postOptions).then(response => response.json());
-        console.log(result.data);
-        setUsers(result.data);
+        const result = await fetch(`${configuration.URL}/seek`, postOptions).then(response => response.json());
+        // console.log(result.data);
+        getimages(result.data);
+        // setUsers(result.data);
         setMinPrice('');
         setMaxPrice('');
         setSeekerlocation('');
     }
+
     const updateChatId = (chatId) => {
         props.setChatId(chatId)
     }
