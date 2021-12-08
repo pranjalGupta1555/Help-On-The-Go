@@ -24,6 +24,7 @@ export default function Login(props) {
 
     const history = useHistory();
 
+    // custom alert
     const alertUser = () => {
         setalert(true);
     }
@@ -62,7 +63,6 @@ export default function Login(props) {
                 }
             })
                 .catch((err) => {
-                    console.log(err, " _________________________ ");
                     setvariant('danger');
                     setmessage('Oops! Something went wrong x(');
                     alertUser();
@@ -72,7 +72,7 @@ export default function Login(props) {
 
     }
 
-
+    // validating password
     const validatePassword = (e) => {
 
         if (e.target.value.length === 0 || e.target.value.includes(' ')) {
@@ -83,9 +83,8 @@ export default function Login(props) {
 
     }
 
-
+    // call the login API
     const userLogin = (e) => {
-        console.log("CAME TO LOGIN");
         e.preventDefault();
 
         let data = {
@@ -138,7 +137,7 @@ export default function Login(props) {
             <FaRegTimesCircle className="close" onClick={(e) => {
                 e.preventDefault();
                 document.body.style.overflow = "auto";
-                
+
                 props.closeAdministration();
             }} />
             <Form>

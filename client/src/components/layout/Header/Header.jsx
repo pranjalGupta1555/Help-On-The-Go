@@ -52,10 +52,7 @@ function Header(props) {
     const setUserProfileImage = (id) => {
         fetch(`${configuration.URL}/upload/${id}`, {
             method: 'GET',
-            // headers: {
-            //     'Content-Type': 'image/png'
-            // }
-
+            
         }).then((response) => {
             if(response.status === 200) {
                 response.blob().then(blobResponse => {

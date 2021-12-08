@@ -24,7 +24,7 @@ function MenuBar(props) {
 
         setInterval(() => {
             setimg(img3);
-        }, 15000);
+        }, 12000);
 
         setInterval(() => {
             setimg(img1);

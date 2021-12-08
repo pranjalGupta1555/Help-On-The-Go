@@ -14,7 +14,14 @@ import emailjs from 'emailjs-com';
 import cool from '../../../assets/cool.jpeg';
 import { actionTypes } from '../../../Store/reducer';
 
+/*
 
+This component is used to register users in our application as helpers
+
+A user who is a seeker can also register himself as a helper
+
+
+*/
 const useStyles = makeStyles({
     root: {
         width: 300,
@@ -27,11 +34,12 @@ export default function Join() {
 
     const classes = useStyles();
 
+    // State management
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const years = ['< 1 year', ' 1-2 years', '3-4 years', '> 5 years']
 
     const [{ userCredentials }, dispatch] = useStateValue();
-    
+
     const [loggedin, setloggedin] = useState(false);
 
     const [username, setusername] = useState('');
@@ -80,19 +88,22 @@ export default function Join() {
         setwage(value);
     }
 
+    // handling the selected tab pane
     const handleSelect = (selectedIndex, e) => {
         setindex(selectedIndex);
     }
 
+    // to display the custom alert
     const alertUser = () => {
         setalert(true);
     }
 
-
+    // handle dropdown value change
     const handleDayChange = (e) => {
         setday(e.target.value);
     }
 
+    // cascading dropdown effect between domain and skill
     const handleDomainChange = (e) => {
 
         let temporary = [];
@@ -111,14 +122,17 @@ export default function Join() {
         setskills(temporary);
     }
 
+    // handle skill change
     const handleSkillChange = (e) => {
         setselectedSkill(e.target.value);
     }
 
+    // handle experience value change
     const handleExpChange = (e) => {
         setexperience(e.target.value);
     }
 
+    // handle username change
     const handleUsername = (e) => {
         setusername(e.target.value);
 
@@ -136,13 +150,15 @@ export default function Join() {
         setTagLine(e.target.value);
     }
 
+    // validate the name field
     const validateName = (e) => {
-        if (firstName.trim().length === 0) {
-            setfnerror('Please provide your first name :(')
-
-        } else if (firstName.trim().length > 0 && lastName.trim().length === 0) {
-            setlnerror('Please provide your last name :(')
-
+        if (validate.isAlpha(firstName) === false ) {
+            setfnerror('Please provide a valid first name :(')
+            setlnerror('')
+            
+        } else if (firstName.trim().length > 0 && validate.isAlpha(lastName) === false) {
+            setlnerror('Please provide a valid last name :(')
+            setfnerror('');
         } else {
             setfnerror('');
             setlnerror('');
@@ -154,6 +170,7 @@ export default function Join() {
 
     }
 
+    // API to join people
     const handleJoin = (e) => {
 
         if (username.trim().length > 0 && firstName.trim().length > 0 && lastName.trim().length > 0
@@ -177,6 +194,7 @@ export default function Join() {
 
     }
 
+    // Upload image file AOI
     const uploadImage = (id) => {
         const formData = new FormData();
         formData.append('upload', Image);
@@ -270,7 +288,6 @@ export default function Join() {
                 body: JSON.stringify(formData)
             }).then((response) => response.json())
                 .then((data) => {
-                    console.log(data, " IN NEW CREATION ");
                     dispatch({
                         type: actionTypes.SET_LOGIN,
                         username: data.data.username,
@@ -354,7 +371,6 @@ export default function Join() {
                 }
             })
                 .catch((err) => {
-                    console.log(err, " _________________________ ");
                     setvariant('danger');
                     setmessage('Oops! Something went wrong x(');
                     alertUser();
@@ -378,13 +394,6 @@ export default function Join() {
             setpasswordError('');
         }
 
-    }
-
-
-    const takeMeHome = (e) => {
-        e.preventDefault();
-        document.body.style.backgroundColor = 'white';
-        history.push('/home');
     }
 
 
@@ -412,7 +421,6 @@ export default function Join() {
             method: 'GET'
         }).then((response) => response.json())
             .then((data) => {
-                console.log("LOCATIONS -- ", data);
                 setlocation(data.data[0].places);
             }).catch((err) => {
                 console.log(err);
@@ -424,8 +432,6 @@ export default function Join() {
         if (userCredentials.loggedIn) {
             // auto fill the username
             // disable the field
-
-            console.log(userCredentials, " IN JOIN ");
 
             setusername(userCredentials.username);
             setemail(userCredentials.userDetails.email);

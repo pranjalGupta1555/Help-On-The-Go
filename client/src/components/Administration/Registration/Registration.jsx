@@ -8,6 +8,7 @@ import './registration.scss';
 
 export default function Registration(props) {
 
+    // sstate vriables
     const [email, setemail] = useState('');
     const [username, setusername] = useState('');
     const [password, setpassword] = useState('');
@@ -26,17 +27,19 @@ export default function Registration(props) {
     const [message, setmessage] = useState('');
     const [alert, setalert] = useState(false);
 
+    //  custom alert
     const alertUser = () => {
         setalert(true);
     }
 
-
+    // handle email value change
     const handleEmail = (e) => {
         setemail(e.target.value);
     }
 
+    // validate emaill addres using validator
     const validateEmail = (e) => {
-        if(validate.isEmail(e.target.value)) {
+        if (validate.isEmail(e.target.value)) {
             setemailerror('')
         } else {
             setemailerror('Invalid email address :(');
@@ -54,11 +57,12 @@ export default function Registration(props) {
         setlastName(e.target.value);
     }
 
+    // validate name
     const validateName = (e) => {
-        if (validate.isAlpha(firstName) === false ) {
+        if (validate.isAlpha(firstName) === false) {
             setfnerror('Please provide a valid first name :(')
             setlnerror('')
-            
+
         } else if (firstName.trim().length > 0 && validate.isAlpha(lastName) === false) {
             setlnerror('Please provide a valid last name :(')
             setfnerror('');
@@ -77,7 +81,7 @@ export default function Registration(props) {
     }
 
     const validateRetypePassword = (e) => {
-        if(e.target.value === password) {
+        if (e.target.value === password) {
             setretypeError('')
         } else {
             setretypeError('Passwords do not match!')
@@ -119,29 +123,8 @@ export default function Registration(props) {
             setunerror('Please use a valid username! A username could be alphanumeric.')
         }
     }
-    const registerUserOnChat = async(e)=>{
 
-        const authObject={'PRIVATE-KEY':'6e604667-7878-480b-b9d0-cc41b6eff929','Content-type': 'application/json'}
-        const data={
-            "username": username,
-            "first_name": firstName,
-            "last_name": lastName,
-            "secret": password,
-        }
-        fetch("https://api.chatengine.io/users/", {
-            method: 'POST',
-            headers: authObject,
-            body: JSON.stringify(data)
-        }).then(response=>{
-            console.log(response.status)
-            console.log("Chat registered")
-            return((response.status==201) ? "success" : "failed");
-        }).catch((error)=>{
-            console.log("Faileed chat registration")
-            return("failed");
-        });
-    }
-
+    // new user post API
     const userSignUp = (e) => {
 
         e.preventDefault();
@@ -164,8 +147,9 @@ export default function Registration(props) {
             }).then((response) => response.json())
                 .then((data) => {
                     if (data.message === "success") {
-                        const authObject={'PRIVATE-KEY':'6e604667-7878-480b-b9d0-cc41b6eff929','Content-type': 'application/json'}
-                        const data={
+                        // registering user with chat - @author Mridul
+                        const authObject = { 'PRIVATE-KEY': '6e604667-7878-480b-b9d0-cc41b6eff929', 'Content-type': 'application/json' }
+                        const data = {
                             "username": username,
                             "first_name": firstName,
                             "last_name": lastName,
@@ -175,10 +159,10 @@ export default function Registration(props) {
                             method: 'POST',
                             headers: authObject,
                             body: JSON.stringify(data)
-                        }).then(response=>{
+                        }).then(response => {
                             console.log(response.status)
                             console.log("Chat registered")
-                            if(response.status==201){
+                            if (response.status == 201) {
                                 setvariant('success');
                                 setmessage('Registration successful!');
                                 alertUser();
@@ -193,11 +177,11 @@ export default function Registration(props) {
                             }
                         }
                         )
-                    }else{
+                    } else {
                         setvariant('danger');
                         setmessage('Failed!');
                         alertUser();
-                    }  
+                    }
                 }).catch((err) => {
                     setvariant('danger');
                     setmessage('Oops! Something went wrong x(');
@@ -233,12 +217,12 @@ export default function Registration(props) {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicUsername" onBlur={validateName} onChange={handleFirstName} required>
                     <Form.Label>First Name</Form.Label>
-                    <Form.Control type="username" placeholder="Enter name" value={firstName}  />
+                    <Form.Control type="username" placeholder="Enter name" value={firstName} />
                     <Form.Text className="error-text"> {fnerror} </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicUsername" onBlur={validateName} onChange={handleLastName} required>
                     <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="username" placeholder="Enter last name" value={lastName}  />
+                    <Form.Control type="username" placeholder="Enter last name" value={lastName} />
                     <Form.Text className="error-text"> {lnerror} </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
