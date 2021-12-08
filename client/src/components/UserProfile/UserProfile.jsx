@@ -2,6 +2,7 @@ import StarRatings from 'react-star-ratings';
 
 import React, { useState, useEffect } from "react";
 import { useStateValue } from '../../Store/StateProvider';
+import { useParams } from 'react-router-dom';
 
 // @material-ui/core components
 import Slider from '@material-ui/core/Slider';
@@ -27,7 +28,7 @@ import "./UserProfile.scss"
 
 export default function ProfilePage(props) {
   const [{ userCredentials }, dispatch] = useStateValue();
-  const [userId, setUserId] = useState('');
+  const params = useParams();
   const [loading, setloading] = useState(true);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -35,6 +36,7 @@ export default function ProfilePage(props) {
   const [daysOfWorking, setDaysOfWorking] = useState([]);
   const [hourlyWage, setHourlyWage] = useState('');
   const [location, setLocation] = useState('');
+  const [allLocations, setAllLocations] = useState([]);
   const [profileImage, setProfileImage] = useState(null);
   const [tagLine, setTagLine] = useState('');
   const [introductoryStatement, setIntroductoryStatement] = useState('');
@@ -49,10 +51,10 @@ export default function ProfilePage(props) {
   const [selectedSkills, setSelectedSkills] = useState('');
   const [temporaryDomainSkills, setTemporaryDomainSkills] = useState([]);
   const [displayModal, setDisplayModal] = useState("hide");
+  const [viewSelfProfile, setViewSelfProfile] = useState(false);
 
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   const years = ['< 1 year', ' 1-2 years', '3-4 years', '> 5 years']
-  const places = ['San Fransico', 'Boston', 'Los Angeles']
 
 
   const containerFluid = {
@@ -83,9 +85,9 @@ export default function ProfilePage(props) {
   const useStyles = makeStyles(mainContainer);
   const classes = useStyles();
 
-  const getGeneralUserInfo = () => {
+  const getGeneralUserInfo = (userId) => {
     if(userCredentials.loggedIn) {
-    fetch(`${configuration.URL}/users/${userCredentials.userDetails.id}`)
+    fetch(`${configuration.URL}/users/${userId}`)
       .then((response) => {
         return response.json()})
       .then((jsonResponse) => {
@@ -127,9 +129,9 @@ export default function ProfilePage(props) {
     }
   }
 
-  const getProfileImageOfUser = (id) => {
+  const getProfileImageOfUser = (userId) => {
     if(userCredentials.loggedIn) {
-    fetch(`${configuration.URL}/upload/${userCredentials.userDetails.id}`, {
+    fetch(`${configuration.URL}/upload/${userId}`, {
         method: 'GET',
     }).then((response) => {
         if(response.status === 200) {
@@ -180,6 +182,18 @@ export default function ProfilePage(props) {
         })
         setAllDomains(allDomainsArray);
       })
+  }
+
+  const getAllLocations = () => {
+    fetch(`${configuration.URL}/locations`, {
+        method: 'GET'
+    }).then((response) => response.json())
+        .then((data) => {
+            console.log("LOCATIONS -- ", data);
+            setAllLocations(data.data[0].places);
+        }).catch((err) => {
+            console.log(err);
+        })
   }
 
   const handleDomainChange = (e) => {
@@ -310,10 +324,19 @@ export default function ProfilePage(props) {
   }
 
   useEffect(() => {
-    getGeneralUserInfo();
-    getProfileImageOfUser();
-    getReviewsOfUser(userCredentials.userDetails.id);
+    let userId = '';
+    if(params.hasOwnProperty("helperId")) {
+      userId = params.helperId;
+    }
+    else {
+      userId = userCredentials.userDetails.id;
+      setViewSelfProfile(true);
+    }
+    getGeneralUserInfo(userId);
+    getProfileImageOfUser(userId);
+    getReviewsOfUser(userId);
     getAllDomainsAndSkills();
+    getAllLocations();
 
   }, [userCredentials])
 
@@ -412,7 +435,15 @@ export default function ProfilePage(props) {
                     </p>
                   </div>
                   <div className="description">
-                    <CustomButton variant="lightOpaqueButton roundedButton m-bottom20 btnHover" text="UPDATE" clickFn={() => changeDisplayStyle("view")}/>
+                    {
+                      viewSelfProfile ? 
+                      <CustomButton 
+                      variant="lightOpaqueButton roundedButton m-bottom20 btnHover" 
+                      text="UPDATE" 
+                      clickFn={() => changeDisplayStyle("view")}/>
+                      :
+                      ''
+                    }
                   </div>
                   <CustomModal displayStyle={displayModal} heading="UPDATE PROFILE" changeDisplayStyle={changeDisplayStyle}>
                   <div className="w-500">
@@ -423,7 +454,7 @@ export default function ProfilePage(props) {
                               <input className="m-bottom20" type="text" id="tagline" name="tagline" placeholder="Enter your Tag line" defaultValue={tagLine} onChange={handleTagLineChange}></input><br></br>
                               <label for="desc">Description: </label>
                               <textarea className="m-bottom20" type="text" id="desc" name="desc" placeholder="Something about yourself" cols="50" rows="4" defaultValue={introductoryStatement} onChange={handleIntroductoryStatementChange}></textarea><br></br>
-                              <CustomDropdown datalist={places} title="Choose location"
+                              <CustomDropdown datalist={allLocations} title="Choose location"
                                       selectedItem={location} multiple={false} handleChange={handleLocationChange} /> <br/>
                               <CustomDropdown datalist={years} title="Choose Years of Experience"
                                       selectedItem={experience} multiple={false} handleChange={handleExperienceChange} /> <br/>
@@ -469,13 +500,26 @@ export default function ProfilePage(props) {
                                       return <Badge><a onClick={() => deleteUserSkill(skillName)}><span className="close">&times;</span></a>{skillName}</Badge>
                                     })
                                   }
-                                  <CustomDropdown title={"Add Domains"}
-                                      selectedItem={selectedDomains} datalist={allDomains} handleChange={handleDomainChange}/>
-                                  <CustomDropdown title={"Add Skills"}
-                                      datalist={temporaryDomainSkills} handleChange={handleSkillChange}/>
+                                  {
+                                    viewSelfProfile ?
+                                    <div>
+                                      <CustomDropdown title={"Add Domains"}
+                                          selectedItem={selectedDomains} datalist={allDomains} handleChange={handleDomainChange}/>
+                                      <CustomDropdown title={"Add Skills"}
+                                          datalist={temporaryDomainSkills} handleChange={handleSkillChange}/>
+                                    </div>
+                                    : ''
+                                  }
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={10}>
-                                  <CustomButton text="ADD SKILLS" variant="lightOpaqueButton roundedButton m-bottom20 btnHover" clickFn={saveDomainsAndSkills}/>
+                                  {
+                                    viewSelfProfile ?
+                                    <CustomButton 
+                                    text="ADD SKILLS" 
+                                    variant="lightOpaqueButton roundedButton m-bottom20 btnHover" 
+                                    clickFn={saveDomainsAndSkills}/>
+                                    : ''
+                                  }
                                 </GridItem>
                               </GridContainer>
                             ),

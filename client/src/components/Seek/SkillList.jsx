@@ -41,6 +41,15 @@ const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, use
         }
     }
 
+    const handleViewClick = (helperId) => {
+        if (!userCredentials.loggedIn) {
+            alert("Login function here!!")
+        }
+        else {
+            navigate.push(`/viewHelperProfile/${helperId}`);
+        }
+    }
+
     if (users.length > 1) {
         return (
             <div>
@@ -58,7 +67,7 @@ const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, use
                                     </div>
                                     <div className="POcard-info">
                                         <button className="PObutton" onClick={() => { handleOrderClick(user) }}>Order</button>
-                                        <button className="PObutton">View </button>
+                                        <button className="PObutton" onClick={() => { handleViewClick(user._id) }}>View </button>
                                     </div>
                                 </div>
                             ))

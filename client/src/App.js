@@ -64,6 +64,11 @@ function App() {
             <Layout showLogin={authenticated} component={<Seek setChatId={setChatId} userCredentials={userCredentials}/>} />
           )}>
           </Route>
+          {/* Route to selected seeker's profile */}
+          <Route path="/viewHelperProfile/:helperId" render={() => (
+            <Layout showLogin={authenticated} component={<UserProfile />} />
+          )}>
+          </Route>
           {/* Route to join */}
           <Route path="/join" render={() => (
             <Layout showLogin={authenticated} component={<Join />} />
