@@ -10,7 +10,7 @@ const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, use
     const navigate = useHistory();
     const handleOrderClick = (user) => {
         if (!userCredentials.loggedIn) {
-            alert("Login function here!!")
+            alert("Please login!!")
         }
         else {
             console.log(user);
@@ -43,7 +43,7 @@ const SkillList = ({ selectedDomain, selectedSkill, showAdmin, updateChatId, use
 
     const handleViewClick = (helperId) => {
         if (!userCredentials.loggedIn) {
-            alert("Login function here!!")
+            alert("Please login!!")
         }
         else {
             navigate.push(`/viewHelperProfile/${helperId}`);
