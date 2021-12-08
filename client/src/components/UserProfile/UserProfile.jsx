@@ -1,7 +1,11 @@
 import StarRatings from 'react-star-ratings';
 
 import React, { useState, useEffect } from "react";
+
+// for getting data from REDUX store
 import { useStateValue } from '../../Store/StateProvider';
+
+// for accessing params, if any, from react route
 import { useParams } from 'react-router-dom';
 
 // @material-ui/core components
@@ -22,7 +26,10 @@ import CustomModal from '../utilities/customs/CustomModal/CustomModal';
 import Loader from '../utilities/Loader';
 import Badge from "../Badge/Badge";
 
+// config.js has base URL for hitting APIs
 import configuration from '../../config.js';
+
+// SCSS for styling
 import "./UserProfile.scss"
 
 
@@ -85,6 +92,12 @@ export default function ProfilePage(props) {
   const useStyles = makeStyles(mainContainer);
   const classes = useStyles();
 
+  /** 
+* description of the getGeneralUserInfo function.
+* @summary fetches the user's information and sets the component state with corresponding attributes received in the data response.
+* @param {String} userId - user id of the loggedin user if user lands on view self profile page, 
+    otherwise user id of helper whose profile the loggedin user would like to see
+*/  
   const getGeneralUserInfo = (userId) => {
     if(userCredentials.loggedIn) {
     fetch(`${configuration.URL}/users/${userId}`)
@@ -92,6 +105,8 @@ export default function ProfilePage(props) {
         return response.json()})
       .then((jsonResponse) => {
         let data = jsonResponse.data;
+
+        // state is set only if it's corresponding attribute is received in the response from server
         if(data.hasOwnProperty('firstName') && data.firstName != "") {
           setFirstName(data.firstName);
         }
@@ -129,6 +144,12 @@ export default function ProfilePage(props) {
     }
   }
 
+  /** 
+* description of the getProfileImageOfUser function.
+* @summary fetches the user's profile image by hitting /upload API with GET method and sets the corresponding component state.
+* @param {String} userId - user id of the loggedin user if user lands on view self profile page, 
+    otherwise user id of helper whose profile the loggedin user would like to see
+*/
   const getProfileImageOfUser = (userId) => {
     if(userCredentials.loggedIn) {
     fetch(`${configuration.URL}/upload/${userId}`, {
@@ -149,6 +170,12 @@ export default function ProfilePage(props) {
     }
   }
 
+  /** 
+* description of the getReviewsOfUser function.
+* @summary fetches the helper's reviews and average rating by hitting /helperreviews API with GET method and sets the corresponding component state.
+* @param {String} userId - user id of the loggedin user if user lands on view self profile page, 
+    otherwise user id of helper whose profile the loggedin user would like to see
+*/
   const getReviewsOfUser = (userId) => {
     fetch(`${configuration.URL}/helperreviews/${userId}`)
       .then((response) => response.json())
@@ -158,12 +185,28 @@ export default function ProfilePage(props) {
       })
   }
 
+  /** 
+* description of the getAllDomainsAndSkills function.
+* @summary fetches all the domains and skills available in the database by hitting /domains API with GET method 
+    in order to populate the drop down in user profile where the user can add, update and delete his skills/domains
+*/
   const getAllDomainsAndSkills = () => {
     let allSkillsArray = [];
     let allDomainsWithSkillsArray = [];
     fetch(`${configuration.URL}/domains`)
       .then((response) => response.json())
       .then((domains) => {
+
+        // domains have domain name along with a list of skills part of the domain
+        /** example of response: {
+              "name": "Programming & Tech",
+              "imagePath": "https://i.ytimg.com/vi/kX0tq3qsY_U/maxresdefault.jpg",
+              "skills": [
+                  {"skillName": "Wordpress", "imagePath": "https://www.inmotionhosting.com/support/wp-content/uploads/2019/06/WordPress-logotype-alternative.png?w=640"}, 
+                  {"skillName": "Web Programming", "imagePath": "http://www.tekshapers.com/uploads/blog_image/15362384091533896513blog-sco2.jpg"}, 
+                  {"skillName": "Mobile Apps", "imagePath": "http://www.smartinsights.com/wp-content/uploads/2014/07/Screen-Shot-2014-07-07-at-16.27.15-550x395.png"}
+                  ]
+              } */
         domains.map((domain) => {
           allDomainsWithSkillsArray.push(domain);
           domain.skills.map((skillItem) => {
@@ -184,6 +227,8 @@ export default function ProfilePage(props) {
       })
   }
 
+  // fetches all the available locations from backend database in order to populate dropdown in user profile 
+  // from where user can select his location
   const getAllLocations = () => {
     fetch(`${configuration.URL}/locations`, {
         method: 'GET'
@@ -196,6 +241,8 @@ export default function ProfilePage(props) {
         })
   }
 
+  // gets called when user selects a domain from dropdown and populates the list of skills dropdown with the list of 
+  // skills in the selected domain
   const handleDomainChange = (e) => {
     let temporary = [];
     allDomainsWithSkills.map((item, index) => {
@@ -215,6 +262,12 @@ export default function ProfilePage(props) {
     setSelectedSkills(e.target.value);
   } 
 
+  /** 
+* description of the updateUser function.
+* @summary updates the user information at backend database with formData by hitting /users/:userId with PUT method
+* @param {Object} formData - updated user information which the user updated on profile page and now needs to be sent 
+    to backend for updating database
+*/
   const updateUser = (formData) => {
     fetch(`${configuration.URL}/users/${userCredentials.userDetails.id}`, {
       method: 'PUT',
@@ -225,13 +278,19 @@ export default function ProfilePage(props) {
   }).then((response) => response.json())
       .then((data) => {
           console.log(data);
+
+          // once the update is done and success response is recieved, user info is fetched again 
+          // in order to show the updated data at frontend (user profile)
           getGeneralUserInfo();
       }).catch((err) => {
           console.log(err);
       })
   }
 
+  // gets called when user selects domain and skill and presses update button
   const saveDomainsAndSkills = () => {
+
+    // update will happen only if user has selected both, domain and a corresponding skill within that domain
     if(selectedDomains != '' && selectedSkills != '') {
       let formData = {
         skillset: [...new Set([...skillset,selectedSkills])],
@@ -243,6 +302,13 @@ export default function ProfilePage(props) {
     }
   }
 
+  /** 
+* description of the deleteUserDomain function. 
+* @summary gets called when user presses cross icon in the domain, removes that particular domain
+    and skills within that domain from user's skill and domain array
+* @param {String} domainName - selected domain which gets removed from user's domain array, 
+    which is then sent to backend for updating same in the database
+*/
   const deleteUserDomain = (domainName) => {
     let skillsArrayOfUserDomain = [];
     allDomainsWithSkills.map((item) => {
@@ -267,6 +333,12 @@ export default function ProfilePage(props) {
     updateUser(formData);
   }
 
+  /** 
+* description of the deleteUserSkill function. 
+* @summary gets called when user presses cross icon in the skill, removes that particular skill user's skills array
+* @param {String} domainName - selected skill which gets removed from user's skills array, 
+    which is then sent to backend for updating same in the database
+*/
   const deleteUserSkill = (skillName) => {
     let updatedUserSkillsArray = skillset.filter((item) => {
       return item != skillName;
@@ -277,6 +349,9 @@ export default function ProfilePage(props) {
     updateUser(formData);
   }
 
+  // gets called when user presses submit button in the update modal. 
+  // It further calls updateUser with formData in order to update the changed information at the database.
+  // Once update is done at backend database, modal component goes off
   const submitUserInfo = () => {
     let formData = {
         tagLine: tagLine,
@@ -289,6 +364,7 @@ export default function ProfilePage(props) {
     setDisplayModal("hide");
   }
 
+  // used to control the display of update info Modal form
   const changeDisplayStyle = (str) => {
     if(str == "view") {
       setDisplayModal("display");

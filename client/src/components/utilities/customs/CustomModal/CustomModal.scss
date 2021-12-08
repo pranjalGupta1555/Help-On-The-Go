@@ -7,7 +7,7 @@ h1 {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 6; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    padding-top: 100px;
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -26,10 +26,6 @@ h1 {
     width: 35%;
     margin-top: 100px;
 }
-
-// .formDiv {
-//     margin-top: 200px;
-// }
 
 /* The Close Button */
 .close-modal {

@@ -9,14 +9,18 @@ import { useStateValue } from '../../../Store/StateProvider';
 
 function Content(props) {
 
+    // component's state variables
     const [heading, setheading] = useState("");
     const [loading, setloading] = useState(true);
     const [servicesToDisplay, setServicesToDisplay] = useState([]);
     const [laodAll, setlaodAll] = useState(false);
 
+    // value from redux store
     const[{ userCredentials }, dispatch] = useStateValue();
 
     const { state } = useLocation();
+
+    // for navigation
     const history = useHistory();
 
     const handleDomainClick = (serve) => {
@@ -28,13 +32,20 @@ function Content(props) {
         })
     }
 
-
+/** 
+* Brief description of the getAllServices function.
+* @summary fetches all the domains from backend by hitting /domains API with GET method, and then 
+    populating only those skills whose domain is selected by the user
+* @param {String} serviceSelected - service name (domain name) selected by the user on landing page to view skills within that domain.
+*/
     const getAllServices = (serviceSelected) => {
         setloading(true);
         fetch(`${configuration.URL}/domains`)
             .then((response) => response.json())
             .then((domains) => {
                 let servicesArray = [];
+
+                // by default, all the skills of all the domains will get populated on landing screen
                 if (serviceSelected === '') {
                     domains.map((item, index) => {
                         item.skills.map((skill) => {

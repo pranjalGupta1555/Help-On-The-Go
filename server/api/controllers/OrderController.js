@@ -83,7 +83,7 @@ export const getAllHelpersForSeeker = async(request, response) => {
     }
 };
 
-
+// accumulates all the reviews and rating information of given helper by helperID passed as a request
 export const getAllReviewInfoByHelperId = async(request, response) => {
     try {
         const helperId = request.params.id;
@@ -116,7 +116,11 @@ export const getSeekerInfoByHelperId = async(request, response) => {
         const allOrdersOfHelper = await orderService.getAllOrdersOfAHelper(helperId);
         let allSeekersByHelper = [];
         allOrdersOfHelper.map(async(orderItem, index) => {
+
+            // gets the seeker information by seeker ID for each order with given helper ID
             const seekerInfo = await userService.checkExistingUserID(orderItem.seekerId);
+
+            // pushes the seeker information for each order along with corresponding order details
             allSeekersByHelper.push({
                 id:seekerInfo.id,
                 firstName: seekerInfo.firstName,

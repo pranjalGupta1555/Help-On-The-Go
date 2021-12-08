@@ -16,6 +16,7 @@ export default function GridContainer(props) {
   );
 }
 
+// propTypes to define what all types of props are accepted by this component
 GridContainer.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string

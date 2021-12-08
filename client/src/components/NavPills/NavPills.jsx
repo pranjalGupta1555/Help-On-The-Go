@@ -16,12 +16,18 @@ import GridItem from "../Grid/GridItem/GridItem";
 import "./NavPills.scss";
 
 export default function NavPills(props) {
+
+  // state variables
   const [active, setActive] = React.useState(props.active);
+
+
   const handleChange = (event, active) => {
     setActive(active);
   };
 
+  // props from another component which is calling NavPills
   const { tabs, alignCenter } = props;
+
   const tabButtons = (
     <Tabs
       value={active}
@@ -73,6 +79,7 @@ NavPills.defaultProps = {
   active: 0,
 };
 
+// propTypes to define what all types of props are accepted by this component
 NavPills.propTypes = {
   active: PropTypes.number,
   tabs: PropTypes.arrayOf(

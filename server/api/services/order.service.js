@@ -21,6 +21,7 @@ export const updateOrderById = async(req) => {
     return promise;
 }
 
+// accumulates all the reviews of a helper by going through of his/her orders
 export const getAllReviewsOfHelper = async(allOrdersOfHelper) => {
     let reviewsArray = [];
     allOrdersOfHelper.map(async(order) => {
@@ -33,6 +34,7 @@ export const getAllReviewsOfHelper = async(allOrdersOfHelper) => {
     return reviewsArray;
 }
 
+// calculates average rating of helper by going through all of his/her orders
 export const getAverageRatingOfHelper = async(allOrdersOfHelper) => {
     let sumOfRatings = 0;
     let count = 0;
@@ -49,6 +51,9 @@ export const getAverageRatingOfHelper = async(allOrdersOfHelper) => {
     }
 }
 
+// filters out all the orders based on helper ID
+// calculates average rating of helper by going through all the orders of that particular helper
+// accumulates all the individual reviews of a helper into one array
 export const getAllReviewInfoOfHelper = async(helperId) => {
     const allOrdersOfHelper = await Order.find({ helperId: helperId }).exec();
     let reviewsArray = [];
@@ -80,6 +85,7 @@ export const getAllHelpersForASeeker = async(seekerId) => {
     return helperIds;
 }
 
+// filters out all the orders with given helper ID
 export const getAllOrdersOfAHelper = async(helperId) => {
     const allOrdersOfHelper = await Order.find({ helperId: helperId }).exec();
     return allOrdersOfHelper;

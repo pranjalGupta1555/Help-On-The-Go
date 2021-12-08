@@ -1,9 +1,18 @@
   @import 'themeVariablesUserProfile.scss';
 
+
+  // @mixin rule specifes mixins which allow us to define styles that can be re-used throughout the stylesheet
+  // It can take up arguements also to generate dynamic css rules
   @mixin width-height($w, $h) {
     width: $w;
-    height: $h
+    height: $h;
+
+    @debug "width: #{$w}";    //@debug rule helps during developement as it allows us to see the value of a variable or expression while developing the stylesheet
+    @debug "height: #{$h}";
   }
+
+  // Padding is the space given inside the element 
+  // Margin is the space given outside (around) the element
 
   dl {
     padding: 0.5em;
@@ -155,12 +164,6 @@
     margin-bottom: 0px;
   }
 
-  .close:hover, .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
   button[name="submit"] {
     display: inline-block;
     border-radius: 10px;
@@ -179,6 +182,16 @@
     background-color: $bg-color-navyBlue;
   }
 
+  // Pseudo selectors
+
+  // pseudo class allows to apply styling to an element during it's particular state
+  // pseudo elements are CSS-generated non-DOM element that is rendered as if it was a DOM element in the browser
   dt::after {
     content: ":";
+  }
+
+  .close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
   }
